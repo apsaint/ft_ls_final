@@ -1,0 +1,5 @@
+*.out
+*.o
+
+# dirtest entry
+test/dirtest/

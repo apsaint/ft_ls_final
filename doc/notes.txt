@@ -1,0 +1,35 @@
+fonctions autorisees:
+
+write  opendir  readdir  closedir  stat  lstat
+getpwuid  getgrgid  listxattr  getxattr  time
+ctime  readlink  malloc  free  perror  strerror
+exit
+
+-l -R -a -r -t
+
+memory :
+getpwuid -> static aera 
+
+inode table
+table des inoeuds. Contient des informations sur la structure des fichiers.
+en gros chaque fichier a une entree dans la table des inoeuds ou sont stockees les informations relatives au fichier (pas au contenu du fichier).
+
+
+readdir :
+  - return NULL si fin du stream ou si error
+  - set errno a 0 avant appel a readdir pour verif si value change
+
+max file name length : 256 ??`
+
+
+
+recup les params
+j ai la cible
+j ai les flags
+iterer sur le contenu
+reiterer l operation sur les sous contenu selon les flags
+
+
+
+memoire :
+peut etre faire un pool d objets
