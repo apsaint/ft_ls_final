@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/02/09 20:59:22 by bboutoil         ###   ########.fr        #
+#    Updated: 2019/02/10 21:20:00 by bboutoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,9 @@ DEBUG_OBJ= $(DEBUG_SRC:$(DEBUG_DIR)%.c=$(OBJ_DIR)%.o)
 SRC+= $(SRC_DIR)/param.c
 SRC+= $(SRC_DIR)/main.c
 SRC+= $(SRC_DIR)/file.c
+SRC+= $(SRC_DIR)/directory.c
+SRC+= $(SRC_DIR)/ft_ls.c
+
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 CC = gcc

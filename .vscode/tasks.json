@@ -6,17 +6,47 @@
         {
             "label": "build",
             "type": "shell",
-            "command": "make"
+            "command": "make",
+            "problemMatcher":"$gcc",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
         },
         {
             "label": "rebuild",
             "type": "shell",
-            "command": "make re"
+            "command": "make re",
+            "problemMatcher":"$gcc",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
         },
         {
             "label": "clean",
             "type": "shell",
-            "command": "make fclean"
+            "command": "make fclean",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared",
+                "showReuseMessage": false,
+                "clear": false
+            }
         }
     ]
 }
