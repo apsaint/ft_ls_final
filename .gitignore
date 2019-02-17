@@ -1,5 +1,7 @@
 *.out
+ft_ls
 *.o
 
 # dirtest entry
 test/dirtest/
+lib/
