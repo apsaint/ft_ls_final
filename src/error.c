@@ -6,24 +6,34 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:07:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 17:24:21 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/19 22:27:04 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include "ft_printf.h"
 #include "ft_ls.h"
-#include"libft.h"
+#include "libft.h"
 
 // TODO: Impl semble merdique, a test, et voir si y a pas plus
 // simple a faire.
-int	show_error(char *prefix, char *err, unsigned int err_type)
+int	print_option_error(const char *option, int opt_type)
 {
 	char	str[256];
-	size_t	len;
+	ft_memset(str, 0, sizeof(str));
 
-	len = ft_strlcat(str, prefix, sizeof(str));
-	len += ft_strlcat(str, prefix + len, sizeof(str));
-
-	return(write(STDERR_FILENO, str, len));
+	if (opt_type == PARAM_OPTION_SHORT)
+	{
+		ft_strlcat(str, ""PROGRAM_NAME": ", sizeof(str));
+		ft_strlcat(str, "invalid option -- '", sizeof(str));
+		ft_strlcat(str, option, sizeof(str));
+		ft_strlcat(str, "'", sizeof(str));
+	}
+	else
+	{
+		// si c est un long option, attention la longueur
+		// etre potentiellement infinie il faudra gerer ca
+	}
+	ft_putendl_fd(str, STDERR_FILENO);
+	return(0);
 }

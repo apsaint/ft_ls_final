@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 18:05:44 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/19 22:24:47 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ int	eval_short_flag(const char *input, t_options *opt)
 		opt->flags |= (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIRECTORY);
 	else if (*input == SPEC_ALMOST_ALL)
 		opt->flags |= FLAG_SHOW_HIDDEN_FILE;
-	else if (SPEC_RECURSIVELY)
+	else if (*input == SPEC_RECURSIVELY)
 		opt->flags |= FLAG_LIST_SUBDIRS;
 	else
 	{
-		// TODO: print l erreur. "invalid flag x blabla"
+		print_option_error(input, PARAM_OPTION_SHORT);
 		return (PARAM_ERROR);
 	}
 	return (0);

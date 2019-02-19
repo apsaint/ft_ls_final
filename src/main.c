@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 18:10:57 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/19 21:46:55 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,10 @@ int main(int ac, char const *av[])
 
 	paths = NULL;
 	if (ac > 1)
-		param_eval_all(av+1, ac-1, &opt, &paths);
+	{
+		if (param_eval_all(av+1, ac-1, &opt, &paths) == -1)
+			return (0);
+	}
 	if (paths == NULL)
 		return (directory_list(".", &opt));
 	p_begin = paths;
@@ -34,5 +37,5 @@ int main(int ac, char const *av[])
 		paths++;
 	}
 	free(p_begin);
-	return 0;
+	return (0);
 }

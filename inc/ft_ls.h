@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 17:43:24 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/19 22:25:26 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,5 +59,5 @@ enum e_sorting_options
 
 int	param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
 int	directory_list(char *path, t_options *opt);
-
+int	print_option_error(const char *option, int opt_type);
 #endif
