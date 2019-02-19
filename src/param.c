@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 17:35:20 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/19 18:05:44 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,23 +78,26 @@ int param_eval_flags(const char *input, t_options *data, int flag_type)
 	un -- est considere comme la fin des args. Tout ce qui vient apres
 	ca est traite comme un path par ls. voir notes.txt. la variable
 	treat_as_path sert a ajuster ce comportement.
+
+	Le char *** fait peur mais c est pas complique, c est juste pour avoir
+	l adresse du tableau de strings. (si pas compris demander expli)
 */
-int	param_eval_all(const char *params[], int count, t_options *opt, char **paths)
+int	param_eval_all(const char *params[], int count, t_options *opt, char ***paths)
 {
 	char	**path_begin;
 	int		treat_as_path;
 	int		par_type;
 
-	path_begin = paths;
 	treat_as_path = 0;
-	if ((paths = (char **)malloc(sizeof(char *) * (count + 1))) == NULL)
+	if ((*paths = (char **)malloc(sizeof(char *) * (count + 1))) == NULL)
 		return (-1);
+	path_begin = *paths;
 	while (count--)
 	{
 		if (treat_as_path == 1)
-			*paths++ = (char *)*params;
+			*((*paths)++) = (char *)*params;
 		else if ((par_type = get_param_type(*params)) == PARAM_PATH)
-			*paths++ = (char *)*params;
+			*((*paths)++) = (char *)*params;
 		else if (par_type == PARAM_OPTION_END)
 			treat_as_path = 1;
 		else
@@ -107,7 +110,7 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char **paths
 		}
 		params++;
 	}
-	*(paths + 1) = NULL;
-	paths = path_begin;
+	**paths = NULL;
+	*paths = path_begin;
 	return (0);
 }
