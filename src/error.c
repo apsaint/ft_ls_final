@@ -6,12 +6,11 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:07:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 22:27:04 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/19 22:31:11 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
-#include "ft_printf.h"
 #include "ft_ls.h"
 #include "libft.h"
 
