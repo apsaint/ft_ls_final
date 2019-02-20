@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/20 12:07:57 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/20 14:37:11 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,30 @@
 # define SPEC_ALL            'a'
 # define SPEC_ALMOST_ALL     'A'
 # define SPEC_RECURSIVELY    'R'
+
+typedef struct s_telem
+{
+	char	month[3];
+	int		day;
+	int		year;
+	int		hour;
+	int		min;
+	int		sec;
+}				t_telem;
+
+typedef struct s_elem
+{
+	char		*name;
+	char		type;
+	char		*path;
+	char		modes[10];
+	int			n_link;
+	char		*owner;
+	char		*group;
+	int			size;
+	t_telem		*date_modif;
+	t_telem		*date_crea;
+}				t_elem;
 
 enum e_param_type
 {
