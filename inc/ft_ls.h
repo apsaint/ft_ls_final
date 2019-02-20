@@ -6,12 +6,17 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 22:25:26 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/20 12:07:57 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
+
+# include <sys/stat.h>
+# include <errno.h>
+# include <stdio.h>
+# include <string.h>
 
 # define NOT_IMPLEMENTED_FEATURE (-1)
 # define PROGRAM_NAME "ft_ls"
