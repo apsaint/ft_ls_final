@@ -6,13 +6,26 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/19 22:24:47 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/20 15:36:02 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include <string.h>
 #include "ft_ls.h"
+#include "libft.h"
+
+int add_path(char ***paths, char ***errors, const char *param)
+{
+	struct stat	s_stat;
+	
+	errno = 0;
+	if ((stat(param, &s_stat) == -1) && (errno == ENOENT))
+		*((*errors)++) = (char *)param;
+	else
+		*((*paths)++) = (char *)param;
+	return (0);
+}
 
 int	get_param_type(const char *param)
 {
@@ -82,22 +95,38 @@ int param_eval_flags(const char *input, t_options *data, int flag_type)
 	Le char *** fait peur mais c est pas complique, c est juste pour avoir
 	l adresse du tableau de strings. (si pas compris demander expli)
 */
+
+int	param_init_arrays(char ***paths, char ***errors, int count)
+{
+	if ((*paths = (char **)malloc(sizeof(char *) * (count + 1))) == NULL)
+		return (-1);
+	if ((*errors = (char **)malloc(sizeof(char *) * (count + 1))) == NULL)
+	{
+		free(*paths);
+		return (-1);
+	}
+	return (0);
+}
+
 int	param_eval_all(const char *params[], int count, t_options *opt, char ***paths)
 {
 	char	**path_begin;
+	char	**error_begin;
+	char	**errors;
 	int		treat_as_path;
 	int		par_type;
 
 	treat_as_path = 0;
-	if ((*paths = (char **)malloc(sizeof(char *) * (count + 1))) == NULL)
+	if (param_init_arrays(paths, &errors, count) == -1)
 		return (-1);
 	path_begin = *paths;
+	error_begin = errors;
 	while (count--)
 	{
 		if (treat_as_path == 1)
-			*((*paths)++) = (char *)*params;
+			add_path(paths, &errors, *params);
 		else if ((par_type = get_param_type(*params)) == PARAM_PATH)
-			*((*paths)++) = (char *)*params;
+			add_path(paths, &errors, *params);
 		else if (par_type == PARAM_OPTION_END)
 			treat_as_path = 1;
 		else
@@ -111,6 +140,14 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char ***path
 		params++;
 	}
 	**paths = NULL;
+	*errors = NULL;
 	*paths = path_begin;
+	errors = error_begin;
+
+	while (*errors != NULL)
+	{
+		ft_putendl(*errors);
+		errors++;
+	}
 	return (0);
 }
