@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/20 15:36:02 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/20 19:05:08 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,8 @@ int	eval_short_flag(const char *input, t_options *opt)
 		opt->flags |= FLAG_SHOW_HIDDEN_FILE;
 	else if (*input == SPEC_RECURSIVELY)
 		opt->flags |= FLAG_LIST_SUBDIRS;
+	else if (*input == SPEC_LONG_FORMAT)
+		opt->flags |= FLAG_LONG_FORMAT;
 	else
 	{
 		print_option_error(input, PARAM_OPTION_SHORT);
@@ -144,10 +146,5 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char ***path
 	*paths = path_begin;
 	errors = error_begin;
 
-	while (*errors != NULL)
-	{
-		ft_putendl(*errors);
-		errors++;
-	}
 	return (0);
 }

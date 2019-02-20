@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/20 14:37:11 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/20 19:04:38 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ enum e_option_flags
 	FLAG_SHOW_HIDDEN_FILE = (1U << 0U),
 	FLAG_SHOW_MAP_DIRECTORY = (1U << 1U),
 	FLAG_LIST_SUBDIRS = (1U << 2U),
+	FLAG_LONG_FORMAT = (1U << 3U),
 };
 
 typedef struct		s_options
