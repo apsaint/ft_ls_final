@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 10:56:35 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 13:31:41 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,13 @@
 
 typedef struct s_telem
 {
-	char	month[3];
+	char	month[4];
 	int		day;
 	int		year;
 	int		hour;
 	int		min;
 	int		sec;
+	long	mod_timestamp;
 }				t_telem;
 
 typedef struct s_elem
