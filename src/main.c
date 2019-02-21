@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 19:41:17 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 20:11:28 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int main(int ac, char const *av[])
 	char		**p_begin;
 
 	opt.flags = 0;
+	opt.display_func = &display_summary_in_block;
 	paths = NULL;
 	if (ac > 1)
 	{
