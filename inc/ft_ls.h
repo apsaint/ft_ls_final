@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 20:38:58 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 21:32:14 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,10 @@ enum e_option_flags
 typedef struct		s_options
 {
 	unsigned int	flags;
-	int				(*display_func)(t_flist *, struct s_options *);
+	int				(*display_func)(t_flist *, struct s_options *, char *);
 }					t_options;
 
-typedef int(*t_display_func)(t_flist *, t_options *);
+typedef int(*t_display_func)(t_flist *, t_options *, char *);
 
 enum e_display_options
 {
@@ -122,6 +122,6 @@ int			f_list_init(t_flist *f_list);
 int			f_list_add(t_flist *f_list, t_elem *el);
 int			f_list_destroy_storage(t_flist *f_list);
 void		stat_t_elem(t_elem *elem, struct dirent *dp);
-int	display_summary_in_block(t_flist *f_list, t_options *opt);
+int	display_summary_in_block(t_flist *f_list, t_options *opt, char *path);
 
 #endif

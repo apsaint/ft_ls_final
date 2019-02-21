@@ -6,11 +6,12 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 21:00:19 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 21:28:59 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <unistd.h>
 
 static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f_list, t_elem *el)
 {
@@ -71,7 +72,7 @@ int	directory_list(char *path, t_options *opt)
 	if (collect_files(dirp, opt, &f_list) == ALLOC_ERROR)
 		return (ALLOC_ERROR);
 	closedir(dirp);
-	opt->display_func(&f_list, opt);
+	opt->display_func(&f_list, opt, path);
 	f_list_destroy_storage(&f_list);
 	return (0);
 }
