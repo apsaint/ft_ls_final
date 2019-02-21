@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 18:54:58 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 19:30:24 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f
 	i = 0;
 	while (i++ < dots_count)
 	{
-		d = readdir(dir);
-		ft_strcpy(el->name, d->d_name);
+		if ((d = readdir(dir)) == NULL)
+			return (0);
+		if (opt->flags & FLAG_HIDE_MAP_DIR)
+			continue ;
 		el->type = d->d_type;
+		ft_strcpy(el->name, d->d_name);
 		stat_t_elem(el, d);
-		if (opt->flags & (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIRECTORY))
-		{
-			if (f_list_add(f_list, el) == ALLOC_ERROR)
-				return (ALLOC_ERROR);
-		}
+		if (f_list_add(f_list, el) == ALLOC_ERROR)
+			return (ALLOC_ERROR);
 	}
 	return (0);
 }
