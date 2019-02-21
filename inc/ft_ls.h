@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 09:47:39 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 10:56:35 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,15 @@
 # define FT_LS_H
 
 # include <sys/stat.h>
+# include <sys/types.h>
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
+# include <dirent.h>
+# include <pwd.h>
+# include <grp.h>
+# include <time.h>
+# include "libft.h"
 
 # define NOT_IMPLEMENTED_FEATURE (-1)
 # define PROGRAM_NAME "ft_ls"
@@ -90,7 +96,7 @@ enum e_sorting_options
 
 int	param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
 int	directory_list(char *path, t_options *opt);
-
+void	fill_t_elem(char *path, t_elem *elem);
 int	print_option_error(const char *option, int opt_type);
 int print_path_error(const char *path, const char *content, int err_num);
 #endif
