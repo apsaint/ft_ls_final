@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/20 14:37:11 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 09:47:39 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,17 @@ typedef struct s_telem
 
 typedef struct s_elem
 {
-	char		*name;
-	char		type;
+	char		name[32];
+	int			type;
 	char		*path;
 	char		modes[10];
 	int			n_link;
-	char		*owner;
-	char		*group;
+	char		owner[32];
+	char		group[32];
 	int			size;
-	t_telem		*date_modif;
-	t_telem		*date_crea;
+	int			error;
+	t_telem		date_modif;
+	t_telem		date_crea;
 }				t_elem;
 
 enum e_param_type
