@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 14:27:21 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:45:07 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	directory_list(char *path, t_options *opt)
 	errno = 0;
 	if ((dirp = opendir(path)) == NULL)
 	{
-		print_path_error(path, "cannot open directory", errno);
+		print_path_error(path, "cannot open directory ", errno);
 		return (0);
 	}
 	if (f_list_init(&flist) == ALLOC_ERROR)
@@ -33,9 +33,8 @@ int	directory_list(char *path, t_options *opt)
 		elem.type = dp->d_type;
 		stat_t_elem(&elem, dp);
 		if (f_list_add(&flist, &elem) == ALLOC_ERROR)
-			return (-1);
+			return (ALLOC_ERROR);
 	}
 	closedir(dirp);
 	f_list_destroy_storage(&flist);
 	return (0);
-}

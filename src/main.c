@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 11:12:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:39:55 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ int main(int ac, char const *av[])
 	p_begin = paths;
 	while (*paths != NULL)
 	{
-		directory_list(*paths, &opt);
+		if (directory_list(*paths, &opt) == -1);
+			break;
 		//ft_printf("path: %s\n", *paths); // remove later.
 		paths++;
 	}
