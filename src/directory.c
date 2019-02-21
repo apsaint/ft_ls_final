@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 13:34:34 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:27:21 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,19 +15,27 @@
 int	directory_list(char *path, t_options *opt)
 {
 	t_elem elem;
+	t_flist flist;
+	DIR				*dirp;
+	struct	dirent	*dp;
 
-	//init_t_elem(elem);
-	fill_t_elem(path, &elem);
-	printf("name: %s\n", elem.name);
-	printf("type: %d\n", elem.type);
-	printf("nb link: %d\n", elem.n_link);
-	printf("Owner: %s\n", elem.owner);
-	printf("Group: %s\n", elem.group);
-	printf("timestamp: %ld\n", (elem.date_modif).mod_timestamp);
-	printf("date_modif: %d %s %d %d %d %d\n", (elem.date_modif).day, 
-			(elem.date_modif).month, (elem.date_modif).year,
-		(elem.date_modif).hour, (elem.date_modif).min,
-		(elem.date_modif).sec);
+	errno = 0;
+	if ((dirp = opendir(path)) == NULL)
+	{
+		print_path_error(path, "cannot open directory", errno);
+		return (0);
+	}
+	if (f_list_init(&flist) == ALLOC_ERROR)
+		return (-1);
+	while ((dp = readdir(dirp)) != NULL)
+	{
+		ft_strcpy(elem.name, dp->d_name);
+		elem.type = dp->d_type;
+		stat_t_elem(&elem, dp);
+		if (f_list_add(&flist, &elem) == ALLOC_ERROR)
+			return (-1);
+	}
+	closedir(dirp);
+	f_list_destroy_storage(&flist);
 	return (0);
-	//return (NOT_IMPLEMENTED_FEATURE);
 }
