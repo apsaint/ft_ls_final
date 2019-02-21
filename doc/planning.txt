@@ -10,3 +10,10 @@ IT1
 - Creer une collection pour stocker les fichiers et leurs attributs.
 - Creer un module display basique pour afficher les fichiers de maniere
 primaire.
+
+IT2
+- Gerer les fichiers cachees et les . .. dans le listing
+- Tenter d implementer la base du formatage long format (prendre en compte
+les fichiers qui ne respectent pas les conditions de date (6 mois ou je sais
+plus)).
+-Global refactoring
