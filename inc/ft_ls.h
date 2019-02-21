@@ -6,17 +6,19 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 21:32:14 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 21:54:36 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
+
+
 # include <sys/stat.h>
 # include <sys/types.h>
 # include <sys/dir.h>
-
+# include <unistd.h>
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>

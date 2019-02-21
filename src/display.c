@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 21:31:31 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 22:10:51 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,14 @@ int	display_summary_in_block(t_flist *f_list, t_options *opt, char *path)
 	int	end;
 	int	inc;
 
-	param_display_order(f_list, opt, &start, &end, &inc);
 	if (opt->flags & FLAG_LIST_SUBDIRS)
 		printf("%s:\n", path);
+	if (f_list->count == 0)
+	{
+		write(1, "\n", 1);
+		return (0);
+	}
+	param_display_order(f_list, opt, &start, &end, &inc);
 	while (start != end)
 	{
 		printf("%s\n", f_list->data[start].name);

@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 21:28:59 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 22:15:15 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,28 @@ static int collect_files(DIR *dir, t_options *opt, t_flist *f_list)
 	return (0);
 }
 
+static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
+{
+	char	new_path[4096];
+	size_t	i;
+
+	i = 0;
+	ft_bzero(new_path, sizeof(new_path));
+	while (i < f_list->count)
+	{
+		if (f_list->data[i].type == 4) // a modif
+		{
+			strcat(new_path, path);
+			strcat(new_path, "/");
+			strcat(new_path, f_list->data[i].name);
+			directory_list(new_path, opt);
+			ft_bzero(new_path, sizeof(new_path));
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	directory_list(char *path, t_options *opt)
 {
 	t_flist f_list;
@@ -73,6 +95,8 @@ int	directory_list(char *path, t_options *opt)
 		return (ALLOC_ERROR);
 	closedir(dirp);
 	opt->display_func(&f_list, opt, path);
+	if (opt->flags & FLAG_LIST_SUBDIRS)
+		try_list_subdirs(path, &f_list, opt);
 	f_list_destroy_storage(&f_list);
 	return (0);
 }
