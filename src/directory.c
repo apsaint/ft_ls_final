@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 18:43:45 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:54:58 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int collect_files(DIR *dir, t_options *opt, t_flist *f_list)
 		return (ALLOC_ERROR);
 	while ((dp = readdir(dir)) != NULL)
 	{
+		if ((!(opt->flags & FLAG_SHOW_HIDDEN_FILE)) && dp->d_name[0] == '.')
+			continue ;
 		ft_strcpy(elem.name, dp->d_name);
 		elem.type = dp->d_type;
 		stat_t_elem(&elem, dp);
