@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 19:54:31 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 20:38:58 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define SPEC_ALL            'a'
 # define SPEC_ALMOST_ALL     'A'
 # define SPEC_RECURSIVELY    'R'
-
+# define SPEC_REVERSE        'r'
 
 typedef struct s_telem
 {
@@ -82,18 +82,23 @@ enum e_param_type
 	PARAM_OPTION_END
 };
 
+
 enum e_option_flags
 {
 	FLAG_SHOW_HIDDEN_FILE = (1U << 0U),
 	FLAG_SHOW_MAP_DIR = (1U << 1U),
 	FLAG_LIST_SUBDIRS = (1U << 2U),
 	FLAG_LONG_FORMAT = (1U << 3U),
+	FLAG_DISPLAY_REVERSE = (1U << 4U),
 };
 
 typedef struct		s_options
 {
 	unsigned int	flags;
+	int				(*display_func)(t_flist *, struct s_options *);
 }					t_options;
+
+typedef int(*t_display_func)(t_flist *, t_options *);
 
 enum e_display_options
 {
