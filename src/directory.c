@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 13:34:34 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:07:39 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	directory_list(char *path, t_options *opt)
 	//init_t_elem(elem);
 	fill_t_elem(path, &elem);
 	printf("name: %s\n", elem.name);
+	printf("mode: %s\n", elem.modes);
 	printf("type: %d\n", elem.type);
 	printf("nb link: %d\n", elem.n_link);
 	printf("Owner: %s\n", elem.owner);

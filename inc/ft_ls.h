@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 13:45:20 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:10:19 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef struct s_elem
 	char		name[32];
 	int			type;
 	char		*path;
-	char		modes[10];
+	char		modes[11];
 	int			n_link;
 	char		owner[32];
 	char		group[32];
@@ -113,7 +113,7 @@ int	directory_list(char *path, t_options *opt);
 void	fill_t_elem(char *path, t_elem *elem);
 int	print_option_error(const char *option, int opt_type);
 int print_path_error(const char *path, const char *content, int err_num);
-
+void		create_mode_str(mode_t m, t_elem *elem);
 int			f_list_init(t_flist *f_list);
 int			f_list_add(t_flist *f_list, t_elem *el);
 int			f_list_destroy_storage(t_flist *f_list);
