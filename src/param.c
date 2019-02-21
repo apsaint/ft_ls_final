@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/20 15:36:02 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/20 19:36:17 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,19 @@
 #include "ft_ls.h"
 #include "libft.h"
 
-int add_path(char ***paths, char ***errors, const char *param)
+int	show_errors_and_destroy_errlist(char **errors, char **begin)
+{
+	while(*errors != NULL)
+	{
+		print_path_error(*errors, "cannot open directory ", ENOENT);
+		errors++;
+	}
+	free(begin);
+	return (0);
+}
+
+int add_param_to_pathlist_or_errlist(char ***paths, char ***errors, 
+const char *param)
 {
 	struct stat	s_stat;
 	
@@ -51,6 +63,8 @@ int	eval_short_flag(const char *input, t_options *opt)
 		opt->flags |= FLAG_SHOW_HIDDEN_FILE;
 	else if (*input == SPEC_RECURSIVELY)
 		opt->flags |= FLAG_LIST_SUBDIRS;
+	else if (*input == SPEC_LONG_FORMAT)
+		opt->flags |= FLAG_LONG_FORMAT;
 	else
 	{
 		print_option_error(input, PARAM_OPTION_SHORT);
@@ -124,9 +138,9 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char ***path
 	while (count--)
 	{
 		if (treat_as_path == 1)
-			add_path(paths, &errors, *params);
+			add_param_to_pathlist_or_errlist(paths, &errors, *params);
 		else if ((par_type = get_param_type(*params)) == PARAM_PATH)
-			add_path(paths, &errors, *params);
+			add_param_to_pathlist_or_errlist(paths, &errors, *params);
 		else if (par_type == PARAM_OPTION_END)
 			treat_as_path = 1;
 		else
@@ -134,6 +148,7 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char ***path
 			if(param_eval_flags(*params, opt, par_type) == PARAM_ERROR)
 			{
 				free(path_begin);
+				free(error_begin);
 				return (-1);
 			}
 		}
@@ -143,11 +158,6 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char ***path
 	*errors = NULL;
 	*paths = path_begin;
 	errors = error_begin;
-
-	while (*errors != NULL)
-	{
-		ft_putendl(*errors);
-		errors++;
-	}
+	show_errors_and_destroy_errlist(errors, error_begin);
 	return (0);
 }

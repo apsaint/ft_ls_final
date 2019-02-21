@@ -3,3 +3,10 @@ Actual IT 0;
 IT0
 - Implementer un template basique. L architecture doit etre evolutive.
 - evaluer les params.
+
+IT1
+- Gerer correctement les erreurs lors de l analyses des params. (flags et paths compris)
+- Creer la structure de donnees des fichiers
+- Creer une collection pour stocker les fichiers et leurs attributs.
+- Creer un module display basique pour afficher les fichiers de maniere
+primaire.

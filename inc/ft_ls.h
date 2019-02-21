@@ -67,6 +67,7 @@ enum e_option_flags
 	FLAG_SHOW_HIDDEN_FILE = (1U << 0U),
 	FLAG_SHOW_MAP_DIRECTORY = (1U << 1U),
 	FLAG_LIST_SUBDIRS = (1U << 2U),
+	FLAG_LONG_FORMAT = (1U << 3U),
 };
 
 typedef struct		s_options
@@ -89,5 +90,7 @@ enum e_sorting_options
 
 int	param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
 int	directory_list(char *path, t_options *opt);
+
 int	print_option_error(const char *option, int opt_type);
+int print_path_error(const char *path, const char *content, int err_num);
 #endif
