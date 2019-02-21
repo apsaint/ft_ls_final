@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/21 15:25:55 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:38:55 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,8 +85,14 @@ void	stat_t_elem(t_elem *elem, struct dirent *dp)
 	create_mode_str(stat_elem.st_mode, elem);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);
-	ft_strcpy(elem->owner, pw->pw_name);
-	ft_strcpy(elem->group, gp->gr_name);
+	if (pw->pw_name == NULL)
+		ft_strcpy(elem->owner, pw->pw_uid);
+	else
+		ft_strcpy(elem->owner, pw->pw_name);
+	if (gp->gr_name == NULL)
+		ft_strcpy(elem->owner, gp->gr_gid);
+	else
+		ft_strcpy(elem->group, gp->gr_name);
 	(elem->date_modif).mod_timestamp = stat_elem.st_mtime;
 	time_t_elem(&elem->date_modif, ctime(&stat_elem.st_mtime));
 	// time_t_elem(&elem->date_crea, ctime(&stat_elem.st_birthtime));
