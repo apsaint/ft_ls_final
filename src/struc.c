@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struc.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/21 13:38:33 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:20:31 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,4 @@ void	stat_t_elem(t_elem *elem, struct dirent *dp)
 	(elem->date_modif).mod_timestamp = stat_elem.st_mtime;
 	time_t_elem(&elem->date_modif, ctime(&stat_elem.st_mtime));
 	time_t_elem(&elem->date_crea, ctime(&stat_elem.st_birthtime));
-}
-
-/* Gestion du remplissage de la structure 
- */
-void	fill_t_elem(char *path, t_elem *elem)
-{
-	DIR				*dirp;
-	struct	dirent	*dp;
-
-	dirp = opendir(path);
-	while ((dp = readdir(dirp)) != NULL)
-	{
-		ft_strcpy(elem->name, dp->d_name);
-		elem->type = dp->d_type;
-		stat_t_elem(elem, dp);
-	}
-	closedir(dirp);
 }
