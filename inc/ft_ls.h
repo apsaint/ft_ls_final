@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 15:26:06 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:54:57 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_telem
 
 typedef struct s_elem
 {
-	char		name[32];
+	char		name[255];
 	int			type;
 	char		*path;
 	char		modes[11];
