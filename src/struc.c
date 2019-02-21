@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/21 15:20:31 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:25:55 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,14 +35,14 @@ int		convert_time(char **time)
 
 	t = 0;
 	(*time)++;
-		if (**time != '0')
-			t = (**time - '0') * 10;
-		(*time)++;
-		t += *((*time)++) - '0';
+	if (**time != '0')
+		t = (**time - '0') * 10;
+	(*time)++;
+	t += *((*time)++) - '0';
 	return (t);
 }
 
-void	time_t_elem(t_telem *telem, char	*time)
+void	time_t_elem(t_telem *telem, char *time)
 {
 	int		i;
 	int		day;
@@ -66,22 +66,28 @@ void	time_t_elem(t_telem *telem, char	*time)
 	telem->year = convert_year(&time);
 }
 
-/* rempli les elements de la structure utilisant stat
+/*
+ * rempli les elements de la structure utilisant stat
  */
+
 void	stat_t_elem(t_elem *elem, struct dirent *dp)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
 	struct group	*gp;
 
-	stat(dp->d_name, &stat_elem);
+	if (elem->type == 10)
+		lstat(dp->d_name, &stat_elem);
+	else
+		stat(dp->d_name, &stat_elem);
 	elem->n_link = stat_elem.st_nlink;
 	elem->size = stat_elem.st_size;
+	create_mode_str(stat_elem.st_mode, elem);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);
 	ft_strcpy(elem->owner, pw->pw_name);
 	ft_strcpy(elem->group, gp->gr_name);
 	(elem->date_modif).mod_timestamp = stat_elem.st_mtime;
 	time_t_elem(&elem->date_modif, ctime(&stat_elem.st_mtime));
-	time_t_elem(&elem->date_crea, ctime(&stat_elem.st_birthtime));
+	// time_t_elem(&elem->date_crea, ctime(&stat_elem.st_birthtime));
 }
