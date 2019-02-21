@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 19:54:56 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 20:39:21 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ int	eval_short_flag(const char *input, t_options *opt)
 		opt->flags |= FLAG_LIST_SUBDIRS;
 	else if (*input == SPEC_LONG_FORMAT)
 		opt->flags |= FLAG_LONG_FORMAT;
+	else if (*input == SPEC_REVERSE)
+		opt->flags |= FLAG_DISPLAY_REVERSE;
 	else
 	{
 		print_option_error(input, PARAM_OPTION_SHORT);
