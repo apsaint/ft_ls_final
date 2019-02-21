@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 13:31:41 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 13:45:20 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 
 # include <sys/stat.h>
 # include <sys/types.h>
+# include <sys/dir.h>
+
 # include <errno.h>
 # include <stdio.h>
 # include <string.h>
@@ -24,6 +26,7 @@
 # include <time.h>
 # include "libft.h"
 
+# define ALLOC_ERROR (-1)
 # define NOT_IMPLEMENTED_FEATURE (-1)
 # define PROGRAM_NAME "ft_ls"
 # define OPTION_SPECIFIER '-'
@@ -33,6 +36,7 @@
 # define SPEC_ALL            'a'
 # define SPEC_ALMOST_ALL     'A'
 # define SPEC_RECURSIVELY    'R'
+
 
 typedef struct s_telem
 {
@@ -59,6 +63,15 @@ typedef struct s_elem
 	t_telem		date_modif;
 	t_telem		date_crea;
 }				t_elem;
+
+#define F_LIST_DEFAULT_SIZE (2)
+
+typedef struct	s_flist
+{
+	t_elem	*data;
+	size_t	size;
+	size_t	count;
+}				t_flist;
 
 enum e_param_type
 {
@@ -100,4 +113,9 @@ int	directory_list(char *path, t_options *opt);
 void	fill_t_elem(char *path, t_elem *elem);
 int	print_option_error(const char *option, int opt_type);
 int print_path_error(const char *path, const char *content, int err_num);
+
+int			f_list_init(t_flist *f_list);
+int			f_list_add(t_flist *f_list, t_elem *el);
+int			f_list_destroy_storage(t_flist *f_list);
+
 #endif
