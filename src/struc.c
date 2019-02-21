@@ -15,6 +15,21 @@
 /* TODO verifier l utilisation de birthdate
  * */
 
+size_t			itoa_min(unsigned long long nb, char *output)
+{
+	char *tmp;
+
+	tmp = output;
+	if (nb == 0)
+		*tmp++ = '0';
+	while (nb != 0)
+	{
+		*tmp++ = ((nb % 10) + '0');
+		nb /= 10;
+	}
+	return ((size_t)(tmp - output));
+}
+
 int		convert_year(char **time)
 {
 	int		y;
