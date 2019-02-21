@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 15:54:57 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/21 18:03:03 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_elem
 	t_telem		date_crea;
 }				t_elem;
 
-#define F_LIST_DEFAULT_SIZE (2)
+#define F_LIST_DEFAULT_SIZE (16)
 
 typedef struct	s_flist
 {
