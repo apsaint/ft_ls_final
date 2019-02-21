@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 14:45:07 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 14:55:19 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,3 +38,4 @@ int	directory_list(char *path, t_options *opt)
 	closedir(dirp);
 	f_list_destroy_storage(&flist);
 	return (0);
+}
