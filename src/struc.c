@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/21 15:25:55 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/21 15:40:05 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,21 @@
 
 /* TODO verifier l utilisation de birthdate
  * */
+
+size_t			itoa_min(unsigned long long nb, char *output)
+{
+	char *tmp;
+
+	tmp = output;
+	if (nb == 0)
+		*tmp++ = '0';
+	while (nb != 0)
+	{
+		*tmp++ = ((nb % 10) + '0');
+		nb /= 10;
+	}
+	return ((size_t)(tmp - output));
+}
 
 int		convert_year(char **time)
 {
