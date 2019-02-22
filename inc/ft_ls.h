@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 16:14:47 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 19:53:24 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,13 @@ enum e_option_flags
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
 };
 
+typedef int (*t_comp_func)(t_fstat *, t_fstat *);
+
 typedef struct		s_options
 {
 	unsigned int	flags;
 	int				(*display_func)(t_flist *, struct s_options *, char *);
+	t_comp_func		sort_func;
 }					t_options;
 
 typedef int(*t_display_func)(t_flist *, t_options *, char *);
@@ -108,13 +111,6 @@ enum e_display_options
 {
 	DISPLAY_ONE_LINE,
 	DISPLAY_COLUMN,
-};
-
-enum e_sorting_options
-{
-	SORT_ALPHABETICALY,
-	SORT_BY_SIZE,
-	SORT_BY_TIME_MODIFICATION,
 };
 
 int		param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
@@ -131,4 +127,8 @@ void	stat_t_elem(t_fstat *fs, struct dirent *dp, char *path);
 int		display_one_by_line(t_flist *f_list, t_options *opt, char *path);
 int		display_long_format(t_flist *f_list, t_options *opt, char *path);
 int		combine_paths(char *path1, char *path2, char *output);
+void	f_list_qsort(t_flist *f_list, t_options *opt);
+int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
+
+
 #endif
