@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 16:14:22 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 19:10:59 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,22 +98,22 @@ int		max_width_str(t_flist *f_list, int start, int end, int inc, int opt)
 {
 	int		max;
 
-	max = 1;
+	max = 0;
 	while (start != end)
 	{
 		if (opt == 1)
 		{
 			if (max < (int)ft_strlen(f_list->data[start].owner))
-				max += (int)ft_strlen(f_list->data[start].owner);
+				max = (int)ft_strlen(f_list->data[start].owner);
 		}
 		else if (opt == 2)
 		{
 			if (max < (int)ft_strlen(f_list->data[start].group))
-				max += (int)ft_strlen(f_list->data[start].group);
+				max = (int)ft_strlen(f_list->data[start].group);
 		}
 		start += inc;
 	}
-	return (max);
+	return (max + 1);
 }
 
 void	display_final(t_flist *f_list, int start, int end, int inc)

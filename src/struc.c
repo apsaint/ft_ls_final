@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/22 15:00:45 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 16:49:26 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,10 @@ void	time_t_elem(t_telem *telem, char *time)
 		telem->month[i++] = *time++;
 	telem->month[i] = '\0';
 	time++;
-	if (*(time + 1) != ' ')
-		day = (*time++ - '0') * 10;
-	day += *time++ - '0';
+	if (*time != ' ')
+		day = (*time - '0') * 10;
+	time++;
+	day += (*time++ - '0');
 	telem->day = day;
 	telem->hour = convert_time(&time);
 	telem->min = convert_time(&time);
