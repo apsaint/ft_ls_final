@@ -6,16 +6,17 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 14:37:31 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 15:52:44 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <unistd.h>
 
-static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f_list, t_fstat *fs, char *path)
+static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 {
-	struct dirent *d;
+	t_fstat		fs;
+	struct		dirent *d;
 	const int	dots_count = 2;
 	int	i;
 
@@ -26,10 +27,10 @@ static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f
 			return (0); 
 		if (opt->flags & FLAG_SHOW_MAP_DIR)
 		{
-			fs->type = d->d_type;
-			ft_strcpy(fs->name, d->d_name);
-			stat_t_elem(fs, d, path);
-			if (f_list_add(f_list, fs) == ALLOC_ERROR)
+			fs.type = d->d_type;
+			ft_strcpy(fs.name, d->d_name);
+			stat_t_elem(&fs, d, path);
+			if (f_list_add(f_list, &fs) == ALLOC_ERROR)
 				return (ALLOC_ERROR);
 		}
 	}
@@ -41,7 +42,7 @@ static int collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 	t_fstat fs;
 	struct	dirent	*dp;
 
-	if (collect_special_dots_if_required(dir, opt, f_list, &fs, path) == ALLOC_ERROR)
+	if (collect_special_dots_if_required(dir, opt, f_list, path) == ALLOC_ERROR)
 		return (ALLOC_ERROR);
 	while ((dp = readdir(dir)) != NULL)
 	{
