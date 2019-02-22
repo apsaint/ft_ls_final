@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/02/21 15:24:34 by bboutoil         ###   ########.fr        #
+#    Updated: 2019/02/22 09:18:33 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRC+= $(SRC_DIR)/directory.c
 SRC+= $(SRC_DIR)/ft_ls.c
 SRC+= $(SRC_DIR)/error.c
 SRC+= $(SRC_DIR)/struc.c
-SRC+= $(SRC_DIR)/gestion_modes.c
+SRC+= $(SRC_DIR)/time.c
+SRC+= $(SRC_DIR)/modes.c
 SRC+= $(SRC_DIR)/file_list.c
 SRC+= $(SRC_DIR)/display.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)

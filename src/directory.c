@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 15:24:19 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 09:04:47 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	directory_list(char *path, t_options *opt)
 {
-	t_elem elem;
+	t_fstat file;
 	t_flist flist;
 	DIR				*dirp;
 	struct	dirent	*dp;
@@ -29,10 +29,10 @@ int	directory_list(char *path, t_options *opt)
 		return (-1);
 	while ((dp = readdir(dirp)) != NULL)
 	{
-		ft_strcpy(elem.name, dp->d_name);
-		elem.type = dp->d_type;
-		stat_t_elem(&elem, dp);
-		if (f_list_add(&flist, &elem) == ALLOC_ERROR)
+		ft_strcpy(file.name, dp->d_name);
+		file.type = dp->d_type;
+		stat_t_elem(&file, dp);
+		if (f_list_add(&flist, &file) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
 	}
 	closedir(dirp);

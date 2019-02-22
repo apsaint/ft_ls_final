@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 14:26:07 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/21 14:46:35 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 09:05:49 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,11 +76,11 @@ void	get_mode_other(mode_t m, char *modes)
 		modes[9] = '-';
 }
 
-void	create_mode_str(mode_t m, t_elem *elem)
+void	create_mode_str(mode_t m, t_fstat *file)
 {
-	elem->modes[0] = get_elem_type(m);
-	get_mode_user(m, elem->modes);
-	get_mode_group(m, elem->modes);
-	get_mode_other(m, elem->modes);
-	elem->modes[10] = '\0';
+	file->modes[0] = get_elem_type(m);
+	get_mode_user(m, file->modes);
+	get_mode_group(m, file->modes);
+	get_mode_other(m, file->modes);
+	file->modes[10] = '\0';
 }
