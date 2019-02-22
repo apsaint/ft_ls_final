@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 19:10:59 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 22:15:14 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,15 +52,17 @@ int	display_one_by_line(t_flist *f_list, t_options *opt, char *path)
 }
 
 
-int		total_block(t_flist *f_list, int start, int inc, int end)
+int		total_block(t_flist *f_list)
 {
+	size_t	i;
 	int		total;
 
 	total = 0;
-	while (start != end)
+	i = 0;
+	while (i < f_list->count)
 	{
-		total += f_list->data[start].n_block;
-		start += inc;
+		total += f_list->data[i].n_block;
+		i++;
 	}
 	return (total);
 }
@@ -150,7 +152,7 @@ int		display_long_format(t_flist *f_list, t_options *opt, char *path)
 
 	printf("%s:\n", path);
 	param_display_order(f_list, opt, &start, &end, &inc);
-	ft_printf("total %d\n", total_block(f_list, start, inc, end));
+	ft_printf("total %d\n", total_block(f_list));
 	display_final(f_list, start, end, inc);
 	return (0);
 }
