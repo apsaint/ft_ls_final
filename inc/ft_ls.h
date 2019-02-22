@@ -6,7 +6,11 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
+<<<<<<< Updated upstream
 /*   Updated: 2019/02/22 11:35:51 by bboutoil         ###   ########.fr       */
+=======
+/*   Updated: 2019/02/22 11:49:36 by apsaint-         ###   ########.fr       */
+>>>>>>> Stashed changes
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +65,7 @@ typedef struct s_fstat
 	char		owner[32];
 	char		group[32];
 	int			size;
+	int			n_block;
 	int			error;
 	t_telem		date_modif;
 	t_telem		date_crea;
@@ -127,5 +132,5 @@ int			f_list_add(t_flist *f_list, t_fstat *file);
 int			f_list_destroy_storage(t_flist *f_list);
 void		stat_t_elem(t_fstat *fs, struct dirent *dp, char *path);
 int	display_summary_in_block(t_flist *f_list, t_options *opt, char *path);
-
+int			display_long_format(t_flist *f_list, t_options *opt, char *path);
 #endif

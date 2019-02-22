@@ -6,7 +6,7 @@
 /*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 15:07:05 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/22 09:19:23 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 10:30:10 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,4 +37,12 @@ int		convert_time(char **time)
 	(*time)++;
 	t += *((*time)++) - '0';
 	return (t);
+}
+
+int		check_time(long mod_timestamp)
+{
+	/*long	now;
+
+	now = ctime(NULL);*/
+	return (0);
 }

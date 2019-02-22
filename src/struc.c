@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/22 11:35:25 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 12:29:25 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /* TODO verifier l utilisation de birthdate
  * */
 
-size_t			itoa_min(unsigned long long nb, char *output)
+size_t			ls_itoa_min(unsigned long long nb, char *output)
 {
 	char *tmp;
 
@@ -70,15 +70,16 @@ void	stat_t_elem(t_fstat *file, struct dirent *dp, char *path)
 		stat(path, &stat_elem);
 	file->n_link = stat_elem.st_nlink;
 	file->size = stat_elem.st_size;
+	file->n_block = stat_elem.st_blocks;
 	create_mode_str(stat_elem.st_mode, file);
 	pw = getpwuid(stat_elem.st_uid); 	
 	gp = getgrgid(stat_elem.st_gid);
 	if (pw->pw_name == NULL)
-		itoa_min(pw->pw_uid, file->owner);
+		ls_itoa_min(pw->pw_uid, file->owner);
 	else
 		ft_strcpy(file->owner, pw->pw_name);
 	if (gp->gr_name == NULL)
-		itoa_min(gp->gr_gid, file->group);
+		ls_itoa_min(gp->gr_gid, file->group);
 	else
 		ft_strcpy(file->group, gp->gr_name);
 	(file->date_modif).mod_timestamp = stat_elem.st_mtime;

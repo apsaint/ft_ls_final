@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/21 20:39:21 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 11:47:34 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	eval_short_flag(const char *input, t_options *opt)
 	else if (*input == SPEC_RECURSIVELY)
 		opt->flags |= FLAG_LIST_SUBDIRS;
 	else if (*input == SPEC_LONG_FORMAT)
-		opt->flags |= FLAG_LONG_FORMAT;
+		opt->display_func = &display_long_format;
 	else if (*input == SPEC_REVERSE)
 		opt->flags |= FLAG_DISPLAY_REVERSE;
 	else
