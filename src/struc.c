@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/22 13:26:24 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:51:40 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,15 @@ void	stat_t_elem(t_fstat *file, struct dirent *dp, char *path)
 	struct stat		stat_elem;
 	struct passwd	*pw;
 	struct group	*gp;
+	char			name[4096];
 
+	ft_strcpy(name, path);
+	ft_strcat(name, "/");
+	file->path = ft_strcat(name, dp->d_name);
 	if (file->type == 10)
-		lstat(path, &stat_elem);
+		lstat(file->path, &stat_elem);
 	else
-		stat(path, &stat_elem);
+		stat(file->path, &stat_elem);
 	file->n_link = stat_elem.st_nlink;
 	file->size = stat_elem.st_size;
 	file->n_block = stat_elem.st_blocks;

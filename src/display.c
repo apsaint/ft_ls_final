@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 13:26:42 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 13:52:21 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,6 @@ int		total_block(t_flist *f_list, int start, int inc, int end)
 	while (start != end)
 	{
 		total += f_list->data[start].n_block;
-		printf("%d\n", f_list->data[start].n_block);
 		start += inc;
 	}
 	return (total);
