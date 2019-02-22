@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/22 09:19:09 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 11:35:25 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,20 @@ void	time_t_elem(t_telem *telem, char *time)
  * rempli les elements de la structure utilisant stat
  */
 
-void	stat_t_elem(t_fstat *file, struct dirent *dp)
+void	stat_t_elem(t_fstat *file, struct dirent *dp, char *path)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
 	struct group	*gp;
 
 	if (file->type == 10)
-		lstat(dp->d_name, &stat_elem);
+		lstat(path, &stat_elem);
 	else
-		stat(dp->d_name, &stat_elem);
+		stat(path, &stat_elem);
 	file->n_link = stat_elem.st_nlink;
 	file->size = stat_elem.st_size;
 	create_mode_str(stat_elem.st_mode, file);
-	pw = getpwuid(stat_elem.st_uid);
+	pw = getpwuid(stat_elem.st_uid); 	
 	gp = getgrgid(stat_elem.st_gid);
 	if (pw->pw_name == NULL)
 		itoa_min(pw->pw_uid, file->owner);
