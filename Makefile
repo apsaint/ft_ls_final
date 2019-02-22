@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/02/22 14:35:11 by bboutoil         ###   ########.fr        #
+#    Updated: 2019/02/22 15:23:42 by bboutoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -g
 CFLAGS += -I $(INC_DIR)/ -I $(LIBFT_HEADERS)/ -I $(PRINTF_HEADERS)/
-CFLAGS += -L $(LIBFT_DIR) -L $(PRINTF_DIR)
+CLIBS += -L $(LIBFT_DIR) -L $(PRINTF_DIR)
 MKDIR:= mkdir -p
 MAKE:= make -C
 
@@ -75,7 +75,7 @@ MAKE:= make -C
 all : $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	$(LINK) $(CFLAGS) $^ -o $@ -lft -lftprintf
+	$(LINK) $(CFLAGS) $(CLIBS) $^ -o $@ -lft -lftprintf
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
