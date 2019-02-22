@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 13:26:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 14:36:32 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,17 +116,18 @@ enum e_sorting_options
 	SORT_BY_TIME_MODIFICATION,
 };
 
-int	param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
-int	directory_list(char *path, t_options *opt);
-int	print_option_error(const char *option, int opt_type);
-int print_path_error(const char *path, const char *content, int err_num);
-void		create_mode_str(mode_t m, t_fstat *file);
-int			convert_year(char **time);
-int			convert_time(char **time);
-int			f_list_init(t_flist *f_list);
-int			f_list_add(t_flist *f_list, t_fstat *file);
-int			f_list_destroy_storage(t_flist *f_list);
-void		stat_t_elem(t_fstat *fs, struct dirent *dp, char *path);
-int	display_summary_in_block(t_flist *f_list, t_options *opt, char *path);
-int			display_long_format(t_flist *f_list, t_options *opt, char *path);
+int		param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
+int		directory_list(char *path, t_options *opt);
+int		print_option_error(const char *option, int opt_type);
+int 	print_path_error(const char *path, const char *content, int err_num);
+void	create_mode_str(mode_t m, t_fstat *file);
+int		convert_year(char **time);
+int		convert_time(char **time);
+int		f_list_init(t_flist *f_list);
+int		f_list_add(t_flist *f_list, t_fstat *file);
+int		f_list_destroy_storage(t_flist *f_list);
+void	stat_t_elem(t_fstat *fs, struct dirent *dp, char *path);
+int		display_summary_in_block(t_flist *f_list, t_options *opt, char *path);
+int		display_long_format(t_flist *f_list, t_options *opt, char *path);
+int		combine_paths(char *path1, char *path2, char *output);
 #endif
