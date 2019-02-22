@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 15:59:10 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 16:14:22 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	param_display_order(t_flist *f_list, t_options *opt, int *start, int
 	}
 }
 
-int	display_summary_in_block(t_flist *f_list, t_options *opt, char *path)
+int	display_one_by_line(t_flist *f_list, t_options *opt, char *path)
 {
 	int	start;
 	int	end;
