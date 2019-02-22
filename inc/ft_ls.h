@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 13:26:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 15:22:28 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
+# include <stdlib.h>
 # include "libft.h"
 
 # define ALLOC_ERROR (-1)
