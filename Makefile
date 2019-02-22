@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/02/22 10:08:34 by bboutoil         ###   ########.fr        #
+#    Updated: 2019/02/22 15:31:15 by bboutoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,15 +38,14 @@ DEBUG_LAUNCHER:= $(DEBUG_DIR)/main.c
 DEBUG_OBJ= $(DEBUG_SRC:$(DEBUG_DIR)%.c=$(OBJ_DIR)%.o)
 SRC+= $(SRC_DIR)/param.c
 SRC+= $(SRC_DIR)/main.c
-SRC+= $(SRC_DIR)/file.c
 SRC+= $(SRC_DIR)/directory.c
-SRC+= $(SRC_DIR)/ft_ls.c
 SRC+= $(SRC_DIR)/error.c
 SRC+= $(SRC_DIR)/struc.c
 SRC+= $(SRC_DIR)/modes.c
 SRC+= $(SRC_DIR)/time.c
 SRC+= $(SRC_DIR)/file_list.c
 SRC+= $(SRC_DIR)/display.c
+SRC+= $(SRC_DIR)/utils.c
 OBJ= $(SRC:$(SRC_DIR)%.c=$(OBJ_DIR)%.o)
 
 
@@ -59,7 +58,7 @@ CFLAGS += -Wall
 CFLAGS += -Wextra
 CFLAGS += -g
 CFLAGS += -I $(INC_DIR)/ -I $(LIBFT_HEADERS)/ -I $(PRINTF_HEADERS)/
-CFLAGS += -L $(LIBFT_DIR) -L $(PRINTF_DIR)
+CLIBS += -L $(LIBFT_DIR) -L $(PRINTF_DIR)
 MKDIR:= mkdir -p
 MAKE:= make -C
 
@@ -74,7 +73,7 @@ MAKE:= make -C
 all : $(OBJ_DIR) $(NAME)
 
 $(NAME): $(OBJ)
-	$(LINK) $(CFLAGS) $^ -o $@ -lft -lftprintf
+	$(LINK) $(CFLAGS) $(CLIBS) $^ -o $@ -lft -lftprintf
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
