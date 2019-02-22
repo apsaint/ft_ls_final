@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 12:05:48 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/22 12:46:17 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,6 @@ int		display_long_format(t_flist *f_list, t_options *opt, char *path)
 
 	printf("%s:\n", path);
 	param_display_order(f_list, opt, &start, &end, &inc);
-	printf("%d %d %d\n", start, end, inc);
 	ft_printf("total %d\n", total_block(f_list, start, inc, end));
 	return (0);
 }

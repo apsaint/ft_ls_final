@@ -6,11 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-<<<<<<< Updated upstream
-/*   Updated: 2019/02/22 11:35:51 by bboutoil         ###   ########.fr       */
-=======
-/*   Updated: 2019/02/22 11:49:36 by apsaint-         ###   ########.fr       */
->>>>>>> Stashed changes
+/*   Updated: 2019/02/22 12:32:06 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
