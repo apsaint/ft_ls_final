@@ -6,14 +6,12 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 19:53:24 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 20:20:08 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
-
-
 
 # include <sys/stat.h>
 # include <sys/types.h>
@@ -32,6 +30,7 @@
 # define ALLOC_ERROR (-1)
 # define NOT_IMPLEMENTED_FEATURE (-1)
 # define PROGRAM_NAME "ft_ls"
+
 # define OPTION_SPECIFIER '-'
 # define DEFAULT_PATH "."
 
@@ -86,7 +85,6 @@ enum e_param_type
 	PARAM_OPTION_END
 };
 
-
 enum e_option_flags
 {
 	FLAG_SHOW_HIDDEN_FILE = (1U << 0U),
@@ -107,12 +105,6 @@ typedef struct		s_options
 
 typedef int(*t_display_func)(t_flist *, t_options *, char *);
 
-enum e_display_options
-{
-	DISPLAY_ONE_LINE,
-	DISPLAY_COLUMN,
-};
-
 int		param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
 int		directory_list(char *path, t_options *opt);
 int		print_option_error(const char *option, int opt_type);
@@ -129,6 +121,5 @@ int		display_long_format(t_flist *f_list, t_options *opt, char *path);
 int		combine_paths(char *path1, char *path2, char *output);
 void	f_list_qsort(t_flist *f_list, t_options *opt);
 int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
-
 
 #endif
