@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/24 20:07:52 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/24 21:47:12 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int		convert_time(char **time);
 int		f_list_init(t_flist *f_list);
 int		f_list_add(t_flist *f_list, t_fstat *file);
 int		f_list_destroy_storage(t_flist *f_list);
-void	stat_t_elem(t_fstat *fs, struct dirent *dp, char *path);
+void	get_file_stat(t_fstat *fs, struct dirent *dp, char *path);
 int		display_one_by_line(t_flist *f_list, t_options *opt, char *path);
 int		display_long_format(t_flist *f_list, t_options *opt, char *path);
 int		combine_paths(char *path1, char *path2, char *output);

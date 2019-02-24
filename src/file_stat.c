@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struc.c                                            :+:      :+:    :+:   */
+/*   file_stat.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/02 19:33:40 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/24 21:47:15 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
  * rempli les elements de la structure utilisant stat
  */
 
-void	stat_t_elem(t_fstat *file, struct dirent *dp, char *path)
+void	get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
@@ -47,5 +47,4 @@ void	stat_t_elem(t_fstat *file, struct dirent *dp, char *path)
 		ft_strcpy(file->group, gp->gr_name);
 	file->mod_time = stat_elem.st_mtime;
 	format_date(file->format_date, ctime(&stat_elem.st_mtime), stat_elem.st_mtime);
-	// time_t_elem(&elem->date_crea, ctime(&stat_elem.st_birthtime));
 }

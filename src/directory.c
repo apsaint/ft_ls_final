@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 15:52:44 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/24 21:47:12 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f
 		{
 			fs.type = d->d_type;
 			ft_strcpy(fs.name, d->d_name);
-			stat_t_elem(&fs, d, path);
+			get_file_stat(&fs, d, path);
 			if (f_list_add(f_list, &fs) == ALLOC_ERROR)
 				return (ALLOC_ERROR);
 		}
@@ -50,7 +50,7 @@ static int collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 			continue ;
 		ft_strcpy(fs.name, dp->d_name);
 		fs.type = dp->d_type;
-		stat_t_elem(&fs, dp, path);
+		get_file_stat(&fs, dp, path);
 		if (f_list_add(f_list, &fs) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
 	}
