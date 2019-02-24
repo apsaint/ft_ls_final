@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/24 21:47:12 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/24 22:17:24 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,18 +94,21 @@ typedef struct		s_options
 typedef int(*t_display_func)(t_flist *, t_options *, char *);
 
 int		param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
+
 int		directory_list(char *path, t_options *opt);
+
 int		print_option_error(const char *option, int opt_type);
 int 	print_path_error(const char *path, const char *content, int err_num);
-void	create_mode_str(mode_t m, t_fstat *file);
-int		convert_year(char **time);
-int		convert_time(char **time);
+
 int		f_list_init(t_flist *f_list);
 int		f_list_add(t_flist *f_list, t_fstat *file);
 int		f_list_destroy_storage(t_flist *f_list);
+
 void	get_file_stat(t_fstat *fs, struct dirent *dp, char *path);
+
 int		display_one_by_line(t_flist *f_list, t_options *opt, char *path);
 int		display_long_format(t_flist *f_list, t_options *opt, char *path);
+
 int		combine_paths(char *path1, char *path2, char *output);
 size_t	ls_itoa_min(unsigned long long nb, char *output);
 void	format_date(char *dst, char *date, time_t timestamp);

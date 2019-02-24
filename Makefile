@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/02/24 21:47:54 by bboutoil         ###   ########.fr        #
+#    Updated: 2019/02/24 22:14:07 by bboutoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,6 @@ SRC+= $(SRC_DIR)/main.c
 SRC+= $(SRC_DIR)/directory.c
 SRC+= $(SRC_DIR)/error.c
 SRC+= $(SRC_DIR)/file_stat.c
-SRC+= $(SRC_DIR)/modes.c
 SRC+= $(SRC_DIR)/time.c
 SRC+= $(SRC_DIR)/file_list.c
 SRC+= $(SRC_DIR)/display.c

@@ -6,12 +6,38 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/24 21:47:15 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/24 22:16:32 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <time.h>
+
+static void	format_modes(mode_t m, t_fstat *file)
+{
+	if (S_ISDIR(m))
+		file->modes[0] = 'd';
+	else if (S_ISCHR(m))
+		file->modes[0] = 'c';
+	else if (S_ISBLK(m))
+		file->modes[0] = 'b';
+	else if (S_ISFIFO(m))
+		file->modes[0] = 'p';
+	else if (S_ISLNK(m))
+		file->modes[0] = 'l';
+	else
+		file->modes[0] = '-';
+	file->modes[1] = (m & S_IRUSR) ? 'r' : '-';
+	file->modes[2] = (m & S_IWUSR) ? 'w' : '-';
+	file->modes[3] = (m & S_IXUSR) ? 'x' : '-';
+	file->modes[4] = (m & S_IRGRP) ? 'r' : '-';
+	file->modes[5] = (m & S_IWGRP) ? 'w' : '-';
+	file->modes[6] = (m & S_IXGRP) ? 'x' : '-';
+	file->modes[7] = (m & S_IROTH) ? 'r' : '-';
+	file->modes[8] = (m & S_IWOTH) ? 'w' : '-';
+	file->modes[9] = (m & S_IXOTH) ? 'x' : '-';
+	file->modes[10] = '\0';
+}
 
 /*
  * rempli les elements de la structure utilisant stat
@@ -34,7 +60,7 @@ void	get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 	file->n_link = stat_elem.st_nlink;
 	file->size = stat_elem.st_size;
 	file->n_block = stat_elem.st_blocks;
-	create_mode_str(stat_elem.st_mode, file);
+	format_modes(stat_elem.st_mode, file);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);
 	if (pw->pw_name == NULL)
