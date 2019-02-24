@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 20:12:46 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/02 19:31:55 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,7 @@
 # define SPEC_RECURSIVELY    'R'
 # define SPEC_REVERSE        'r'
 
-typedef struct s_telem
-{
-	char	month[4];
-	int		day;
-	int		year;
-	int		hour;
-	int		min;
-	int		sec;
-	long	mod_timestamp;
-}				t_telem;
+# define DATE_FORMAT_MAX_LEN (32)
 
 typedef struct s_fstat
 {
@@ -63,8 +54,8 @@ typedef struct s_fstat
 	int			size;
 	int			n_block;
 	int			error;
-	t_telem		date_modif;
-	t_telem		date_crea;
+	time_t		mod_time;
+	char	format_date[DATE_FORMAT_MAX_LEN];
 }				t_fstat;
 
 #define F_LIST_DEFAULT_SIZE (16)
@@ -116,5 +107,7 @@ void	stat_t_elem(t_fstat *fs, struct dirent *dp, char *path);
 int		display_one_by_line(t_flist *f_list, t_options *opt, char *path);
 int		display_long_format(t_flist *f_list, t_options *opt, char *path);
 int		combine_paths(char *path1, char *path2, char *output);
+size_t	ls_itoa_min(unsigned long long nb, char *output);
+void	format_date(char *dst, char *date, time_t timestamp);
 
 #endif

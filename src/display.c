@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 19:10:59 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/24 19:42:27 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,11 @@ void	display_final(t_flist *f_list, int start, int end, int inc)
 	max_gp = max_width_str(f_list, start, end, inc, 2);
 	while (start != end)
 	{
-		ft_printf("%s%*d%*s%*s%*d %s%3d %02d:%02d %s\n", f_list->data[start].modes, max_link,
+		ft_printf("%s%*d%*s%*s%*d %s %s\n", f_list->data[start].modes, max_link,
 				f_list->data[start].n_link, max_ow, f_list->data[start].owner,
 				max_gp, f_list->data[start].group, max_sz,
 				f_list->data[start].size,
-				(f_list->data[start].date_modif).month, 
-				(f_list->data[start].date_modif).day,
-				(f_list->data[start].date_modif).hour,
-				(f_list->data[start].date_modif).min,
+				f_list->data[start].format_date,
 				f_list->data[start].name);
 		start += inc;
 	}
