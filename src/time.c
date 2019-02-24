@@ -1,48 +1,53 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gestion_time.c                                     :+:      :+:    :+:   */
+/*   time.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: apsaint- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 15:07:05 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/22 16:46:36 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/02 19:31:24 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+#include <time.h>
 
-int		convert_year(char **time)
+enum e_format_style
 {
-	int		y;
-	int		i;
+	TIME_DEFAULT_FORMAT,
+	TIME_ALT_FORMAT
+};
 
-	y = 0;
-	i = 3;
-	(*time)++;
-	while (i > 0)
-		y += (*((*time)++) - '0') * ft_pow(10, i--);
-	y += *((*time)++) - '0';
-	return (y);
+#define UNIX_TIME_SIX_MONTH (3600 * 24 * 30 * 6)
+#define FTIME_DAY_MONTH_START_IDX (4)
+#define FTIME_DAY_MONTH_LEN (7)
+#define FTIME_HOUR_START_IDX (11)
+#define FTIME_HOUR_LEN (5)
+#define FTIME_YEAR_START_IDX (20)
+#define FTIME_YEAR_LEN (4)
+
+int		get_time_format_style(time_t mod_time)
+{
+	const time_t	cur_time = time(NULL);
+
+	if (cur_time - mod_time > UNIX_TIME_SIX_MONTH
+	|| mod_time > cur_time + UNIX_TIME_SIX_MONTH)
+		return (TIME_ALT_FORMAT);
+	return (TIME_DEFAULT_FORMAT);
 }
 
-int		convert_time(char **time)
+void	format_date(char *dst, char *date, time_t timestamp)
 {
-	int		t;
-
-	t = 0;
-	(*time)++;
-	if (**time != '0')
-		t = (**time - '0') * 10;
-	(*time)++;
-	t += *((*time)++) - '0';
-	return (t);
-}
-
-int		check_time(long mod_timestamp)
-{
-	/*long	now;
-
-	now = ctime(NULL);*/
-	return (0);
+	ft_memcpy(dst, date + FTIME_DAY_MONTH_START_IDX, FTIME_DAY_MONTH_LEN);
+	if (get_time_format_style(timestamp) == TIME_DEFAULT_FORMAT)
+	{
+		ft_memcpy(dst + 7, date + FTIME_HOUR_START_IDX, FTIME_HOUR_LEN);
+		*(dst + FTIME_DAY_MONTH_LEN + FTIME_HOUR_LEN) = '\0';
+	}
+	else
+	{
+		ft_memcpy((dst + 7), date + FTIME_YEAR_START_IDX, FTIME_YEAR_LEN);
+		*(dst + FTIME_DAY_MONTH_LEN + FTIME_YEAR_LEN) = '\0';
+	}
 }
