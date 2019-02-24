@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/02 19:31:55 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/24 20:07:52 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,5 +109,6 @@ int		display_long_format(t_flist *f_list, t_options *opt, char *path);
 int		combine_paths(char *path1, char *path2, char *output);
 size_t	ls_itoa_min(unsigned long long nb, char *output);
 void	format_date(char *dst, char *date, time_t timestamp);
+int		param_display_order(t_flist *f_list, t_options *opt, int *start, int *end);
 
 #endif
