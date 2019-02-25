@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 11:21:05 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/25 15:04:28 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ typedef struct s_fstat
 	int			n_block;
 	int			error;
 	time_t		mod_time;
+	dev_t		dev;
 	char	format_date[DATE_FORMAT_MAX_LEN];
 }				t_fstat;
 

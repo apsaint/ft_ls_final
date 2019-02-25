@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/24 20:10:11 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 15:02:54 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int		total_block(t_flist *f_list)
 	return (total);
 }
 // a moove
-#define LONG_FORMAT_MAX_ITEMS (6)
+#define LONG_FORMAT_MAX_ITEMS (8)
 
 enum e_item_index
 {
@@ -36,6 +36,8 @@ enum e_item_index
 	ITEM_IDX_OWNER,
 	ITEM_IDX_GROUP,
 	ITEM_IDX_SIZE,
+	ITEM_IDX_MAJOR,
+	ITEM_IDX_MINOR,
 	ITEM_IDX_LAST_MOD,
 	ITEM_IDX_PATH_NAME
 };
@@ -57,9 +59,10 @@ void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 {
 	register int	w;
 	size_t			i;
+	int				count_bc;
 
 	i = 0;
-
+	count_bc = 0;
 	while (i < f_list->count)
 	{
 		if (items[ITEM_IDX_OWNER] < (w = (int)ft_strlen(f_list->data[i].owner)))
@@ -68,11 +71,27 @@ void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 			items[ITEM_IDX_GROUP] = w;
 		if (items[ITEM_IDX_NLINKS] < f_list->data[i].n_link)
 			items[ITEM_IDX_NLINKS] = f_list->data[i].n_link;
-		if (items[ITEM_IDX_SIZE] < f_list->data[i].size)
-			items[ITEM_IDX_SIZE] = f_list->data[i].size;
+		if (f_list->data[i].modes[0] == 'b'
+				|| f_list->data[i].modes[0] == 'c')
+		{
+			if (items[ITEM_IDX_MAJOR] < major(f_list->data[i].dev))
+				items[ITEM_IDX_MAJOR] = major(f_list->data[i].dev);
+			if (items[ITEM_IDX_MINOR] < minor(f_list->data[i].dev))
+				items[ITEM_IDX_MINOR] = minor(f_list->data[i].dev);
+			count_bc = 1;
+		}
+		else
+		{
+			if (items[ITEM_IDX_SIZE] < f_list->data[i].size)
+				items[ITEM_IDX_SIZE] = f_list->data[i].size;
+		}
 		i++;
 	}
-	items[ITEM_IDX_SIZE] = get_width_by_int_item(items[ITEM_IDX_SIZE]);
+	items[ITEM_IDX_MAJOR] = get_width_by_int_item(items[ITEM_IDX_MAJOR]);
+	items[ITEM_IDX_MINOR] = get_width_by_int_item(items[ITEM_IDX_MINOR]);
+	items[ITEM_IDX_SIZE] = (count_bc > 0) ? (items[ITEM_IDX_MAJOR]
+			+ items[ITEM_IDX_MINOR] + 3)
+		: get_width_by_int_item(items[ITEM_IDX_SIZE]);
 	items[ITEM_IDX_NLINKS] = get_width_by_int_item(items[ITEM_IDX_NLINKS]);
 }
 
@@ -87,14 +106,30 @@ void	display_items(t_flist *f_list, t_options *opt)
 	get_all_items_width(f_list, items_w, opt);
 	while (start != end)
 	{
-		ft_printf("%s  %*d %-*s  %-*s  %*d %s %s\n", 
-			f_list->data[start].modes,
-			items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
-			items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
-			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
-			items_w[ITEM_IDX_SIZE], f_list->data[start].size,
-			f_list->data[start].format_date,
-			f_list->data[start].name);
+		if (f_list->data[start].modes[0] == 'b'
+				|| f_list->data[start].modes[0] == 'c')
+		{
+			ft_printf("%s  %*d %-*s  %-*s   %*d, %*d %s %s\n", 
+				f_list->data[start].modes,
+				items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
+				items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
+				items_w[ITEM_IDX_GROUP], f_list->data[start].group,
+				items_w[ITEM_IDX_MAJOR], major(f_list->data[start].dev),
+				items_w[ITEM_IDX_MINOR], minor(f_list->data[start].dev),
+				f_list->data[start].format_date,
+				f_list->data[start].name);
+		}
+		else
+		{
+			ft_printf("%s  %*d %-*s  %-*s  %*d %s %s\n", 
+				f_list->data[start].modes,
+				items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
+				items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
+				items_w[ITEM_IDX_GROUP], f_list->data[start].group,
+				items_w[ITEM_IDX_SIZE], f_list->data[start].size,
+				f_list->data[start].format_date,
+				f_list->data[start].name);
+		}
 		start += inc;
 	}
 }
