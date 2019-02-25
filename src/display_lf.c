@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 15:02:54 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/25 16:22:16 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 		i++;
 	}
 	items[ITEM_IDX_MAJOR] = get_width_by_int_item(items[ITEM_IDX_MAJOR]);
-	items[ITEM_IDX_MINOR] = get_width_by_int_item(items[ITEM_IDX_MINOR]);
+	items[ITEM_IDX_MINOR] = 3/*get_width_by_int_item(items[ITEM_IDX_MINOR])*/;
 	items[ITEM_IDX_SIZE] = (count_bc > 0) ? (items[ITEM_IDX_MAJOR]
 			+ items[ITEM_IDX_MINOR] + 3)
 		: get_width_by_int_item(items[ITEM_IDX_SIZE]);
@@ -118,6 +118,24 @@ void	display_items(t_flist *f_list, t_options *opt)
 				items_w[ITEM_IDX_MINOR], minor(f_list->data[start].dev),
 				f_list->data[start].format_date,
 				f_list->data[start].name);
+		}
+		else if (f_list->data[start].modes[0] == 'l')
+		{
+			char *buf;
+			int size = f_list->data[start].size;
+			buf = (char *)malloc(sizeof(buf) * (size + 1));
+				//return (-1);
+			readlink(f_list->data[start].path, buf, f_list->data[start].size);
+			buf[size] = '\0';
+			ft_printf("%s  %*d %-*s  %-*s  %*d %s %s -> %s\n", 
+				f_list->data[start].modes,
+				items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
+				items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
+				items_w[ITEM_IDX_GROUP], f_list->data[start].group,
+				items_w[ITEM_IDX_SIZE], f_list->data[start].size,
+				f_list->data[start].format_date,
+				f_list->data[start].name, buf);
+			free(buf);
 		}
 		else
 		{
