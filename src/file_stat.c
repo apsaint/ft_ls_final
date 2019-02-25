@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/25 10:34:26 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 15:03:06 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 		ls_itoa_min(stat_elem.st_gid, file->group);
 	else
 		ft_strcpy(file->group, gp->gr_name);
+	file->dev = stat_elem.st_rdev;
 	file->mod_time = stat_elem.st_mtime;
 	format_date(file->format_date, ctime(&stat_elem.st_mtime), stat_elem.st_mtime);
 }
