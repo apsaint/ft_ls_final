@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 20:16:21 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/22 20:19:24 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int main(int ac, char const *av[])
 
 	opt.flags = 0;
 	opt.display_func = &display_one_by_line;
+	opt.sort_func = &compare_by_ascii;
 	paths = NULL;
 	if (ac > 1)
 	{

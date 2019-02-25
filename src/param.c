@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 11:47:34 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:54:43 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ int	eval_short_flag(const char *input, t_options *opt)
 		opt->display_func = &display_long_format;
 	else if (*input == SPEC_REVERSE)
 		opt->flags |= FLAG_DISPLAY_REVERSE;
+	else if (*input == FLAG_SORT_BY_TIME)
+		opt->sort_func = &compare_by_date;
 	else
 	{
 		print_option_error(input, PARAM_OPTION_SHORT);

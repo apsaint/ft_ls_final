@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/24 22:17:24 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:01:47 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@
 # define OPTION_SPECIFIER '-'
 # define DEFAULT_PATH "."
 
-# define SPEC_LONG_FORMAT    'l'
-# define SPEC_ALL            'a'
-# define SPEC_ALMOST_ALL     'A'
-# define SPEC_RECURSIVELY    'R'
-# define SPEC_REVERSE        'r'
+# define SPEC_LONG_FORMAT		'l'
+# define SPEC_ALL				'a'
+# define SPEC_ALMOST_ALL		'A'
+# define SPEC_RECURSIVELY		'R'
+# define SPEC_REVERSE			'r'
+# define FLAG_SORT_BY_TIME		't'
 
 # define DATE_FORMAT_MAX_LEN (32)
 
@@ -85,10 +86,13 @@ enum e_option_flags
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
 };
 
+typedef int (*t_comp_func)(t_fstat *, t_fstat *);
+
 typedef struct		s_options
 {
 	unsigned int	flags;
 	int				(*display_func)(t_flist *, struct s_options *, char *);
+	t_comp_func		sort_func;
 }					t_options;
 
 typedef int(*t_display_func)(t_flist *, t_options *, char *);
@@ -113,5 +117,9 @@ int		combine_paths(char *path1, char *path2, char *output);
 size_t	ls_itoa_min(unsigned long long nb, char *output);
 void	format_date(char *dst, char *date, time_t timestamp);
 int		param_display_order(t_flist *f_list, t_options *opt, int *start, int *end);
+void	f_list_qsort(t_flist *f_list, t_options *opt, int max, int min);
+void	swap(t_fstat *f1, t_fstat *f2);
+int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
+int		compare_by_date(t_fstat *f1, t_fstat *f2);
 
 #endif
