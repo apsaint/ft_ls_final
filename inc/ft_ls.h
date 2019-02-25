@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 20:20:08 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:01:47 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,11 +34,12 @@
 # define OPTION_SPECIFIER '-'
 # define DEFAULT_PATH "."
 
-# define SPEC_LONG_FORMAT    'l'
-# define SPEC_ALL            'a'
-# define SPEC_ALMOST_ALL     'A'
-# define SPEC_RECURSIVELY    'R'
-# define SPEC_REVERSE        'r'
+# define SPEC_LONG_FORMAT		'l'
+# define SPEC_ALL				'a'
+# define SPEC_ALMOST_ALL		'A'
+# define SPEC_RECURSIVELY		'R'
+# define SPEC_REVERSE			'r'
+# define FLAG_SORT_BY_TIME		't'
 
 typedef struct s_telem
 {
@@ -119,7 +120,9 @@ void	stat_t_elem(t_fstat *fs, struct dirent *dp, char *path);
 int		display_one_by_line(t_flist *f_list, t_options *opt, char *path);
 int		display_long_format(t_flist *f_list, t_options *opt, char *path);
 int		combine_paths(char *path1, char *path2, char *output);
-void	f_list_qsort(t_flist *f_list, t_options *opt);
+void	f_list_qsort(t_flist *f_list, t_options *opt, int max, int min);
+void	swap(t_fstat *f1, t_fstat *f2);
 int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
+int		compare_by_date(t_fstat *f1, t_fstat *f2);
 
 #endif

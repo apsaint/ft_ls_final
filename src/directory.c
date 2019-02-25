@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 15:52:44 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:11:30 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int	directory_list(char *path, t_options *opt)
 	if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)
 		return (ALLOC_ERROR);
 	closedir(dirp);
+	f_list_qsort(&f_list, opt, f_list.count - 1, 0);
 	opt->display_func(&f_list, opt, path);
 	if (opt->flags & FLAG_LIST_SUBDIRS)
 		try_list_subdirs(path, &f_list, opt);

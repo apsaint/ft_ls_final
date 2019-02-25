@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:22:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 14:46:08 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:59:17 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,13 @@ int	combine_paths(char *path1, char *path2, char *output)
 		ft_strlcat(output, path2, 4097);
 	}
 	return (0);
+}
+
+void	swap(t_fstat *f1, t_fstat *f2)
+{
+	t_fstat tmp;
+
+	tmp = *f1;
+	*f1 = *f2;
+	*f2 = tmp;
 }

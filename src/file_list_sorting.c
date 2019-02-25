@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:13:34 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 19:53:26 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:01:14 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,49 @@
 
 int		compare_by_ascii(t_fstat *f1, t_fstat *f2)
 {
-	return (NOT_IMPLEMENTED_FEATURE);
+	return ((ft_strcmp(f1->name, f2->name)  > 0 ? 1 : -1));
 }
 
-
-t_flist	*partition(t_flist *f_list, t_flist *t_flist_one, t_flist *t_flist_two, t_options *opt)
+int		compare_by_date(t_fstat *f1, t_fstat *f2)
 {
-	t_flist	*pivot;
-
-	pivot = f_list;
-//	while ()
-	return (pivot);
+	if ((f1->date_modif).mod_timestamp < (f2->date_modif).mod_timestamp)
+		return (1);
+	else
+		return (-1);
 }
-/* <principe de l algorithme:
-	il faut diviser la liste en deux listes autours d une valeur pivot. Une liste contient les valeurs superieurs 
- au pivot l autre inferieur ou egales.
-Une fois fait on fait le tri sur ces listes avant de les rejoindre en une meme liste.
-Il est plus rapide de trier deux courtes listes qu une longue.
-*/
-void	f_list_qsort(t_flist *f_list, t_options *opt)
+
+int		partition(t_flist *f_list, int min, int max, t_options *opt)
 {
-	// exemple d utilisation du ptr de func au cas ou t aurais oublie:
-	// if (opt->sort_func(fl[3], fl[12]) == 1)
-	// par default sort_func = compare by ascii : voir main.c
+	int			i;
+	int			j;
+	t_fstat		pivot;
+
+	i = min - 1;
+	j = min;
+	pivot = f_list->data[max];
+	while (j <= (max - 1))
+	{
+		if (opt->sort_func(&f_list->data[j], &pivot) == -1)
+		{
+			i++;
+			swap(&f_list->data[i], &f_list->data[j]);
+		}
+		j++;
+	}
+	swap(&f_list->data[i + 1], &f_list->data[max]);
+	return (i + 1);
+}
+
+void		f_list_qsort(t_flist *f_list, t_options *opt, int max, int min)
+{
+	int part;
+
+	if (min < max)
+	{
+		part = partition(f_list, min, max, opt);
+		f_list_qsort(f_list, opt, part - 1, min);
+		f_list_qsort(f_list, opt, max, part + 1);
+	}
 }
 
 
