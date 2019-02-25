@@ -22,3 +22,4 @@ IT3
 - Gerer fichiers normaux en target
 - Gerer les liens symboliques : si lien synb snas / gerer comme fichiers
 - Gerer affichage du lien symbolique avec flag -l:
+- strdup disable leak
