@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 11:21:05 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/25 14:10:51 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@
 # define SPEC_REVERSE			'r'
 # define FLAG_SORT_BY_TIME		't'
 # define FLAG_SORT_BY_SIZE		'S'
+# define SPEC_ONE_FILE_PER_LINE	'1'
 
 # define DATE_FORMAT_MAX_LEN (32)
 
