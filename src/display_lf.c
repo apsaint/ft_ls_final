@@ -27,7 +27,7 @@ int		total_block(t_flist *f_list)
 	}
 	return (total);
 }
-
+// a moove
 #define LONG_FORMAT_MAX_ITEMS (6)
 
 enum e_item_index
@@ -50,7 +50,7 @@ int		get_width_by_int_item(int item)
 		item /= 10;
 		w++;
 	}
-	return (w + 2);
+	return (w);
 }
 
 void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
@@ -63,9 +63,9 @@ void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 	while (i < f_list->count)
 	{
 		if (items[ITEM_IDX_OWNER] < (w = (int)ft_strlen(f_list->data[i].owner)))
-			items[ITEM_IDX_OWNER] = w + 1;
+			items[ITEM_IDX_OWNER] = w;
 		if (items[ITEM_IDX_GROUP] < (w = (int)ft_strlen(f_list->data[i].group)))
-			items[ITEM_IDX_GROUP] = w + 1;
+			items[ITEM_IDX_GROUP] = w;
 		if (items[ITEM_IDX_NLINKS] < f_list->data[i].n_link)
 			items[ITEM_IDX_NLINKS] = f_list->data[i].n_link;
 		if (items[ITEM_IDX_SIZE] < f_list->data[i].size)
@@ -87,7 +87,7 @@ void	display_items(t_flist *f_list, t_options *opt)
 	get_all_items_width(f_list, items_w, opt);
 	while (start != end)
 	{
-		ft_printf("%s%*d%*s%*s%*d %s %s\n", 
+		ft_printf("%s  %*d %-*s  %-*s  %*d %s %s\n", 
 			f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
 			items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
