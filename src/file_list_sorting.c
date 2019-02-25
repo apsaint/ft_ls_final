@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:13:34 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 11:01:14 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/25 11:18:55 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,22 @@ int		compare_by_ascii(t_fstat *f1, t_fstat *f2)
 	return ((ft_strcmp(f1->name, f2->name)  > 0 ? 1 : -1));
 }
 
+int		compare_by_size(t_fstat *f1, t_fstat *f2)
+{
+	if (f1->size < f2->size)
+		return (1);
+	else if (f1->size == f2->size)
+		return (compare_by_ascii(f1, f2));
+	else
+		return (-1);
+}
+
 int		compare_by_date(t_fstat *f1, t_fstat *f2)
 {
 	if (f1->mod_time < f2->mod_time)
 		return (1);
+	else if (f1->mod_time == f2->mod_time)
+		return (compare_by_ascii(f1, f2));
 	else
 		return (-1);
 }

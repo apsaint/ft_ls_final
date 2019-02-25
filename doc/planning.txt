@@ -17,3 +17,8 @@ IT2
 les fichiers qui ne respectent pas les conditions de date (6 mois ou je sais
 plus)).
 -Global refactoring
+
+IT3
+- Gerer fichiers normaux en target
+- Gerer les liens symboliques : si lien synb snas / gerer comme fichiers
+- Gerer affichage du lien symbolique avec flag -l:

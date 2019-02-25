@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/24 22:16:32 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/25 10:34:26 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,12 @@ void	get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 	format_modes(stat_elem.st_mode, file);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);
-	if (pw->pw_name == NULL)
-		ls_itoa_min(pw->pw_uid, file->owner);
+	if ( pw == NULL || pw->pw_name == NULL)
+		ls_itoa_min(stat_elem.st_uid, file->owner);
 	else
 		ft_strcpy(file->owner, pw->pw_name);
 	if (gp->gr_name == NULL)
-		ls_itoa_min(gp->gr_gid, file->group);
+		ls_itoa_min(stat_elem.st_gid, file->group);
 	else
 		ft_strcpy(file->group, gp->gr_name);
 	file->mod_time = stat_elem.st_mtime;
