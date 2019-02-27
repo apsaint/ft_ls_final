@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 16:56:38 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 21:13:49 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	get_param_type(const char *param)
 		{
 			if (*(param + 2) == '\0')
 				return (PARAM_OPTION_END);
-			return (PARAM_OPTION_LONG);
+			return (PARAM_PATH);
 		}
 		if (*(param + 1) != '\0')
 			return (PARAM_OPTION_SHORT);
@@ -100,40 +100,14 @@ int	eval_short_flag(const char *input, t_options *opt)
 
 int param_eval_flags(const char *input, t_options *data, int flag_type)
 {
-	if (flag_type == PARAM_OPTION_SHORT)
+	while (*input)
 	{
+		if (eval_short_flag(input, data) == PARAM_ERROR)
+			return (PARAM_ERROR);
 		input++;
-		while (*input)
-		{
-			if (eval_short_flag(input, data) == PARAM_ERROR)
-				return (PARAM_ERROR);
-			input++;
-		}
-	}
-	else if (flag_type == PARAM_OPTION_LONG)
-	{
-		// function pas encore implementee, peut etre
-		// jamais, voir avec apoline si on le fait en bonus.
-		return (NOT_IMPLEMENTED_FEATURE);
 	}
 	return (0);
 }
-
-/*
-	note sur l implementation :
-	la fonction malloc un tableau qui sert a regrouper les path. la fonction
-	ne malloc pas les string contenant ces paths, c est inutile il suffit
-	de reprendre les pointeurs existants (du argv du main, en l occurence params
-	dans cette fonction).
-
-	les flags sont stockees dans la structures t_options.
-	un -- est considere comme la fin des args. Tout ce qui vient apres
-	ca est traite comme un path par ls. voir notes.txt. la variable
-	treat_as_path sert a ajuster ce comportement.
-
-	Le char *** fait peur mais c est pas complique, c est juste pour avoir
-	l adresse du tableau de strings. (si pas compris demander expli)
-*/
 
 int	param_init_arrays(char ***paths, char ***errors, int count)
 {
@@ -170,7 +144,7 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char ***path
 			treat_as_path = 1;
 		else
 		{
-			if(param_eval_flags(*params, opt, par_type) == PARAM_ERROR)
+			if(param_eval_flags(++*params, opt, par_type) == PARAM_ERROR)
 			{
 				free(path_begin);
 				free(error_begin);
