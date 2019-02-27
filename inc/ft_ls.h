@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 15:04:28 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 10:22:59 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,23 @@
 
 # define DATE_FORMAT_MAX_LEN (32)
 
-typedef struct s_fstat
+# define UNIX_TIME_SIX_MONTH (3600 * 24 * 30 * 6)
+# define FTIME_DAY_MONTH_START_IDX (4)
+# define FTIME_DAY_MONTH_LEN (7)
+# define FTIME_HOUR_START_IDX (11)
+# define FTIME_HOUR_LEN (5)
+# define FTIME_YEAR_START_IDX (20)
+# define FTIME_YEAR_LEN (4)
+
+# define F_LIST_DEFAULT_SIZE (16)
+
+enum	e_format_style
+{
+	TIME_DEFAULT_FORMAT,
+	TIME_ALT_FORMAT
+};
+
+typedef struct	s_fstat
 {
 	char		name[255];
 	int			type;
@@ -58,10 +74,8 @@ typedef struct s_fstat
 	int			error;
 	time_t		mod_time;
 	dev_t		dev;
-	char	format_date[DATE_FORMAT_MAX_LEN];
+	char		format_date[DATE_FORMAT_MAX_LEN];
 }				t_fstat;
-
-#define F_LIST_DEFAULT_SIZE (16)
 
 typedef struct	s_flist
 {
@@ -70,7 +84,7 @@ typedef struct	s_flist
 	size_t		count;
 }				t_flist;
 
-enum e_param_type
+enum	e_param_type
 {
 	PARAM_ERROR = -1,
 	PARAM_PATH,
@@ -79,7 +93,7 @@ enum e_param_type
 	PARAM_OPTION_END
 };
 
-enum e_option_flags
+enum	e_option_flags
 {
 	FLAG_SHOW_HIDDEN_FILE = (1U << 0U),
 	FLAG_SHOW_MAP_DIR = (1U << 1U),
@@ -88,7 +102,7 @@ enum e_option_flags
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
 };
 
-typedef int (*t_comp_func)(t_fstat *, t_fstat *);
+typedef int	(*t_comp_func)(t_fstat *, t_fstat *);
 
 typedef struct		s_options
 {
@@ -99,12 +113,13 @@ typedef struct		s_options
 
 typedef int(*t_display_func)(t_flist *, t_options *, char *);
 
-int		param_eval_all(const char *params[], int count, t_options *opt, char ***paths);
+int		param_eval_all(const char *params[], int count, t_options *opt,
+		char ***paths);
 
 int		directory_list(char *path, t_options *opt);
 
 int		print_option_error(const char *option, int opt_type);
-int 	print_path_error(const char *path, const char *content, int err_num);
+int		print_path_error(const char *path, const char *content, int err_num);
 
 int		f_list_init(t_flist *f_list);
 int		f_list_add(t_flist *f_list, t_fstat *file);
@@ -118,7 +133,8 @@ int		display_long_format(t_flist *f_list, t_options *opt, char *path);
 int		combine_paths(char *path1, char *path2, char *output);
 size_t	ls_itoa_min(unsigned long long nb, char *output);
 void	format_date(char *dst, char *date, time_t timestamp);
-int		param_display_order(t_flist *f_list, t_options *opt, int *start, int *end);
+int		param_display_order(t_flist *f_list, t_options *opt, int *start,
+		int *end);
 void	f_list_qsort(t_flist *f_list, t_options *opt, int max, int min);
 void	swap(t_fstat *f1, t_fstat *f2);
 int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
