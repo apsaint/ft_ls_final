@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 13:57:41 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:28:13 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ enum	e_format_style
 	TIME_ALT_FORMAT
 };
 
-enum e_item_index
+enum	e_item_index
 {
 	ITEM_IDX_NLINKS,
 	ITEM_IDX_OWNER,
@@ -158,4 +158,7 @@ int		compare_by_size(t_fstat *f1, t_fstat *f2);
 int		compare_false(t_fstat *f1, t_fstat *f2);
 int		total_block(t_flist *f_list);
 int		get_width_by_int_item(int item);
+int		display_long_bc(t_flist *f_list, int start, int *items_w);
+int		display_long_l(t_flist *f_list, int start, int *items_w);
+int		display_long_fd(t_flist *f_list, int start, int *items_w);
 #endif
