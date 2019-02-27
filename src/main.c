@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 14:05:20 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/27 20:49:44 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int main(int ac, char const *av[])
 	p_begin = paths;
 	while (*paths != NULL)
 		paths++;
-	show_hd = (paths != p_begin ? 1 : 0);
+	show_hd = ((paths - 1) != p_begin ? 1 : 0);
 	paths = p_begin;
 	while (*paths != NULL)
 	{
