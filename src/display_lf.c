@@ -6,12 +6,29 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 13:42:59 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:35:48 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "ft_printf.h"
+
+int		item_index_size(t_flist *f_list, int i, int *items)
+{
+	if (f_list->data[i].modes[0] == 'b'
+			|| f_list->data[i].modes[0] == 'c')
+	{
+		items[ITEM_IDX_MAJOR] = 2;
+		items[ITEM_IDX_MINOR] = 3;
+		return (1);
+	}
+	else
+	{
+		if (items[ITEM_IDX_SIZE] < f_list->data[i].size)
+			items[ITEM_IDX_SIZE] = f_list->data[i].size;
+		return (0);
+	}
+}
 
 void	get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 {
@@ -20,7 +37,6 @@ void	get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 	int				count_bc;
 
 	i = 0;
-	count_bc = 0;
 	while (i < f_list->count)
 	{
 		if (items[ITEM_IDX_OWNER] < (w = (int)ft_strlen(f_list->data[i].owner)))
@@ -29,18 +45,7 @@ void	get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 			items[ITEM_IDX_GROUP] = w;
 		if (items[ITEM_IDX_NLINKS] < f_list->data[i].n_link)
 			items[ITEM_IDX_NLINKS] = f_list->data[i].n_link;
-		if (f_list->data[i].modes[0] == 'b'
-				|| f_list->data[i].modes[0] == 'c')
-		{
-			items[ITEM_IDX_MAJOR] = 2;
-			items[ITEM_IDX_MINOR] = 3;
-			count_bc = 1;
-		}
-		else
-		{
-			if (items[ITEM_IDX_SIZE] < f_list->data[i].size)
-				items[ITEM_IDX_SIZE] = f_list->data[i].size;
-		}
+		count_bc = item_index_size(f_list, i, items);
 		i++;
 	}
 	items[ITEM_IDX_SIZE] = (count_bc > 0) ? (items[ITEM_IDX_MAJOR] + 6)
@@ -53,54 +58,19 @@ void	display_items(t_flist *f_list, t_options *opt)
 	int			start;
 	int			end;
 	const int	inc = param_display_order(f_list, opt, &start, &end);
-	int	items_w[LONG_FORMAT_MAX_ITEMS];
-	ft_bzero(items_w, sizeof(items_w));
+	int			items_w[LONG_FORMAT_MAX_ITEMS];
 
+	ft_bzero(items_w, sizeof(items_w));
 	get_all_items_width(f_list, items_w, opt);
 	while (start != end)
 	{
 		if (f_list->data[start].modes[0] == 'b'
 				|| f_list->data[start].modes[0] == 'c')
-		{
-			ft_printf("%s  %*d %-*s  %-*s   %*d, %*d %s %s\n", 
-				f_list->data[start].modes,
-				items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
-				items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
-				items_w[ITEM_IDX_GROUP], f_list->data[start].group,
-				items_w[ITEM_IDX_MAJOR], major(f_list->data[start].dev),
-				items_w[ITEM_IDX_MINOR], minor(f_list->data[start].dev),
-				f_list->data[start].format_date,
-				f_list->data[start].name);
-		}
+			display_long_bc(f_list, start, items_w);
 		else if (f_list->data[start].modes[0] == 'l')
-		{
-			char *buf;
-			int size = f_list->data[start].size;
-			buf = (char *)malloc(sizeof(buf) * (size + 1));
-				//return (-1);
-			readlink(f_list->data[start].path, buf, f_list->data[start].size);
-			buf[size] = '\0';
-			ft_printf("%s  %*d %-*s  %-*s  %*d %s %s -> %s\n", 
-				f_list->data[start].modes,
-				items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
-				items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
-				items_w[ITEM_IDX_GROUP], f_list->data[start].group,
-				items_w[ITEM_IDX_SIZE], f_list->data[start].size,
-				f_list->data[start].format_date,
-				f_list->data[start].name, buf);
-			free(buf);
-		}
+			display_long_l(f_list, start, items_w);
 		else
-		{
-			ft_printf("%s  %*d %-*s  %-*s  %*d %s %s\n", 
-				f_list->data[start].modes,
-				items_w[ITEM_IDX_NLINKS], f_list->data[start].n_link, 
-				items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
-				items_w[ITEM_IDX_GROUP], f_list->data[start].group,
-				items_w[ITEM_IDX_SIZE], f_list->data[start].size,
-				f_list->data[start].format_date,
-				f_list->data[start].name);
-		}
+			display_long_fd(f_list, start, items_w);
 		start += inc;
 	}
 }
