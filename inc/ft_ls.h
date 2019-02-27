@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 14:28:13 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:33:11 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define SPEC_ALMOST_ALL		'A'
 # define SPEC_RECURSIVELY		'R'
 # define SPEC_REVERSE			'r'
+# define SPEC_INODE				'i'
 # define FLAG_SORT_BY_TIME		't'
 # define FLAG_SORT_BY_SIZE		'S'
 # define SPEC_ONE_FILE_PER_LINE	'1'
@@ -70,6 +71,7 @@ enum	e_item_index
 	ITEM_IDX_GROUP,
 	ITEM_IDX_SIZE,
 	ITEM_IDX_MAJOR,
+	ITEM_IDX_INO,
 	ITEM_IDX_MINOR,
 	ITEM_IDX_LAST_MOD,
 	ITEM_IDX_PATH_NAME
@@ -77,19 +79,15 @@ enum	e_item_index
 
 typedef struct	s_fstat
 {
-	char		name[255];
-	int			type;
-	char		*path;
-	char		modes[11];
-	int			n_link;
-	char		owner[32];
-	char		group[32];
-	int			size;
-	int			n_block;
-	int			error;
-	time_t		mod_time;
-	dev_t		dev;
-	char		format_date[DATE_FORMAT_MAX_LEN];
+	struct	stat	fstat;
+	char			name[255];
+	int				type;
+	char			*path;
+	char			modes[11];
+	char			owner[32];
+	char			group[32];
+	int				error;
+	char			format_date[DATE_FORMAT_MAX_LEN];
 }				t_fstat;
 
 typedef struct	s_flist
@@ -115,6 +113,7 @@ enum	e_option_flags
 	FLAG_LIST_SUBDIRS = (1U << 2U),
 	FLAG_LONG_FORMAT = (1U << 3U),
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
+	FLAG_DISPLAY_INODE = (1U << 5U)
 };
 
 typedef int	(*t_comp_func)(t_fstat *, t_fstat *);
@@ -161,4 +160,5 @@ int		get_width_by_int_item(int item);
 int		display_long_bc(t_flist *f_list, int start, int *items_w);
 int		display_long_l(t_flist *f_list, int start, int *items_w);
 int		display_long_fd(t_flist *f_list, int start, int *items_w);
+long	get_max_inode(t_flist *f_list);
 #endif

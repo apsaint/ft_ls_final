@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 14:35:48 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 16:35:01 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,29 @@ int		item_index_size(t_flist *f_list, int i, int *items)
 	}
 	else
 	{
-		if (items[ITEM_IDX_SIZE] < f_list->data[i].size)
-			items[ITEM_IDX_SIZE] = f_list->data[i].size;
+		if (items[ITEM_IDX_SIZE] < f_list->data[i].fstat.st_size)
+			items[ITEM_IDX_SIZE] = f_list->data[i].fstat.st_size;
 		return (0);
 	}
 }
 
-void	get_all_items_width(t_flist *f_list, int *items, t_options *opt)
+long	get_max_inode(t_flist *f_list)
+{
+	unsigned long	max;
+	size_t	i;
+
+	max = 0;
+	i = 0;
+	while (i < f_list->count)
+	{
+		if (max < f_list->data[i].fstat.st_ino)
+			max = f_list->data[i].fstat.st_ino;
+		i++;
+	}
+	return (get_width_by_int_item(max));
+}
+
+void	get_all_items_width(t_flist *f_list, int *items)
 {
 	register int	w;
 	size_t			i;
@@ -43,8 +59,8 @@ void	get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 			items[ITEM_IDX_OWNER] = w;
 		if (items[ITEM_IDX_GROUP] < (w = (int)ft_strlen(f_list->data[i].group)))
 			items[ITEM_IDX_GROUP] = w;
-		if (items[ITEM_IDX_NLINKS] < f_list->data[i].n_link)
-			items[ITEM_IDX_NLINKS] = f_list->data[i].n_link;
+		if (items[ITEM_IDX_NLINKS] < f_list->data[i].fstat.st_nlink)
+			items[ITEM_IDX_NLINKS] = f_list->data[i].fstat.st_nlink;
 		count_bc = item_index_size(f_list, i, items);
 		i++;
 	}
@@ -61,9 +77,14 @@ void	display_items(t_flist *f_list, t_options *opt)
 	int			items_w[LONG_FORMAT_MAX_ITEMS];
 
 	ft_bzero(items_w, sizeof(items_w));
-	get_all_items_width(f_list, items_w, opt);
+	get_all_items_width(f_list, items_w);
+	if (opt->flags & FLAG_DISPLAY_INODE)
+		items_w[ITEM_IDX_INO] = get_max_inode(f_list);
 	while (start != end)
 	{
+		if (opt->flags & FLAG_DISPLAY_INODE)
+			ft_printf("%*d ", items_w[ITEM_IDX_INO],
+					f_list->data[start].fstat.st_ino);
 		if (f_list->data[start].modes[0] == 'b'
 				|| f_list->data[start].modes[0] == 'c')
 			display_long_bc(f_list, start, items_w);

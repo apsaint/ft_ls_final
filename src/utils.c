@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:22:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 13:31:35 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:52:43 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		total_block(t_flist *f_list)
 	i = 0;
 	while (i < f_list->count)
 	{
-		total += f_list->data[i].n_block;
+		total += f_list->data[i].fstat.st_blocks;
 		i++;
 	}
 	return (total);

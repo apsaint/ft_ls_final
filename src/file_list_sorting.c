@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:13:34 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 09:20:38 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:56:04 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		compare_by_ascii(t_fstat *f1, t_fstat *f2)
 
 int		compare_by_size(t_fstat *f1, t_fstat *f2)
 {
-	if (f1->size < f2->size)
+	if (f1->fstat.st_size < f2->fstat.st_size)
 		return (1);
-	else if (f1->size == f2->size)
+	else if (f1->fstat.st_size == f2->fstat.st_size)
 		return (compare_by_ascii(f1, f2));
 	else
 		return (-1);
@@ -29,9 +29,9 @@ int		compare_by_size(t_fstat *f1, t_fstat *f2)
 
 int		compare_by_date(t_fstat *f1, t_fstat *f2)
 {
-	if (f1->mod_time < f2->mod_time)
+	if (f1->fstat.st_mtime < f2->fstat.st_mtime)
 		return (1);
-	else if (f1->mod_time == f2->mod_time)
+	else if (f1->fstat.st_mtime == f2->fstat.st_mtime)
 		return (compare_by_ascii(f1, f2));
 	else
 		return (-1);
