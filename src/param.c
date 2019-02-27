@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 13:37:20 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:32:41 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,15 @@
 
 int	show_errors_and_destroy_errlist(char **errors, char **begin)
 {
+	while (*errors != NULL)
+	{
+		if (**errors == '\0')
+		{
+			print_path_error("fts_open", "", ENOENT);
+			free(begin);
+			return (PARAM_ERROR);
+		}
+	}
 	while(*errors != NULL)
 	{
 		print_path_error(*errors, "cannot open directory ", ENOENT);
@@ -171,6 +180,5 @@ int	param_eval_all(const char *params[], int count, t_options *opt, char ***path
 	*errors = NULL;
 	*paths = path_begin;
 	errors = error_begin;
-	show_errors_and_destroy_errlist(errors, error_begin);
-	return (0);
+	return (show_errors_and_destroy_errlist(errors, error_begin));
 }
