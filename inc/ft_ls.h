@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 14:28:13 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 15:17:34 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ int		param_eval_all(const char *params[], int count, t_options *opt,
 int		directory_list(char *path, t_options *opt);
 
 int		print_option_error(const char *option, int opt_type);
-int		print_path_error(const char *path, const char *content, int err_num);
+int		print_path_error(const char *path, int err_num);
 
 int		f_list_init(t_flist *f_list);
 int		f_list_add(t_flist *f_list, t_fstat *file);
