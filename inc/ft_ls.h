@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 13:32:31 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/27 13:57:41 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,24 @@
 
 # define F_LIST_DEFAULT_SIZE (16)
 
+# define LONG_FORMAT_MAX_ITEMS (8)
+
 enum	e_format_style
 {
 	TIME_DEFAULT_FORMAT,
 	TIME_ALT_FORMAT
+};
+
+enum e_item_index
+{
+	ITEM_IDX_NLINKS,
+	ITEM_IDX_OWNER,
+	ITEM_IDX_GROUP,
+	ITEM_IDX_SIZE,
+	ITEM_IDX_MAJOR,
+	ITEM_IDX_MINOR,
+	ITEM_IDX_LAST_MOD,
+	ITEM_IDX_PATH_NAME
 };
 
 typedef struct	s_fstat
@@ -142,5 +156,6 @@ int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
 int		compare_by_date(t_fstat *f1, t_fstat *f2);
 int		compare_by_size(t_fstat *f1, t_fstat *f2);
 int		compare_false(t_fstat *f1, t_fstat *f2);
-
+int		total_block(t_flist *f_list);
+int		get_width_by_int_item(int item);
 #endif

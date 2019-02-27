@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:22:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 09:27:26 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 13:31:35 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,32 @@ void	swap(t_fstat *f1, t_fstat *f2)
 	tmp = *f1;
 	*f1 = *f2;
 	*f2 = tmp;
+}
+
+int		get_width_by_int_item(int item)
+{
+	int w;
+
+	w = 1;
+	while (item > 9)
+	{		
+		item /= 10;
+		w++;
+	}
+	return (w);
+}
+
+int		total_block(t_flist *f_list)
+{
+	size_t	i;
+	int		total;
+
+	total = 0;
+	i = 0;
+	while (i < f_list->count)
+	{
+		total += f_list->data[i].n_block;
+		i++;
+	}
+	return (total);
 }

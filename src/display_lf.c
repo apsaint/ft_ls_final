@@ -6,56 +6,14 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 16:22:16 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 13:42:59 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "ft_printf.h"
 
-int		total_block(t_flist *f_list)
-{
-	size_t	i;
-	int		total;
-
-	total = 0;
-	i = 0;
-	while (i < f_list->count)
-	{
-		total += f_list->data[i].n_block;
-		i++;
-	}
-	return (total);
-}
-// a moove
-#define LONG_FORMAT_MAX_ITEMS (8)
-
-enum e_item_index
-{
-	ITEM_IDX_NLINKS,
-	ITEM_IDX_OWNER,
-	ITEM_IDX_GROUP,
-	ITEM_IDX_SIZE,
-	ITEM_IDX_MAJOR,
-	ITEM_IDX_MINOR,
-	ITEM_IDX_LAST_MOD,
-	ITEM_IDX_PATH_NAME
-};
-
-int		get_width_by_int_item(int item)
-{
-	int w;
-
-	w = 1;
-	while (item > 9)
-	{
-		item /= 10;
-		w++;
-	}
-	return (w);
-}
-
-void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
+void	get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 {
 	register int	w;
 	size_t			i;
@@ -74,10 +32,8 @@ void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 		if (f_list->data[i].modes[0] == 'b'
 				|| f_list->data[i].modes[0] == 'c')
 		{
-			if (items[ITEM_IDX_MAJOR] < major(f_list->data[i].dev))
-				items[ITEM_IDX_MAJOR] = major(f_list->data[i].dev);
-			if (items[ITEM_IDX_MINOR] < minor(f_list->data[i].dev))
-				items[ITEM_IDX_MINOR] = minor(f_list->data[i].dev);
+			items[ITEM_IDX_MAJOR] = 2;
+			items[ITEM_IDX_MINOR] = 3;
 			count_bc = 1;
 		}
 		else
@@ -87,10 +43,7 @@ void get_all_items_width(t_flist *f_list, int *items, t_options *opt)
 		}
 		i++;
 	}
-	items[ITEM_IDX_MAJOR] = get_width_by_int_item(items[ITEM_IDX_MAJOR]);
-	items[ITEM_IDX_MINOR] = 3/*get_width_by_int_item(items[ITEM_IDX_MINOR])*/;
-	items[ITEM_IDX_SIZE] = (count_bc > 0) ? (items[ITEM_IDX_MAJOR]
-			+ items[ITEM_IDX_MINOR] + 3)
+	items[ITEM_IDX_SIZE] = (count_bc > 0) ? (items[ITEM_IDX_MAJOR] + 6)
 		: get_width_by_int_item(items[ITEM_IDX_SIZE]);
 	items[ITEM_IDX_NLINKS] = get_width_by_int_item(items[ITEM_IDX_NLINKS]);
 }
