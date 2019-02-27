@@ -6,25 +6,25 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 10:11:30 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 09:18:01 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <unistd.h>
 
-static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f_list, char *path)
+static int	collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 {
-	t_fstat		fs;
-	struct		dirent *d;
-	const int	dots_count = 2;
-	int	i;
+	t_fstat			fs;
+	struct dirent	*d;
+	const int		dots_count = 2;
+	int				i;
 
 	i = 0;
 	while (i++ < dots_count)
 	{
 		if ((d = readdir(dir)) == NULL)
-			return (0); 
+			return (0);
 		if (opt->flags & FLAG_SHOW_MAP_DIR)
 		{
 			fs.type = d->d_type;
@@ -37,10 +37,10 @@ static int collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f
 	return (0);
 }
 
-static int collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
+static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 {
-	t_fstat fs;
-	struct	dirent	*dp;
+	t_fstat			fs;
+	struct dirent	*dp;
 
 	if (collect_special_dots_if_required(dir, opt, f_list, path) == ALLOC_ERROR)
 		return (ALLOC_ERROR);
@@ -66,7 +66,7 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 	ft_bzero(new_path, sizeof(new_path));
 	while (i < f_list->count)
 	{
-		if (f_list->data[i].type == 4) // a modif
+		if (f_list->data[i].type == 4)
 		{
 			if (ft_strcmp(f_list->data[i].name, ".") == 0
 			|| ft_strcmp(f_list->data[i].name, "..") == 0)
@@ -85,7 +85,7 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 
 int	directory_list(char *path, t_options *opt)
 {
-	t_flist f_list;
+	t_flist			f_list;
 	DIR				*dirp;
 
 	errno = 0;

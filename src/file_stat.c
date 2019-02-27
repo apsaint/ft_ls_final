@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/25 15:03:06 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 09:22:10 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	format_modes(mode_t m, t_fstat *file)
  * rempli les elements de la structure utilisant stat
  */
 
-void	get_file_stat(t_fstat *file, struct dirent *dp, char *path)
+void		get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
@@ -63,7 +63,7 @@ void	get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 	format_modes(stat_elem.st_mode, file);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);
-	if ( pw == NULL || pw->pw_name == NULL)
+	if (pw == NULL || pw->pw_name == NULL)
 		ls_itoa_min(stat_elem.st_uid, file->owner);
 	else
 		ft_strcpy(file->owner, pw->pw_name);
@@ -73,5 +73,6 @@ void	get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 		ft_strcpy(file->group, gp->gr_name);
 	file->dev = stat_elem.st_rdev;
 	file->mod_time = stat_elem.st_mtime;
-	format_date(file->format_date, ctime(&stat_elem.st_mtime), stat_elem.st_mtime);
+	format_date(file->format_date, ctime(&stat_elem.st_mtime),
+			stat_elem.st_mtime);
 }
