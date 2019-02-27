@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/25 14:12:46 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/27 13:37:20 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,11 @@ int	eval_short_flag(const char *input, t_options *opt)
 		opt->sort_func = &compare_by_size;
 	else if (*input == SPEC_ONE_FILE_PER_LINE)
 		opt->display_func = &display_one_by_line;
+	else if (*input == SPEC_OUTPUT_NOT_SORTED)
+	{
+		opt->flags |= (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIR);
+		opt->sort_func = NULL;
+	}
 	else
 	{
 		print_option_error(input, PARAM_OPTION_SHORT);

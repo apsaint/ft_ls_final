@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 11:38:49 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 13:32:31 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@
 # define FLAG_SORT_BY_TIME		't'
 # define FLAG_SORT_BY_SIZE		'S'
 # define SPEC_ONE_FILE_PER_LINE	'1'
-
+# define SPEC_OUTPUT_NOT_SORTED 'f'
 # define DATE_FORMAT_MAX_LEN (32)
 
 # define UNIX_TIME_SIX_MONTH (3600 * 24 * 30 * 6)
@@ -141,5 +141,6 @@ void	swap(t_fstat *f1, t_fstat *f2);
 int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
 int		compare_by_date(t_fstat *f1, t_fstat *f2);
 int		compare_by_size(t_fstat *f1, t_fstat *f2);
+int		compare_false(t_fstat *f1, t_fstat *f2);
 
 #endif
