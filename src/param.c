@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 14:32:41 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/27 14:58:07 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,14 @@ int	show_errors_and_destroy_errlist(char **errors, char **begin)
 {
 	while (*errors != NULL)
 	{
-		if (**errors == '\0')
+		if (**errors++ == '\0')
 		{
 			print_path_error("fts_open", "", ENOENT);
 			free(begin);
 			return (PARAM_ERROR);
 		}
 	}
+	errors = begin;
 	while(*errors != NULL)
 	{
 		print_path_error(*errors, "cannot open directory ", ENOENT);
