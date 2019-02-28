@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/28 23:07:20 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 23:09:14 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,12 +74,6 @@ void		get_file_stat(t_fstat *file, struct dirent *dp, char *path, t_options *opt
 	format_date(file->format_date, ctime(&stat_elem.st_mtime),
 			stat_elem.st_mtime);
 }
-
-
-//TODO: Les deux fonctions sont quasiment identique, il faut remedier a cela
-// autant n utiliser que la version avec le path seul, donc le combine doit
-// se faire en amont.
-
 
 int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 {
