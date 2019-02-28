@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 16:31:16 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:31:45 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,25 +36,37 @@ int		display_one_by_line(t_flist *f_list, t_options *opt, char *path)
 
 	if (opt->flags & FLAG_LIST_SUBDIRS)
 		ft_printf("%s:\n", path);
-	if (f_list->count == 0)
+	if (f_list->count != 0)
 	{
-		write(1, "\n", 1);
-		return (0);
-	}
-	ino_w = get_max_inode(f_list);
-	while (start != end)
-	{
-		if (opt->flags & FLAG_DISPLAY_INODE)
-			ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
-		ft_printf("%s\n", f_list->data[start].name);
-		start += inc;
+	
+		ino_w = get_max_inode(f_list);
+		while (start != end)
+		{
+			if (opt->flags & FLAG_DISPLAY_INODE)
+				ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
+			ft_printf("%s\n", f_list->data[start].name);
+			start += inc;
+		}
 	}
 	return (0);
 }
 
 int		display_long_bc(t_flist *f_list, int start, int *items_w)
 {
-	ft_printf("%s  %*d %-*s  %-*s   %*d, %*d %s %s\n",
+	if (items_w[ITEM_IDX_OWNER] == -1)
+	{
+		ft_printf("%s  %*d %-*s   %*d, %*d %s %s\n",
+			f_list->data[start].modes,
+			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
+			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
+			items_w[ITEM_IDX_MAJOR], major(f_list->data[start].fstat.st_rdev),
+			items_w[ITEM_IDX_MINOR], minor(f_list->data[start].fstat.st_rdev),
+			f_list->data[start].format_date,
+			f_list->data[start].name);
+	}
+	else
+	{
+		ft_printf("%s  %*d %-*s  %-*s   %*d, %*d %s %s\n",
 			f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
@@ -63,6 +75,7 @@ int		display_long_bc(t_flist *f_list, int start, int *items_w)
 			items_w[ITEM_IDX_MINOR], minor(f_list->data[start].fstat.st_rdev),
 			f_list->data[start].format_date,
 			f_list->data[start].name);
+	}
 	return (0);
 }
 
@@ -76,7 +89,19 @@ int		display_long_l(t_flist *f_list, int start, int *items_w)
 		return (-1);
 	readlink(f_list->data[start].path, buf, f_list->data[start].fstat.st_size);
 	buf[size] = '\0';
-	ft_printf("%s  %*d %-*s  %-*s  %*d %s %s -> %s\n",
+	if (items_w[ITEM_IDX_OWNER] == -1)
+	{
+		ft_printf("%s  %*d %-*s  %*d %s %s -> %s\n",
+			f_list->data[start].modes,
+			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
+			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
+			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
+			f_list->data[start].format_date,
+			f_list->data[start].name, buf);
+	}
+	else
+	{
+		ft_printf("%s  %*d %-*s  %-*s  %*d %s %s -> %s\n",
 			f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
@@ -84,13 +109,26 @@ int		display_long_l(t_flist *f_list, int start, int *items_w)
 			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
 			f_list->data[start].format_date,
 			f_list->data[start].name, buf);
+	}
 	free(buf);
 	return (0);
 }
 
 int		display_long_fd(t_flist *f_list, int start, int *items_w)
 {
-	ft_printf("%s  %*d %-*s  %-*s  %*d %s %s\n",
+	if (items_w[ITEM_IDX_OWNER] == -1)
+	{
+	ft_printf("%s  %*d %-*s  %*d %s %s\n",
+			f_list->data[start].modes,
+			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
+			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
+			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
+			f_list->data[start].format_date,
+			f_list->data[start].name);
+	}
+	else
+	{
+		ft_printf("%s  %*d %-*s  %-*s  %*d %s %s\n",
 			f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_OWNER], f_list->data[start].owner,
@@ -98,5 +136,6 @@ int		display_long_fd(t_flist *f_list, int start, int *items_w)
 			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
 			f_list->data[start].format_date,
 			f_list->data[start].name);
+	}
 	return (0);
 }

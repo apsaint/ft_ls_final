@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 15:19:31 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:49:33 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f
 		{
 			fs.type = d->d_type;
 			ft_strcpy(fs.name, d->d_name);
-			get_file_stat(&fs, d, path);
+			get_file_stat(&fs, d, path, opt);
 			if (f_list_add(f_list, &fs) == ALLOC_ERROR)
 				return (ALLOC_ERROR);
 		}
@@ -41,7 +41,9 @@ static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 {
 	t_fstat			fs;
 	struct dirent	*dp;
+	int				i;
 
+	i = 0;
 	if (collect_special_dots_if_required(dir, opt, f_list, path) == ALLOC_ERROR)
 		return (ALLOC_ERROR);
 	while ((dp = readdir(dir)) != NULL)
@@ -50,7 +52,7 @@ static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 			continue ;
 		ft_strcpy(fs.name, dp->d_name);
 		fs.type = dp->d_type;
-		get_file_stat(&fs, dp, path);
+		get_file_stat(&fs, dp, path, opt);
 		if (f_list_add(f_list, &fs) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
 	}
@@ -87,6 +89,7 @@ int	directory_list(char *path, t_options *opt)
 {
 	t_flist			f_list;
 	DIR				*dirp;
+	static int		n = 0;
 
 	errno = 0;
 	if ((dirp = opendir(path)) == NULL)
@@ -101,9 +104,14 @@ int	directory_list(char *path, t_options *opt)
 	closedir(dirp);
 	if (opt->sort_func != NULL)
 		f_list_qsort(&f_list, opt, f_list.count - 1, 0);
+	if (n == 1)
+		ft_putchar('\n');
 	opt->display_func(&f_list, opt, path);
 	if (opt->flags & FLAG_LIST_SUBDIRS)
+	{
+		n = 1;
 		try_list_subdirs(path, &f_list, opt);
+	}
 	f_list_destroy_storage(&f_list);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 22:12:17 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 22:26:20 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,9 +141,6 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	}
 	catch_directories_and_run_listing(paths, tmp, (flst.count != 0), opt);
 	free(tmp);
-
-
-
 	// process
 	// while (paths->path_name)
 	// {

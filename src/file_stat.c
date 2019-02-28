@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/28 14:36:04 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 22:26:49 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static void	format_modes(mode_t m, t_fstat *file)
  * rempli les elements de la structure utilisant stat
  */
 
-void		get_file_stat(t_fstat *file, struct dirent *dp, char *path)
+void		get_file_stat(t_fstat *file, struct dirent *dp, char *path, t_options *opt)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
@@ -59,6 +59,8 @@ void		get_file_stat(t_fstat *file, struct dirent *dp, char *path)
 		stat(file->path, &stat_elem);
 	file->fstat = stat_elem;
 	format_modes(stat_elem.st_mode, file);
+	if (opt->flags & FLAG_F)
+		add_type_file(file, dp);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);
 	if (pw == NULL || pw->pw_name == NULL)

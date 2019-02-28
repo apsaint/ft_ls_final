@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 22:45:28 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 22:25:17 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,11 @@
 # define DEFAULT_PATH "."
 
 # define SPEC_LONG_FORMAT		'l'
+# define SPEC_LONG_G			'g'
 # define SPEC_ALL				'a'
 # define SPEC_ALMOST_ALL		'A'
 # define SPEC_RECURSIVELY		'R'
+# define SPEC_F					'F'
 # define SPEC_REVERSE			'r'
 # define SPEC_INODE				'i'
 # define FLAG_SORT_BY_TIME		't'
@@ -120,7 +122,9 @@ enum	e_option_flags
 	FLAG_LIST_SUBDIRS = (1U << 2U),
 	FLAG_LONG_FORMAT = (1U << 3U),
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
-	FLAG_DISPLAY_INODE = (1U << 5U)
+	FLAG_DISPLAY_INODE = (1U << 5U),
+	FLAG_F = (1U << 6U),
+	FLAG_LONG_G = (1U << 7U)
 };
 
 typedef int	(*t_comp_func)(t_fstat *, t_fstat *);
@@ -146,7 +150,8 @@ int		f_list_init(t_flist *f_list);
 int		f_list_add(t_flist *f_list, t_fstat *file);
 int		f_list_destroy_storage(t_flist *f_list);
 
-void	get_file_stat(t_fstat *fs, struct dirent *dp, char *path);
+void	get_file_stat(t_fstat *fs, struct dirent *dp, char *path,
+		t_options *opt);
 
 int		display_one_by_line(t_flist *f_list, t_options *opt, char *path);
 int		display_long_format(t_flist *f_list, t_options *opt, char *path);
@@ -169,5 +174,5 @@ int		display_long_l(t_flist *f_list, int start, int *items_w);
 int		display_long_fd(t_flist *f_list, int start, int *items_w);
 long	get_max_inode(t_flist *f_list);
 int		get_file_stat_by_path(t_fstat *file, char *path);
-
+void	add_type_file(t_fstat *fs, struct dirent *dp);
 #endif
