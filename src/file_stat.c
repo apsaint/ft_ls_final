@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/28 22:26:49 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 23:07:20 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void		get_file_stat(t_fstat *file, struct dirent *dp, char *path, t_options *opt
 // se faire en amont.
 
 
-int		get_file_stat_by_path(t_fstat *file, char *path)
+int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
@@ -91,8 +91,9 @@ int		get_file_stat_by_path(t_fstat *file, char *path)
 	ft_bzero(name, 4097);
 	// a virer
 	strcpy(file->name, path);
+	file->path = ft_strdup(path);
 	errno = 0;
-	if (path[len - 1] != '/')
+	if (path[len - 1] != '/' && opt->display_func == &display_long_format)
 		lstat(path, &stat_elem);
 	else
 		stat(path, &stat_elem);

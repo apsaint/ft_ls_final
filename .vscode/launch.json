@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}/ft_ls",
-            "args": ["toto", "titi"],
+            "args": ["-l", "link"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

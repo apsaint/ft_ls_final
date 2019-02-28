@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 22:25:17 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 22:35:37 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,6 +173,6 @@ int		display_long_bc(t_flist *f_list, int start, int *items_w);
 int		display_long_l(t_flist *f_list, int start, int *items_w);
 int		display_long_fd(t_flist *f_list, int start, int *items_w);
 long	get_max_inode(t_flist *f_list);
-int		get_file_stat_by_path(t_fstat *file, char *path);
+int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt);
 void	add_type_file(t_fstat *fs, struct dirent *dp);
 #endif

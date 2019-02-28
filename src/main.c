@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 22:26:20 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 22:36:09 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	show_header(char *path)
 	ft_putstr(":\n");
 }
 
-static int get_stats_from_all(t_path *paths)
+static int get_stats_from_all(t_path *paths, t_options *opt)
 {
 	while (paths->path_name != NULL)
 	{
@@ -30,7 +30,7 @@ static int get_stats_from_all(t_path *paths)
 			print_path_error("fts_open", ENOENT);
 			return (-1);
 		}
-		paths->err = get_file_stat_by_path(&paths->file_stat, paths->path_name);
+		paths->err = get_file_stat_by_path(&paths->file_stat, paths->path_name, opt);
 		paths++;
 	}
 	return (0);
@@ -129,7 +129,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	if ((tmp = (t_path **)malloc(sizeof(t_path *)
 	* (get_path_count(paths) + 1))) == NULL)
 		return (-1);
-	if (get_stats_from_all(paths) == -1)
+	if (get_stats_from_all(paths, opt) == -1)
 		return -1;
 	catch_path_errors_and_print(paths, tmp);
 	f_list_init(&flst);
