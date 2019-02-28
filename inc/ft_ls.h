@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 11:09:08 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 11:37:59 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define DEFAULT_PATH "."
 
 # define SPEC_LONG_FORMAT		'l'
+# define SPEC_LONG_G			'g'
 # define SPEC_ALL				'a'
 # define SPEC_ALMOST_ALL		'A'
 # define SPEC_RECURSIVELY		'R'
@@ -115,7 +116,8 @@ enum	e_option_flags
 	FLAG_LONG_FORMAT = (1U << 3U),
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
 	FLAG_DISPLAY_INODE = (1U << 5U),
-	FLAG_F = (1U << 6U)
+	FLAG_F = (1U << 6U),
+	FLAG_LONG_G = (1U << 7U)
 };
 
 typedef int	(*t_comp_func)(t_fstat *, t_fstat *);

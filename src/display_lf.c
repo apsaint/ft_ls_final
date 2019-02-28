@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 16:35:01 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 11:51:13 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ void	display_items(t_flist *f_list, t_options *opt)
 	get_all_items_width(f_list, items_w);
 	if (opt->flags & FLAG_DISPLAY_INODE)
 		items_w[ITEM_IDX_INO] = get_max_inode(f_list);
+	if (opt->flags & FLAG_LONG_G)
+		items_w[ITEM_IDX_OWNER] = -1;
 	while (start != end)
 	{
 		if (opt->flags & FLAG_DISPLAY_INODE)
