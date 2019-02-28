@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 11:51:34 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 15:31:45 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,18 +36,17 @@ int		display_one_by_line(t_flist *f_list, t_options *opt, char *path)
 
 	if (opt->flags & FLAG_LIST_SUBDIRS)
 		ft_printf("%s:\n", path);
-	if (f_list->count == 0)
+	if (f_list->count != 0)
 	{
-		write(1, "\n", 1);
-		return (0);
-	}
-	ino_w = get_max_inode(f_list);
-	while (start != end)
-	{
-		if (opt->flags & FLAG_DISPLAY_INODE)
-			ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
-		ft_printf("%s\n", f_list->data[start].name);
-		start += inc;
+	
+		ino_w = get_max_inode(f_list);
+		while (start != end)
+		{
+			if (opt->flags & FLAG_DISPLAY_INODE)
+				ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
+			ft_printf("%s\n", f_list->data[start].name);
+			start += inc;
+		}
 	}
 	return (0);
 }
