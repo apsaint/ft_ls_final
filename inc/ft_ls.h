@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 16:56:56 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 09:13:06 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define SPEC_ALL				'a'
 # define SPEC_ALMOST_ALL		'A'
 # define SPEC_RECURSIVELY		'R'
+# define SPEC_F					'F'
 # define SPEC_REVERSE			'r'
 # define SPEC_INODE				'i'
 # define FLAG_SORT_BY_TIME		't'
@@ -113,7 +114,8 @@ enum	e_option_flags
 	FLAG_LIST_SUBDIRS = (1U << 2U),
 	FLAG_LONG_FORMAT = (1U << 3U),
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
-	FLAG_DISPLAY_INODE = (1U << 5U)
+	FLAG_DISPLAY_INODE = (1U << 5U),
+	FLAG_F = (1U << 6U)
 };
 
 typedef int	(*t_comp_func)(t_fstat *, t_fstat *);
