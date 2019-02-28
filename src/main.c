@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 11:45:11 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:02:19 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,23 @@ static void	show_header(char *path)
 	ft_putstr(":\n");
 }
 
-static void show_file(t_fstat *fs)
-{
-	printf("je ne suis pas un dir je m affiche trop bien\n");
-}
+// static void	sort_paths(t_path *paths)
+// {
+// 	const t_path	*begin = paths;
+// 	int				is_sorted;
+
+// 	is_sorted = 0;
+// 	while (is_sorted = 0)
+// 	{
+// 		is_sorted = 1;
+// 		paths = begin;
+// 		while (paths->path_name != NULL)
+// 		{
+// 			if (S_ISDIR(paths->file_stat.fstat.st_mode))
+// 			paths++;
+// 		}
+// 	}
+// }
 
 static int get_stats_from_all(t_path *paths)
 {
@@ -46,6 +59,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 {
 	const t_path	*beg = paths;
 	int				show_hd;
+	t_flist			flst;
 
 	show_hd = -1;
 	if (get_stats_from_all(paths) == -1)
@@ -59,11 +73,9 @@ static int	treat_paths(t_path *paths, t_options *opt)
 			show_hd++;
 		paths++;
 	}
-
-	// header handling (need la boucle au dessus pour fonctionner)
 	paths = (t_path *)beg;
-
 	// process
+	f_list_init(&flst);
 	while (paths->path_name)
 	{
 		if (paths->err == 0)
@@ -79,10 +91,15 @@ static int	treat_paths(t_path *paths, t_options *opt)
 			}
 			else
 			{
-				show_file(&paths->file_stat);
+				f_list_add(&flst, &paths->file_stat);
 			}
 		}
 		paths++;
+	}
+	if (flst.count != 0)
+	{
+		f_list_qsort(&flst, opt, flst.count - 1, 0);
+		opt->display_func(&flst, opt, paths->path_name);
 	}
 	return (0);
 }
