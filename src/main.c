@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 11:12:39 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 11:45:11 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,11 @@ static void	show_header(char *path)
 	ft_putstr(":\n");
 }
 
+static void show_file(t_fstat *fs)
+{
+	printf("je ne suis pas un dir je m affiche trop bien\n");
+}
+
 static int get_stats_from_all(t_path *paths)
 {
 	while (paths->path_name != NULL)
@@ -33,6 +38,7 @@ static int get_stats_from_all(t_path *paths)
 		paths->err = get_file_stat_by_path(&paths->file_stat, paths->path_name);
 		paths++;
 	}
+	return (0);
 	// faire le tri
 }
 
@@ -40,30 +46,41 @@ static int	treat_paths(t_path *paths, t_options *opt)
 {
 	const t_path	*beg = paths;
 	int				show_hd;
-	
+
+	show_hd = -1;
 	if (get_stats_from_all(paths) == -1)
 		return -1;
+	// error handling (a moove ailleurs surement)
 	while (paths->path_name != NULL)
 	{
 		if (paths->err != 0)
 			print_path_error(paths->path_name, paths->err);
+		else
+			show_hd++;
 		paths++;
 	}
-	if (paths->path_name != NULL)
-		show_hd = ((paths + 1)->path_name != NULL ? 1 : 0);
-	else
-		show_hd = 0;
+
+	// header handling (need la boucle au dessus pour fonctionner)
 	paths = (t_path *)beg;
+
+	// process
 	while (paths->path_name)
 	{
 		if (paths->err == 0)
 		{
-			if (show_hd == 1)
-				show_header(paths->path_name);
-			if(directory_list(paths->path_name, opt) == -1)
-				return (-1);
-			if ((paths + 1)->path_name != NULL)
-				ft_putchar('\n');
+			if (S_ISDIR(paths->file_stat.fstat.st_mode))
+			{
+				if (show_hd > 0)
+					show_header(paths->path_name);
+				if(directory_list(paths->path_name, opt) == -1)
+					return (-1);
+				if ((paths + 1)->path_name != NULL)
+					ft_putchar('\n');
+			}
+			else
+			{
+				show_file(&paths->file_stat);
+			}
 		}
 		paths++;
 	}
@@ -88,20 +105,6 @@ int main(int ac, char const *av[])
 		directory_list(".", &opt);
 	else
 		treat_paths(paths, &opt);
-	// while (*paths != NULL)
-	// 	paths++;
-	// show_hd = ((paths - 1) != p_begin ? 1 : 0);
-	// paths = p_begin;
-	// while (*paths != NULL)
-	// {
-	// 	if (show_hd == 1)
-	// 		show_header(*paths);
-	// 	if (directory_list(*paths, &opt) == -1)
-	// 		break;
-	// 	if (*(paths + 1) != NULL)
-	// 		ft_putchar('\n');
-	// 	paths++;
-	// }
 	free(paths);
 	return (EXIT_SUCCESS);
 }
