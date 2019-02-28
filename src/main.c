@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 22:36:09 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 23:15:40 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_
 		}
 		paths++;
 	}
+	if (prev_files)
+		ft_putchar('\n');
 	if (size + prev_files > 1)
 	{
 		while (i < size)
