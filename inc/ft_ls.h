@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 16:56:56 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/27 22:45:28 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,13 @@ enum	e_param_type
 	PARAM_OPTION_END
 };
 
+typedef struct	s_path
+{
+	char	*path_name;
+	int		err;
+	t_fstat	file_stat;
+}				t_path;
+
 enum	e_option_flags
 {
 	FLAG_SHOW_HIDDEN_FILE = (1U << 0U),
@@ -128,7 +135,7 @@ typedef struct		s_options
 typedef int(*t_display_func)(t_flist *, t_options *, char *);
 
 int		param_eval_all(const char *params[], int count, t_options *opt,
-		char ***paths);
+		t_path **paths);
 
 int		directory_list(char *path, t_options *opt);
 
@@ -161,4 +168,6 @@ int		display_long_bc(t_flist *f_list, int start, int *items_w);
 int		display_long_l(t_flist *f_list, int start, int *items_w);
 int		display_long_fd(t_flist *f_list, int start, int *items_w);
 long	get_max_inode(t_flist *f_list);
+int		get_file_stat_by_path(t_fstat *file, char *path);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 21:13:49 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/27 23:11:10 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,37 +15,9 @@
 #include "ft_ls.h"
 #include "libft.h"
 
-int	show_errors_and_destroy_errlist(char **errors, char **begin)
+int add_param_to_pathlist(char ***paths, const char *param)
 {
-	while (*errors != NULL)
-	{
-		if (**errors++ == '\0')
-		{
-			print_path_error("fts_open", ENOENT);
-			free(begin);
-			return (PARAM_ERROR);
-		}
-	}
-	errors = begin;
-	while(*errors != NULL)
-	{
-		print_path_error(*errors, ENOENT);
-		errors++;
-	}
-	free(begin);
-	return (0);
-}
-
-int add_param_to_pathlist_or_errlist(char ***paths, char ***errors, 
-const char *param)
-{
-	struct stat	s_stat;
-	
-	errno = 0;
-	if ((stat(param, &s_stat) == -1) && (errno == ENOENT))
-		*((*errors)++) = (char *)param;
-	else
-		*((*paths)++) = (char *)param;
+	*((*paths)++) = (char *)param;
 	return (0);
 }
 
@@ -98,7 +70,7 @@ int	eval_short_flag(const char *input, t_options *opt)
 	return (0);
 }
 
-int param_eval_flags(const char *input, t_options *data, int flag_type)
+int param_eval_flags(const char *input, t_options *data)
 {
 	while (*input)
 	{
@@ -109,53 +81,38 @@ int param_eval_flags(const char *input, t_options *data, int flag_type)
 	return (0);
 }
 
-int	param_init_arrays(char ***paths, char ***errors, int count)
+int	param_eval_all(const char *params[], int count, t_options *opt, t_path **paths)
 {
-	if ((*paths = (char **)malloc(sizeof(char *) * (count + 1))) == NULL)
-		return (-1);
-	if ((*errors = (char **)malloc(sizeof(char *) * (count + 1))) == NULL)
-	{
-		free(*paths);
-		return (-1);
-	}
-	return (0);
-}
-
-int	param_eval_all(const char *params[], int count, t_options *opt, char ***paths)
-{
-	char	**path_begin;
-	char	**error_begin;
-	char	**errors;
+	t_path	*path_begin;
 	int		treat_as_path;
 	int		par_type;
 
 	treat_as_path = 0;
-	if (param_init_arrays(paths, &errors, count) == -1)
+	if ((*paths = (t_path *)malloc(sizeof(t_path) * (count + 1))) == NULL)
 		return (-1);
 	path_begin = *paths;
-	error_begin = errors;
 	while (count--)
 	{
 		if (treat_as_path == 1)
-			add_param_to_pathlist_or_errlist(paths, &errors, *params);
+			((*paths)++)->path_name = (char *)*params;
 		else if ((par_type = get_param_type(*params)) == PARAM_PATH)
-			add_param_to_pathlist_or_errlist(paths, &errors, *params);
+		{
+			treat_as_path = 1;
+			((*paths)++)->path_name = (char *)*params;
+		}
 		else if (par_type == PARAM_OPTION_END)
 			treat_as_path = 1;
 		else
 		{
-			if(param_eval_flags(++*params, opt, par_type) == PARAM_ERROR)
+			if(param_eval_flags(++*params, opt) == PARAM_ERROR)
 			{
 				free(path_begin);
-				free(error_begin);
 				return (-1);
 			}
 		}
 		params++;
 	}
-	**paths = NULL;
-	*errors = NULL;
+	(*paths)->path_name = NULL;
 	*paths = path_begin;
-	errors = error_begin;
-	return (show_errors_and_destroy_errlist(errors, error_begin));
+	return (0);
 }
