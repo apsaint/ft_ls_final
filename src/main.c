@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 14:02:19 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 22:12:17 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,6 @@ static void	show_header(char *path)
 	ft_putstr(path);
 	ft_putstr(":\n");
 }
-
-// static void	sort_paths(t_path *paths)
-// {
-// 	const t_path	*begin = paths;
-// 	int				is_sorted;
-
-// 	is_sorted = 0;
-// 	while (is_sorted = 0)
-// 	{
-// 		is_sorted = 1;
-// 		paths = begin;
-// 		while (paths->path_name != NULL)
-// 		{
-// 			if (S_ISDIR(paths->file_stat.fstat.st_mode))
-// 			paths++;
-// 		}
-// 	}
-// }
 
 static int get_stats_from_all(t_path *paths)
 {
@@ -55,52 +37,134 @@ static int get_stats_from_all(t_path *paths)
 	// faire le tri
 }
 
-static int	treat_paths(t_path *paths, t_options *opt)
-{
-	const t_path	*beg = paths;
-	int				show_hd;
-	t_flist			flst;
 
-	show_hd = -1;
-	if (get_stats_from_all(paths) == -1)
-		return -1;
-	// error handling (a moove ailleurs surement)
+int	get_path_count(t_path *paths)
+{
+	int count;
+
+	count = 0;
+	while (paths->path_name != NULL)
+	{
+		paths++;
+		count++;
+	}
+	return (count);
+}
+
+void catch_path_errors_and_print(t_path *paths, t_path **output)
+{
+	int size = 0;
+	int	i = 0;
+
 	while (paths->path_name != NULL)
 	{
 		if (paths->err != 0)
-			print_path_error(paths->path_name, paths->err);
-		else
-			show_hd++;
+		{
+			output[size++] = paths;
+		}
 		paths++;
 	}
-	paths = (t_path *)beg;
-	// process
-	f_list_init(&flst);
-	while (paths->path_name)
+	while (i < size)
+	{
+		print_path_error(output[i]->path_name, output[i]->err);
+		i++;
+	}
+}
+
+void catch_files(t_path *paths, t_flist *f_list)
+{
+	while (paths->path_name != NULL)
+	{
+		if (paths->err == 0)
+		{
+			if (!S_ISDIR(paths->file_stat.fstat.st_mode))
+				f_list_add(f_list, &paths->file_stat);
+		}
+		paths++;
+	}
+}
+
+void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_files, t_options *opt)
+{
+	int size;
+	int	i;
+
+	size = 0;
+	i = 0;
+	while (paths->path_name != NULL)
 	{
 		if (paths->err == 0)
 		{
 			if (S_ISDIR(paths->file_stat.fstat.st_mode))
 			{
-				if (show_hd > 0)
-					show_header(paths->path_name);
-				if(directory_list(paths->path_name, opt) == -1)
-					return (-1);
-				if ((paths + 1)->path_name != NULL)
-					ft_putchar('\n');
-			}
-			else
-			{
-				f_list_add(&flst, &paths->file_stat);
+				output[size++] = paths;
 			}
 		}
 		paths++;
 	}
+	if (size + prev_files > 1)
+	{
+		while (i < size)
+		{
+			show_header(output[i]->path_name);
+			directory_list(output[i]->path_name, opt);
+			i++;
+		}
+	}
+	else
+	{
+		while (i < size)
+		{
+			directory_list(output[i]->path_name, opt);
+			i++;
+		}
+	}
+}
+
+static int	treat_paths(t_path *paths, t_options *opt)
+{
+	t_flist			flst;
+	t_path 			**tmp;
+
+	if ((tmp = (t_path **)malloc(sizeof(t_path *)
+	* (get_path_count(paths) + 1))) == NULL)
+		return (-1);
+	if (get_stats_from_all(paths) == -1)
+		return -1;
+	catch_path_errors_and_print(paths, tmp);
+	f_list_init(&flst);
+	catch_files(paths, &flst);
 	if (flst.count != 0)
 	{
 		f_list_qsort(&flst, opt, flst.count - 1, 0);
 		opt->display_func(&flst, opt, paths->path_name);
 	}
+	catch_directories_and_run_listing(paths, tmp, (flst.count != 0), opt);
+	free(tmp);
+
+
+
+	// process
+	// while (paths->path_name)
+	// {
+	// 	if (paths->err == 0)
+	// 	{
+	// 		if (S_ISDIR(paths->file_stat.fstat.st_mode))
+	// 		{
+	// 			if (show_hd > 0)
+	// 				show_header(paths->path_name);
+	// 			if(directory_list(paths->path_name, opt) == -1)
+	// 				return (-1);
+	// 			if ((paths + 1)->path_name != NULL)
+	// 				ft_putchar('\n');
+	// 		}
+	// 		else
+	// 		{
+	// 			f_list_add(&flst, &paths->file_stat);
+	// 		}
+	// 	}
+	// 	paths++;
+	// }
 	return (0);
 }
 

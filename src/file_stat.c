@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/27 22:43:59 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 14:36:04 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,13 @@ int		get_file_stat_by_path(t_fstat *file, char *path)
 	char			name[4097];
 	const size_t	len = ft_strlen(path);
 	ft_bzero(name, 4097);
-	file->path = ft_strdup(path);
+	// a virer
+	strcpy(file->name, path);
 	errno = 0;
 	if (path[len - 1] != '/')
-		lstat(file->path, &stat_elem);
+		lstat(path, &stat_elem);
 	else
-		stat(file->path, &stat_elem);
+		stat(path, &stat_elem);
 	if (errno != 0)
 		return (errno);
 	file->fstat = stat_elem;
