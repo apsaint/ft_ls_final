@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 10:22:06 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/02/28 11:12:39 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,8 @@ static void	show_header(char *path)
 	ft_putstr(":\n");
 }
 
-// get les stats des fichiers de chaque path si exist
-// print les erreurs pour chaque invalide (gerer le tri plus tard)
-// check si header ou pas
-// lancer la bonne fonctions (fichier ou listdir) suivant le type
-// et / ou les options demandees
-// la fonction est a subdiviser en plusieurs sous tasks
-static int	treat_paths(t_path *paths, t_options *opt)
+static int get_stats_from_all(t_path *paths)
 {
-	const t_path	*beg = paths;
-	int				show_hd;
-	
 	while (paths->path_name != NULL)
 	{
 		if (*(paths->path_name) == '\0')
@@ -42,10 +33,20 @@ static int	treat_paths(t_path *paths, t_options *opt)
 		paths->err = get_file_stat_by_path(&paths->file_stat, paths->path_name);
 		paths++;
 	}
-	paths = (t_path *)beg;
-	while (paths->path_name != NULL && paths->err != 0)
+	// faire le tri
+}
+
+static int	treat_paths(t_path *paths, t_options *opt)
+{
+	const t_path	*beg = paths;
+	int				show_hd;
+	
+	if (get_stats_from_all(paths) == -1)
+		return -1;
+	while (paths->path_name != NULL)
 	{
-		print_path_error(paths->path_name, paths->err);
+		if (paths->err != 0)
+			print_path_error(paths->path_name, paths->err);
 		paths++;
 	}
 	if (paths->path_name != NULL)
@@ -57,7 +58,6 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	{
 		if (paths->err == 0)
 		{
-			if (S_ISLNK(paths->file_stat.fstat.st_mode))
 			if (show_hd == 1)
 				show_header(paths->path_name);
 			if(directory_list(paths->path_name, opt) == -1)
