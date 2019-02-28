@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 14:44:08 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:37:22 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		item_index_size(t_flist *f_list, int i, int *items)
 long	get_max_inode(t_flist *f_list)
 {
 	unsigned long	max;
-	size_t	i;
+	size_t			i;
 
 	max = 0;
 	i = 0;

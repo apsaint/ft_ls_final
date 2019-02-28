@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 13:54:35 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:05:15 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ enum	e_item_index
 
 typedef struct	s_fstat
 {
-	struct	stat	fstat;
+	struct stat		fstat;
 	char			name[255];
 	int				type;
 	char			*path;

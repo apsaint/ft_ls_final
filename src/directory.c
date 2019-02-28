@@ -6,14 +6,15 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 15:49:33 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:03:06 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <unistd.h>
 
-static int	collect_special_dots_if_required(DIR *dir, t_options *opt, t_flist *f_list, char *path)
+static int	collect_special_dots_if_required(DIR *dir, t_options *opt,
+			t_flist *f_list, char *path)
 {
 	t_fstat			fs;
 	struct dirent	*d;
@@ -85,7 +86,13 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 	return (0);
 }
 
-int	directory_list(char *path, t_options *opt)
+void		try_sub(char *path, t_flist *f_list, t_options *opt, int *n)
+{
+	*n = 1;
+	try_list_subdirs(path, f_list, opt);
+}
+
+int			directory_list(char *path, t_options *opt)
 {
 	t_flist			f_list;
 	DIR				*dirp;
@@ -93,25 +100,22 @@ int	directory_list(char *path, t_options *opt)
 
 	errno = 0;
 	if ((dirp = opendir(path)) == NULL)
-	{
 		print_path_error(path, errno);
-		return (0);
-	}
-	if (f_list_init(&f_list) == ALLOC_ERROR)
-		return (ALLOC_ERROR);
-	if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)
-		return (ALLOC_ERROR);
-	closedir(dirp);
-	if (opt->sort_func != NULL)
-		f_list_qsort(&f_list, opt, f_list.count - 1, 0);
-	if (n == 1)
-		ft_putchar('\n');
-	opt->display_func(&f_list, opt, path);
-	if (opt->flags & FLAG_LIST_SUBDIRS)
+	else
 	{
-		n = 1;
-		try_list_subdirs(path, &f_list, opt);
+		if (f_list_init(&f_list) == ALLOC_ERROR)
+			return (ALLOC_ERROR);
+		if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)
+			return (ALLOC_ERROR);
+		closedir(dirp);
+		if (opt->sort_func != NULL)
+			f_list_qsort(&f_list, opt, f_list.count - 1, 0);
+		if (n == 1)
+			ft_putchar('\n');
+		opt->display_func(&f_list, opt, path);
+		if (opt->flags & FLAG_LIST_SUBDIRS)
+			try_sub(path, &f_list, opt, &n);
+		f_list_destroy_storage(&f_list);
 	}
-	f_list_destroy_storage(&f_list);
 	return (0);
 }

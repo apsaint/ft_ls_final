@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:22:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 15:52:43 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:38:20 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int		get_width_by_int_item(int item)
 
 	w = 1;
 	while (item > 9)
-	{		
+	{
 		item /= 10;
 		w++;
 	}
