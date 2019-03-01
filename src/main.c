@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 17:52:03 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 18:46:21 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	get_path_count(t_path *paths)
 	return (count);
 }
 
-void catch_path_errors_and_print(t_path *paths, t_path **output)
+int catch_path_errors_and_print(t_path *paths, t_path **output)
 {
 	int size = 0;
 	int	i = 0;
@@ -63,6 +63,7 @@ void catch_path_errors_and_print(t_path *paths, t_path **output)
 		print_path_error(output[i]->path_name, output[i]->err);
 		i++;
 	}
+	return (i);
 }
 
 void catch_files(t_path *paths, t_flist *f_list)
@@ -124,13 +125,14 @@ static int	treat_paths(t_path *paths, t_options *opt)
 {
 	t_flist			flst;
 	t_path 			**tmp;
+	int				n_errors;
 
 	if ((tmp = (t_path **)malloc(sizeof(t_path *)
 	* (get_path_count(paths) + 1))) == NULL)
 		return (-1);
 	if (get_stats_from_all(paths, opt) == -1)
 		return -1;
-	catch_path_errors_and_print(paths, tmp);
+	n_errors = catch_path_errors_and_print(paths, tmp);
 	f_list_init(&flst);
 	catch_files(paths, &flst);
 	if (flst.count != 0)
@@ -139,7 +141,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 		opt->flags |= FLAG_HIDE_TOTAL;
 		opt->display_func(&flst, opt);
 	}
-	catch_directories_and_run_listing(paths, tmp, (flst.count != 0), opt);
+	catch_directories_and_run_listing(paths, tmp, (flst.count + n_errors != 0), opt);
 	free(tmp);
 	return (0);
 }
