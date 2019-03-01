@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:14:45 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:20:22 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,7 +132,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	if (flst.count != 0)
 	{
 		f_list_qsort(&flst, opt, flst.count - 1, 0);
-		opt->display_func(&flst, opt, paths->path_name);
+		opt->display_func(&flst, opt);
 	}
 	catch_directories_and_run_listing(paths, tmp, (flst.count != 0), opt);
 	free(tmp);

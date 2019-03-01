@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:06:09 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:18:51 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	display_items(t_flist *f_list, t_options *opt)
 	}
 }
 
-int		display_long_format(t_flist *f_list, t_options *opt, char *path)
+int		display_long_format(t_flist *f_list, t_options *opt)
 {
 	if (f_list->count != 0)
 	{

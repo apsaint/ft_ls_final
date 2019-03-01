@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:16:26 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:19:17 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int		param_display_order(t_flist *f_list, t_options *opt, int *start,
 	return (1);
 }
 
-int		display_one_by_line(t_flist *f_list, t_options *opt, char *path)
+int		display_one_by_line(t_flist *f_list, t_options *opt)
 {
 	int				start;
 	int				end;

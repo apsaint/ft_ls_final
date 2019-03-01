@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:13:01 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:19:55 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,11 +132,11 @@ typedef int	(*t_comp_func)(t_fstat *, t_fstat *);
 typedef struct		s_options
 {
 	unsigned int	flags;
-	int				(*display_func)(t_flist *, struct s_options *, char *);
+	int				(*display_func)(t_flist *, struct s_options *);
 	t_comp_func		sort_func;
 }					t_options;
 
-typedef int(*t_display_func)(t_flist *, t_options *, char *);
+typedef int(*t_display_func)(t_flist *, t_options *);
 
 int		param_eval_all(const char *params[], int count, t_options *opt,
 		t_path **paths);
@@ -153,8 +153,8 @@ int		f_list_destroy_storage(t_flist *f_list);
 void	get_file_stat(t_fstat *fs, struct dirent *dp, char *path,
 		t_options *opt);
 
-int		display_one_by_line(t_flist *f_list, t_options *opt, char *path);
-int		display_long_format(t_flist *f_list, t_options *opt, char *path);
+int		display_one_by_line(t_flist *f_list, t_options *opt);
+int		display_long_format(t_flist *f_list, t_options *opt);
 
 int		combine_paths(char *path1, char *path2, char *output);
 size_t	ls_itoa_min(unsigned long long nb, char *output);
