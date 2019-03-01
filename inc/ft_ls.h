@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:19:55 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:51:45 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,8 @@ enum	e_option_flags
 	FLAG_DISPLAY_REVERSE = (1U << 4U),
 	FLAG_DISPLAY_INODE = (1U << 5U),
 	FLAG_F = (1U << 6U),
-	FLAG_LONG_G = (1U << 7U)
+	FLAG_LONG_G = (1U << 7U),
+	FLAG_HIDE_TOTAL = (1U << 8U)
 };
 
 typedef int	(*t_comp_func)(t_fstat *, t_fstat *);
