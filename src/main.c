@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:20:22 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:52:30 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,27 +136,6 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	}
 	catch_directories_and_run_listing(paths, tmp, (flst.count != 0), opt);
 	free(tmp);
-	// process
-	// while (paths->path_name)
-	// {
-	// 	if (paths->err == 0)
-	// 	{
-	// 		if (S_ISDIR(paths->file_stat.fstat.st_mode))
-	// 		{
-	// 			if (show_hd > 0)
-	// 				show_header(paths->path_name);
-	// 			if(directory_list(paths->path_name, opt) == -1)
-	// 				return (-1);
-	// 			if ((paths + 1)->path_name != NULL)
-	// 				ft_putchar('\n');
-	// 		}
-	// 		else
-	// 		{
-	// 			f_list_add(&flst, &paths->file_stat);
-	// 		}
-	// 	}
-	// 	paths++;
-	// }
 	return (0);
 }
 
