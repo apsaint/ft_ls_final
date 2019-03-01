@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:07:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 15:21:52 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 17:06:28 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,11 @@ int print_path_error(const char *path, int err_num)
 	ft_strlcat(str, ""PROGRAM_NAME": ", sizeof(str));
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd("", STDERR_FILENO);
-	ft_putstr_fd(++ptr, STDERR_FILENO);
+	if (ptr == NULL)
+		ft_putstr_fd(path, STDERR_FILENO);
+	else
+		ft_putstr_fd(++ptr, STDERR_FILENO);
+	
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(err_num), STDERR_FILENO);
 	return (0);
