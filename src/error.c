@@ -31,12 +31,14 @@ int	print_option_error(const char *option, int opt_type)
 int print_path_error(const char *path, int err_num)
 {
 	char	str[256];
-
+	char	*ptr;
+	
+	ptr = ft_strrchr(path, '/');
 	ft_memset(str, 0, sizeof(str));
 	ft_strlcat(str, ""PROGRAM_NAME": ", sizeof(str));
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd("", STDERR_FILENO);
-	ft_putstr_fd(path, STDERR_FILENO);
+	ft_putstr_fd(++ptr, STDERR_FILENO);
 	ft_putstr_fd(": ", STDERR_FILENO);
 	ft_putendl_fd(strerror(err_num), STDERR_FILENO);
 	return (0);
