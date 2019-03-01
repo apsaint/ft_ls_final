@@ -99,8 +99,13 @@ int			directory_list(char *path, t_options *opt)
 	static int		n = 0;
 
 	errno = 0;
+	if (n == 1)
+		ft_putchar('\n');
 	if ((dirp = opendir(path)) == NULL)
+	{
+		ft_printf("%s:\n", path);
 		print_path_error(path, errno);
+	}
 	else
 	{
 		if (f_list_init(&f_list) == ALLOC_ERROR)
@@ -110,8 +115,8 @@ int			directory_list(char *path, t_options *opt)
 		closedir(dirp);
 		if (opt->sort_func != NULL)
 			f_list_qsort(&f_list, opt, f_list.count - 1, 0);
-		if (n == 1)
-			ft_putchar('\n');
+		//if (n == 1)
+		//	ft_putchar('\n');
 		opt->display_func(&f_list, opt, path);
 		if (opt->flags & FLAG_LIST_SUBDIRS)
 			try_sub(path, &f_list, opt, &n);
