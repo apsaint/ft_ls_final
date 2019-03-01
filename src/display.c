@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 16:36:25 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:16:26 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ int		display_one_by_line(t_flist *f_list, t_options *opt, char *path)
 	const int		inc = param_display_order(f_list, opt, &start, &end);
 	unsigned long	ino_w;
 
-	if (opt->flags & FLAG_LIST_SUBDIRS)
-		ft_printf("%s:\n", path);
 	if (f_list->count != 0)
 	{
 		ino_w = get_max_inode(f_list);

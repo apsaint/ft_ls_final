@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 15:43:06 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:13:01 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,7 +141,7 @@ typedef int(*t_display_func)(t_flist *, t_options *, char *);
 int		param_eval_all(const char *params[], int count, t_options *opt,
 		t_path **paths);
 
-int		directory_list(char *path, t_options *opt);
+int		directory_list(char *path, t_options *opt, int show_dir);
 
 int		print_option_error(const char *option, int opt_type);
 int		print_path_error(const char *path, int err_num);

@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 17:03:06 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:15:50 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 {
 	t_fstat			fs;
 	struct dirent	*dp;
-	int				i;
 
-	i = 0;
 	if (collect_special_dots_if_required(dir, opt, f_list, path) == ALLOC_ERROR)
 		return (ALLOC_ERROR);
 	while ((dp = readdir(dir)) != NULL)
@@ -78,7 +76,7 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 				continue;
 			}
 			combine_paths(path, f_list->data[i].name, new_path);
-			directory_list(new_path, opt);
+			directory_list(new_path, opt, 1);
 			ft_bzero(new_path, sizeof(new_path));
 		}
 		i++;
@@ -92,7 +90,7 @@ void		try_sub(char *path, t_flist *f_list, t_options *opt, int *n)
 	try_list_subdirs(path, f_list, opt);
 }
 
-int			directory_list(char *path, t_options *opt)
+int			directory_list(char *path, t_options *opt, int show_dir)
 {
 	t_flist			f_list;
 	DIR				*dirp;
@@ -103,6 +101,8 @@ int			directory_list(char *path, t_options *opt)
 		print_path_error(path, errno);
 	else
 	{
+		if (show_dir)
+			printf("%s:\n", path);
 		if (f_list_init(&f_list) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
 		if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)

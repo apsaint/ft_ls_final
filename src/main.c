@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 23:15:40 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:14:45 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,6 @@
 #include <string.h>
 #include "ft_ls.h"
 #include <ft_printf.h>
-
-static void	show_header(char *path)
-{
-	ft_putstr(path);
-	ft_putstr(":\n");
-}
 
 static int get_stats_from_all(t_path *paths, t_options *opt)
 {
@@ -108,8 +102,7 @@ void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_
 	{
 		while (i < size)
 		{
-			show_header(output[i]->path_name);
-			directory_list(output[i]->path_name, opt);
+			directory_list(output[i]->path_name, opt, 1);
 			i++;
 		}
 	}
@@ -117,7 +110,7 @@ void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_
 	{
 		while (i < size)
 		{
-			directory_list(output[i]->path_name, opt);
+			directory_list(output[i]->path_name, opt, 0);
 			i++;
 		}
 	}
@@ -182,7 +175,7 @@ int main(int ac, char const *av[])
 			return (EXIT_FAILURE);
 	}
 	if (paths == NULL || paths->path_name == NULL)
-		directory_list(".", &opt);
+		directory_list(".", &opt, 0);
 	else
 		treat_paths(paths, &opt);
 	free(paths);
