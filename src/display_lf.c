@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 14:44:08 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 16:37:22 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int		item_index_size(t_flist *f_list, int i, int *items)
 long	get_max_inode(t_flist *f_list)
 {
 	unsigned long	max;
-	size_t	i;
+	size_t			i;
 
 	max = 0;
 	i = 0;
@@ -53,6 +53,7 @@ void	get_all_items_width(t_flist *f_list, int *items)
 	int				count_bc;
 
 	i = 0;
+	count_bc = 0;
 	while (i < f_list->count)
 	{
 		if (items[ITEM_IDX_OWNER] < (w = (int)ft_strlen(f_list->data[i].owner)))
@@ -61,7 +62,7 @@ void	get_all_items_width(t_flist *f_list, int *items)
 			items[ITEM_IDX_GROUP] = w;
 		if (items[ITEM_IDX_NLINKS] < f_list->data[i].fstat.st_nlink)
 			items[ITEM_IDX_NLINKS] = f_list->data[i].fstat.st_nlink;
-		count_bc = item_index_size(f_list, i, items);
+		count_bc += item_index_size(f_list, i, items);
 		i++;
 	}
 	items[ITEM_IDX_SIZE] = (count_bc > 0) ? (items[ITEM_IDX_MAJOR] + 6)

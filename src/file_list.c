@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 20:09:48 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/22 09:09:26 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/02/28 17:04:29 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 int			f_list_init(t_flist *f_list)
 {
-	if ((f_list->data = (t_fstat *)malloc(sizeof(t_fstat) * F_LIST_DEFAULT_SIZE))
-	== NULL)
+	if ((f_list->data = (t_fstat *)malloc(sizeof(t_fstat)
+					* F_LIST_DEFAULT_SIZE)) == NULL)
 		return (ALLOC_ERROR);
 	ft_memset(f_list->data, 0, sizeof(t_fstat) * F_LIST_DEFAULT_SIZE);
 	f_list->count = 0;
