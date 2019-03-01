@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 19:51:55 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 22:37:59 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 # define SPEC_OUTPUT_NOT_SORTED 	'f'
 # define FLAG_SORT_BY_TIME			't'
 # define FLAG_SORT_BY_SIZE			'S'
+# define SPEC_COLORIZE				'G'
 
 /*
 ** *****************************************************************************

@@ -14,6 +14,16 @@
 # define LONG_FORMAT_MAX_ITEMS (8)
 # define F_LIST_DEFAULT_SIZE (16)
 
+# define CNRM  "\x1B[0m"
+# define CRED  "\x1B[31m"
+# define CGRN  "\x1B[32m"
+# define CYEL  "\x1B[33m"
+# define CBLU  "\x1B[34m"
+# define CMAG  "\x1B[35m"
+# define CCYN  "\x1B[36m"
+# define CWHT  "\x1B[37m"
+# define COL_SIZE (16)
+
 enum	e_format_style
 {
 	TIME_DEFAULT_FORMAT,
@@ -52,7 +62,8 @@ enum	e_option_flags
 	FLAG_DISPLAY_INODE = (1U << 5U),
 	FLAG_F = (1U << 6U),
 	FLAG_LONG_G = (1U << 7U),
-	FLAG_HIDE_TOTAL = (1U << 8U)
+	FLAG_HIDE_TOTAL = (1U << 8U),
+	FLAG_COLORIZE = (1U << 9U)
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 19:21:56 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 22:38:28 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ static int	eval_short_flag(const char *input, t_options *opt)
 	}
 	else if (*input == SPEC_REVERSE)
 		opt->flags |= FLAG_DISPLAY_REVERSE;
+	else if (*input == SPEC_COLORIZE)
+		opt->flags |= FLAG_COLORIZE;
 	else if (*input == SPEC_INODE)
 		opt->flags |= FLAG_DISPLAY_INODE;
 	else if (*input == FLAG_SORT_BY_TIME)

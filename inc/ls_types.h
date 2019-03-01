@@ -8,7 +8,7 @@
 typedef struct	s_fstat
 {
 	struct stat		fstat;
-	char			name[255];
+	char			name[255 + (2 * COL_SIZE) + 1];
 	int				type;
 	char			*path;
 	char			modes[11];

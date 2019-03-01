@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 19:10:33 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 22:36:25 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ static int	collect_mapping_files(DIR *dir, t_options *opt,
 		if (opt->flags & FLAG_SHOW_MAP_DIR)
 		{
 			fs.type = d->d_type;
-			ft_strcpy(fs.name, d->d_name);
 			get_file_stat(&fs, d, path, opt);
 			if (f_list_add(f_list, &fs) == ALLOC_ERROR)
 				return (ALLOC_ERROR);
@@ -49,7 +48,6 @@ static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 	{
 		if ((!(opt->flags & FLAG_SHOW_HIDDEN_FILE)) && dp->d_name[0] == '.')
 			continue ;
-		ft_strcpy(fs.name, dp->d_name);
 		fs.type = dp->d_type;
 		get_file_stat(&fs, dp, path, opt);
 		if (f_list_add(f_list, &fs) == ALLOC_ERROR)

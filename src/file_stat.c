@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/01 19:22:40 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 23:20:17 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,30 @@ void	add_type_file(t_fstat *fs, struct dirent *dp)
 		ft_strcat(fs->name, "=");
 	else if (dp->d_type == DT_WHT)
 		ft_strcat(fs->name, "%");
+}
+
+void	set_file_name(t_fstat *file, t_options *opt, mode_t m, char *name)
+{
+	*file->name = '\0';
+	if (opt->flags & FLAG_COLORIZE)
+	{
+		if (S_ISDIR(m))
+			ft_strcat(file->name, CBLU);
+		else if (S_ISCHR(m))
+			ft_strcat(file->name, CYEL);		
+		else if (S_ISBLK(m))
+			ft_strcat(file->name, CMAG);
+		else if (S_ISFIFO(m))
+			ft_strcat(file->name, CCYN);
+		else if (S_ISLNK(m))
+			ft_strcat(file->name, CGRN);
+		else if ((m & S_IXUSR) || (m & S_IXGRP) || (m & S_IXOTH))
+			ft_strcat(file->name, CRED);
+		ft_strcat(file->name, name);
+		ft_strcat(file->name, CWHT);
+	}
+	else
+		ft_strcpy(file->name, name);
 }
 
 static void	format_modes(mode_t m, t_fstat *file)
@@ -70,6 +94,7 @@ void		get_file_stat(t_fstat *file, struct dirent *dp, char *path, t_options *opt
 	else
 		stat(file->path, &stat_elem);
 	file->fstat = stat_elem;
+	set_file_name(file, opt, stat_elem.st_mode, dp->d_name);
 	format_modes(stat_elem.st_mode, file);
 	if (opt->flags & FLAG_F)
 		add_type_file(file, dp);
@@ -96,7 +121,6 @@ int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 	const size_t	len = ft_strlen(path);
 	ft_bzero(name, 4097);
 	// a virer
-	strcpy(file->name, path);
 	file->path = ft_strdup(path);
 	errno = 0;
 	if (path[len - 1] != '/' && opt->display_func == &display_long_format)
@@ -106,6 +130,7 @@ int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 	if (errno != 0)
 		return (errno);
 	file->fstat = stat_elem;
+	set_file_name(file, opt, stat_elem.st_mode, path);
 	format_modes(stat_elem.st_mode, file);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);
