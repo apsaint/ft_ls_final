@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:52:30 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 16:59:39 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,8 @@ void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_
 	{
 		while (i < size)
 		{
+			if (i != 0)
+				ft_putchar('\n');
 			directory_list(output[i]->path_name, opt, 1);
 			i++;
 		}
@@ -110,6 +112,8 @@ void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_
 	{
 		while (i < size)
 		{
+			if (i != 0)
+				ft_putchar('\n');
 			directory_list(output[i]->path_name, opt, 0);
 			i++;
 		}
