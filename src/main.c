@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 18:46:21 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:24:10 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,36 +14,6 @@
 #include <string.h>
 #include "ft_ls.h"
 #include <ft_printf.h>
-
-static int get_stats_from_all(t_path *paths, t_options *opt)
-{
-	while (paths->path_name != NULL)
-	{
-		if (*(paths->path_name) == '\0')
-		{
-			print_path_error("fts_open", ENOENT);
-			return (-1);
-		}
-		paths->err = get_file_stat_by_path(&paths->file_stat, paths->path_name, opt);
-		paths++;
-	}
-	return (0);
-	// faire le tri
-}
-
-
-int	get_path_count(t_path *paths)
-{
-	int count;
-
-	count = 0;
-	while (paths->path_name != NULL)
-	{
-		paths++;
-		count++;
-	}
-	return (count);
-}
 
 int catch_path_errors_and_print(t_path *paths, t_path **output)
 {
@@ -79,10 +49,12 @@ void catch_files(t_path *paths, t_flist *f_list)
 	}
 }
 
-void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_files, t_options *opt)
+void catch_directories_and_run_listing(t_path *paths, t_path **output,
+int prev_files, t_options *opt)
 {
-	int size;
+	int	size;
 	int	i;
+	int	show_dir;
 
 	size = 0;
 	i = 0;
@@ -91,33 +63,18 @@ void catch_directories_and_run_listing(t_path *paths, t_path **output, int prev_
 		if (paths->err == 0)
 		{
 			if (S_ISDIR(paths->file_stat.fstat.st_mode))
-			{
 				output[size++] = paths;
-			}
 		}
 		paths++;
 	}
 	if (prev_files)
 		ft_putchar('\n');
-	if (size + prev_files > 1)
+	show_dir = (size + prev_files > 1);
+	while (i < size)
 	{
-		while (i < size)
-		{
-			if (i != 0)
-				ft_putchar('\n');
-			directory_list(output[i]->path_name, opt, 1);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < size)
-		{
-			if (i != 0)
-				ft_putchar('\n');
-			directory_list(output[i]->path_name, opt, 0);
-			i++;
-		}
+		if (i != 0)
+			ft_putchar('\n');
+		directory_list(output[i++]->path_name, opt, show_dir);
 	}
 }
 
@@ -130,7 +87,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	if ((tmp = (t_path **)malloc(sizeof(t_path *)
 	* (get_path_count(paths) + 1))) == NULL)
 		return (-1);
-	if (get_stats_from_all(paths, opt) == -1)
+	if (get_stats_from_all_paths(paths, opt) == -1)
 		return -1;
 	n_errors = catch_path_errors_and_print(paths, tmp);
 	f_list_init(&flst);
@@ -141,7 +98,8 @@ static int	treat_paths(t_path *paths, t_options *opt)
 		opt->flags |= FLAG_HIDE_TOTAL;
 		opt->display_func(&flst, opt);
 	}
-	catch_directories_and_run_listing(paths, tmp, (flst.count + n_errors != 0), opt);
+	catch_directories_and_run_listing(paths, tmp, (flst.count + n_errors != 0),
+	opt);
 	free(tmp);
 	return (0);
 }

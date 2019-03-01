@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 17:51:45 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:18:06 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <time.h>
 # include <stdlib.h>
 # include "libft.h"
+# include "ft_printf.h"
 
 # define ALLOC_ERROR (-1)
 # define NOT_IMPLEMENTED_FEATURE (-1)
@@ -176,4 +177,7 @@ int		display_long_fd(t_flist *f_list, int start, int *items_w);
 long	get_max_inode(t_flist *f_list);
 int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt);
 void	add_type_file(t_fstat *fs, struct dirent *dp);
+
+int	get_path_count(t_path *paths);
+int get_stats_from_all_paths(t_path *paths, t_options *opt);
 #endif

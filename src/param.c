@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/28 22:24:31 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:21:56 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,7 @@
 #include "ft_ls.h"
 #include "libft.h"
 
-int add_param_to_pathlist(char ***paths, const char *param)
-{
-	*((*paths)++) = (char *)param;
-	return (0);
-}
-
-int	get_param_type(const char *param)
+static int	get_param_type(const char *param)
 {
 	if (*param == OPTION_SPECIFIER)
 	{
@@ -37,7 +31,7 @@ int	get_param_type(const char *param)
 	return (PARAM_PATH);
 }
 
-int	eval_short_flag(const char *input, t_options *opt)
+static int	eval_short_flag(const char *input, t_options *opt)
 {
 	if (*input == SPEC_ALL)
 		opt->flags |= (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIR);
@@ -77,7 +71,7 @@ int	eval_short_flag(const char *input, t_options *opt)
 	return (0);
 }
 
-int param_eval_flags(const char *input, t_options *data)
+static int	param_eval_flags(const char *input, t_options *data)
 {
 	while (*input)
 	{

@@ -6,14 +6,14 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 16:30:47 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:10:33 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <unistd.h>
 
-static int	collect_special_dots_if_required(DIR *dir, t_options *opt,
+static int	collect_mapping_files(DIR *dir, t_options *opt,
 			t_flist *f_list, char *path)
 {
 	t_fstat			fs;
@@ -43,7 +43,7 @@ static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 	t_fstat			fs;
 	struct dirent	*dp;
 
-	if (collect_special_dots_if_required(dir, opt, f_list, path) == ALLOC_ERROR)
+	if (collect_mapping_files(dir, opt, f_list, path) == ALLOC_ERROR)
 		return (ALLOC_ERROR);
 	while ((dp = readdir(dir)) != NULL)
 	{

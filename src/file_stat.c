@@ -6,12 +6,28 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/28 23:09:14 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/01 19:22:40 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <time.h>
+
+void	add_type_file(t_fstat *fs, struct dirent *dp)
+{
+	if (dp->d_type == DT_DIR)
+		ft_strcat(fs->name, "/");
+	else if (dp->d_type == DT_LNK)
+		ft_strcat(fs->name, "@");
+	else if (dp->d_type == DT_FIFO)
+		ft_strcat(fs->name, "|");
+	else if (fs->fstat.st_mode & S_IXUSR)
+		ft_strcat(fs->name, "*");
+	else if (dp->d_type == DT_SOCK)
+		ft_strcat(fs->name, "=");
+	else if (dp->d_type == DT_WHT)
+		ft_strcat(fs->name, "%");
+}
 
 static void	format_modes(mode_t m, t_fstat *file)
 {
@@ -38,10 +54,6 @@ static void	format_modes(mode_t m, t_fstat *file)
 	file->modes[9] = (m & S_IXOTH) ? 'x' : '-';
 	file->modes[10] = '\0';
 }
-
-/*
- * rempli les elements de la structure utilisant stat
- */
 
 void		get_file_stat(t_fstat *file, struct dirent *dp, char *path, t_options *opt)
 {

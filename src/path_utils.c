@@ -1,42 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   path.c                                             :+:      :+:    :+:   */
+/*   path_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/27 21:21:56 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 19:00:22 by bboutoil         ###   ########.fr       */
+/*   Created: 2019/03/01 18:51:17 by bboutoil          #+#    #+#             */
+/*   Updated: 2019/03/01 19:01:32 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int	get_path_count(t_path *paths)
+int		combine_paths(char *path1, char *path2, char *output)
 {
-	int count;
+	const	int s = ft_strlen(path1);
 
-	count = 0;
-	while (paths->path_name != NULL)
+	ft_strlcat(output, path1, 4097);
+	if (*(path1 + s - 1) == '/')
+		ft_strlcat(output, path2, 4097);
+	else
 	{
-		paths++;
-		count++;
-	}
-	return (count);
-}
-
-int get_stats_from_all_paths(t_path *paths, t_options *opt)
-{
-	while (paths->path_name != NULL)
-	{
-		if (*(paths->path_name) == '\0')
-		{
-			print_path_error("fts_open", ENOENT);
-			return (-1);
-		}
-		paths->err = get_file_stat_by_path(&paths->file_stat, paths->path_name, opt);
-		paths++;
+		ft_strlcat(output, "/", 4097);
+		ft_strlcat(output, path2, 4097);
 	}
 	return (0);
-	// faire le tri
 }
