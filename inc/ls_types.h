@@ -1,9 +1,9 @@
 #ifndef LS_TYPES_H
 # define LS_TYPES_H
 
-#include <sys/stat.h>
-#include <string.h>
-#include "ls_constants.h"
+# include <sys/stat.h>
+# include <string.h>
+# include "ls_constants.h"
 
 typedef struct	s_fstat
 {
@@ -16,7 +16,7 @@ typedef struct	s_fstat
 	char			group[32];
 	int				error;
 	char			format_date[DATE_FORMAT_MAX_LEN];
-}				t_fstat;
+}					t_fstat;
 
 typedef struct	s_flist
 {

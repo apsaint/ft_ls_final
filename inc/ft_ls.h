@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 22:37:59 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 12:13:44 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,9 +119,8 @@ int		param_display_order(t_flist *f_list, t_options *opt, int *start,
 
 int		combine_paths(char *path1, char *path2, char *output);
 int		get_path_count(t_path *paths);
-int 	get_stats_from_all_paths(t_path *paths, t_options *opt);
+int		get_stats_from_all_paths(t_path *paths, t_options *opt);
 int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt);
-
 
 /*
 ** UTILS MODULE **
