@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:16:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 12:16:57 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 12:17:53 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,19 @@ typedef struct		s_fstat
 	char			format_date[DATE_FORMAT_MAX_LEN];
 }					t_fstat;
 
-typedef struct	s_flist
+typedef struct		s_flist
 {
-	t_fstat		*data;
-	size_t		size;
-	size_t		count;
-}				t_flist;
+	t_fstat			*data;
+	size_t			size;
+	size_t			count;
+}					t_flist;
 
-typedef struct	s_path
+typedef struct		s_path
 {
-	char	*path_name;
-	int		err;
-	t_fstat	file_stat;
-}				t_path;
+	char			*path_name;
+	int				err;
+	t_fstat			file_stat;
+}					t_path;
 
 typedef int	(*t_comp_func)(t_fstat *, t_fstat *);
 
@@ -53,6 +53,6 @@ typedef struct		s_options
 	t_comp_func		sort_func;
 }					t_options;
 
-typedef int(*t_display_func)(t_flist *, t_options *);
+typedef int	(*t_display_func)(t_flist *, t_options *);
 
 #endif
