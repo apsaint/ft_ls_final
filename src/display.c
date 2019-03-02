@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 13:06:33 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 13:52:24 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		display_long_l(t_flist *f_list, int start, int *items_w)
 
 	buf = (char *)malloc(f_list->data[start].fstat.st_size + 1);
 	readlink(f_list->data[start].path, buf, f_list->data[start].fstat.st_size);
-	buf[f_list->data[start].fstat.st_size];
+	buf[f_list->data[start].fstat.st_size] = '\0';
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s  %*d %s %s -> %s\n", f_list->data[start].modes,
