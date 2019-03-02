@@ -6,14 +6,14 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/01 23:20:17 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 13:03:04 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include <time.h>
 
-void	add_type_file(t_fstat *fs, struct dirent *dp)
+static void	add_type_file(t_fstat *fs, struct dirent *dp)
 {
 	if (dp->d_type == DT_DIR)
 		ft_strcat(fs->name, "/");
@@ -29,7 +29,7 @@ void	add_type_file(t_fstat *fs, struct dirent *dp)
 		ft_strcat(fs->name, "%");
 }
 
-void	set_file_name(t_fstat *file, t_options *opt, mode_t m, char *name)
+static void	set_file_name(t_fstat *file, t_options *opt, mode_t m, char *name)
 {
 	*file->name = '\0';
 	if (opt->flags & FLAG_COLORIZE)
@@ -37,7 +37,7 @@ void	set_file_name(t_fstat *file, t_options *opt, mode_t m, char *name)
 		if (S_ISDIR(m))
 			ft_strcat(file->name, CBLU);
 		else if (S_ISCHR(m))
-			ft_strcat(file->name, CYEL);		
+			ft_strcat(file->name, CYEL);
 		else if (S_ISBLK(m))
 			ft_strcat(file->name, CMAG);
 		else if (S_ISFIFO(m))
@@ -79,7 +79,8 @@ static void	format_modes(mode_t m, t_fstat *file)
 	file->modes[10] = '\0';
 }
 
-void		get_file_stat(t_fstat *file, struct dirent *dp, char *path, t_options *opt)
+void		get_file_stat(t_fstat *file, struct dirent *dp,
+char *path, t_options *opt)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
@@ -112,15 +113,15 @@ void		get_file_stat(t_fstat *file, struct dirent *dp, char *path, t_options *opt
 			stat_elem.st_mtime);
 }
 
-int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
+int			get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 {
 	struct stat		stat_elem;
 	struct passwd	*pw;
 	struct group	*gp;
 	char			name[4097];
 	const size_t	len = ft_strlen(path);
+
 	ft_bzero(name, 4097);
-	// a virer
 	file->path = ft_strdup(path);
 	errno = 0;
 	if (path[len - 1] != '/' && opt->display_func == &display_long_format)

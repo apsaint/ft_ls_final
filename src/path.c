@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/27 21:21:56 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 19:00:22 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 13:00:14 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	get_path_count(t_path *paths)
 	return (count);
 }
 
-int get_stats_from_all_paths(t_path *paths, t_options *opt)
+int	get_stats_from_all_paths(t_path *paths, t_options *opt)
 {
 	while (paths->path_name != NULL)
 	{
@@ -34,9 +34,9 @@ int get_stats_from_all_paths(t_path *paths, t_options *opt)
 			print_path_error("fts_open", ENOENT);
 			return (-1);
 		}
-		paths->err = get_file_stat_by_path(&paths->file_stat, paths->path_name, opt);
+		paths->err = get_file_stat_by_path(&paths->file_stat,
+		paths->path_name, opt);
 		paths++;
 	}
 	return (0);
-	// faire le tri
 }
