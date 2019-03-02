@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ls_types.h                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/02 12:16:33 by bboutoil          #+#    #+#             */
+/*   Updated: 2019/03/02 12:16:57 by bboutoil         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef LS_TYPES_H
 # define LS_TYPES_H
 
@@ -5,7 +17,7 @@
 # include <string.h>
 # include "ls_constants.h"
 
-typedef struct	s_fstat
+typedef struct		s_fstat
 {
 	struct stat		fstat;
 	char			name[255 + (2 * COL_SIZE) + 1];
