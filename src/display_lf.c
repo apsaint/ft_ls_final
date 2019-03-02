@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 17:56:50 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 12:21:24 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	display_items(t_flist *f_list, t_options *opt)
 
 int		display_long_format(t_flist *f_list, t_options *opt)
 {
-	if (f_list->count != 0 )
+	if (f_list->count != 0)
 	{
 		if (opt->flags & FLAG_HIDE_TOTAL)
 			opt->flags &= ~(FLAG_HIDE_TOTAL);

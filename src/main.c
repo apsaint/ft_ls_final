@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 19:24:10 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 12:26:55 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,17 @@
 #include "ft_ls.h"
 #include <ft_printf.h>
 
-int catch_path_errors_and_print(t_path *paths, t_path **output)
+static int	catch_path_errors_and_print(t_path *paths, t_path **output)
 {
-	int size = 0;
-	int	i = 0;
+	int	size;
+	int	i;
 
+	i = 0;
+	size = 0;
 	while (paths->path_name != NULL)
 	{
 		if (paths->err != 0)
-		{
 			output[size++] = paths;
-		}
 		paths++;
 	}
 	while (i < size)
@@ -36,7 +36,7 @@ int catch_path_errors_and_print(t_path *paths, t_path **output)
 	return (i);
 }
 
-void catch_files(t_path *paths, t_flist *f_list)
+static void	catch_files(t_path *paths, t_flist *f_list)
 {
 	while (paths->path_name != NULL)
 	{
@@ -49,7 +49,7 @@ void catch_files(t_path *paths, t_flist *f_list)
 	}
 }
 
-void catch_directories_and_run_listing(t_path *paths, t_path **output,
+static void	catch_directories_and_run_listing(t_path *paths, t_path **output,
 int prev_files, t_options *opt)
 {
 	int	size;
@@ -81,14 +81,14 @@ int prev_files, t_options *opt)
 static int	treat_paths(t_path *paths, t_options *opt)
 {
 	t_flist			flst;
-	t_path 			**tmp;
+	t_path			**tmp;
 	int				n_errors;
 
 	if ((tmp = (t_path **)malloc(sizeof(t_path *)
 	* (get_path_count(paths) + 1))) == NULL)
 		return (-1);
 	if (get_stats_from_all_paths(paths, opt) == -1)
-		return -1;
+		return (-1);
 	n_errors = catch_path_errors_and_print(paths, tmp);
 	f_list_init(&flst);
 	catch_files(paths, &flst);
@@ -104,7 +104,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	return (0);
 }
 
-int main(int ac, char const *av[])
+int			main(int ac, char const *av[])
 {
 	t_options	opt;
 	t_path		*paths;
@@ -115,7 +115,7 @@ int main(int ac, char const *av[])
 	paths = NULL;
 	if (ac > 1)
 	{
-		if (param_eval_all(av+1, ac-1, &opt, &paths) == -1)
+		if (param_eval_all(av + 1, ac - 1, &opt, &paths) == -1)
 			return (EXIT_FAILURE);
 	}
 	if (paths == NULL || paths->path_name == NULL)

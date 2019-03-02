@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 22:38:28 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/02 12:29:18 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,8 @@ static int	param_eval_flags(const char *input, t_options *data)
 	return (0);
 }
 
-int	param_eval_all(const char *params[], int count, t_options *opt, t_path **paths)
+int			param_eval_all(const char *params[], int count,
+t_options *opt, t_path **paths)
 {
 	t_path	*path_begin;
 	int		treat_as_path;
@@ -107,7 +108,7 @@ int	param_eval_all(const char *params[], int count, t_options *opt, t_path **pat
 			treat_as_path = 1;
 		else
 		{
-			if(param_eval_flags(++*params, opt) == PARAM_ERROR)
+			if (param_eval_flags(++*params, opt) == PARAM_ERROR)
 			{
 				free(path_begin);
 				return (-1);
