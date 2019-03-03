@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 12:26:55 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 11:02:49 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ int prev_files, t_options *opt)
 		}
 		paths++;
 	}
-	if (prev_files)
+	if (prev_files && size > 0)
 		ft_putchar('\n');
 	show_dir = (size + prev_files > 1);
 	while (i < size)
@@ -98,7 +98,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 		opt->flags |= FLAG_HIDE_TOTAL;
 		opt->display_func(&flst, opt);
 	}
-	catch_directories_and_run_listing(paths, tmp, (flst.count + n_errors != 0),
+	catch_directories_and_run_listing(paths, tmp, ((flst.count + n_errors) > 0),
 	opt);
 	free(tmp);
 	return (0);

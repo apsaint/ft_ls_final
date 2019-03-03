@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/02 13:03:04 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 10:37:15 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,13 +69,13 @@ static void	format_modes(mode_t m, t_fstat *file)
 		file->modes[0] = '-';
 	file->modes[1] = (m & S_IRUSR) ? 'r' : '-';
 	file->modes[2] = (m & S_IWUSR) ? 'w' : '-';
-	file->modes[3] = (m & S_IXUSR) ? 'x' : '-';
+	file->modes[3] = get_permission_uid(m, ((m & S_IXUSR) ? 'x' : '-'));
 	file->modes[4] = (m & S_IRGRP) ? 'r' : '-';
 	file->modes[5] = (m & S_IWGRP) ? 'w' : '-';
-	file->modes[6] = (m & S_IXGRP) ? 'x' : '-';
+	file->modes[6] = get_permission_gid(m, ((m & S_IXGRP) ? 'x' : '-'));
 	file->modes[7] = (m & S_IROTH) ? 'r' : '-';
 	file->modes[8] = (m & S_IWOTH) ? 'w' : '-';
-	file->modes[9] = (m & S_IXOTH) ? 'x' : '-';
+	file->modes[9] = get_permission_sticky(m, ((m & S_IXOTH) ? 'x' : '-'));
 	file->modes[10] = '\0';
 }
 

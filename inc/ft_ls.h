@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 13:07:23 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 10:38:38 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,5 +129,7 @@ int		get_file_stat_by_path(t_fstat *file, char *path, t_options *opt);
 
 size_t	ls_itoa_min(unsigned long long nb, char *output);
 void	format_date(char *dst, char *date, time_t timestamp);
-
+char	get_permission_sticky(mode_t m, char c);
+char	get_permission_uid(mode_t m, char c);
+char	get_permission_gid(mode_t m, char c);
 #endif
