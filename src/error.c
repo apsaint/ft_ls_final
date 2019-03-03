@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:07:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 12:53:26 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/03 13:08:10 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	print_option_error(const char *option, int opt_type)
 	ft_strlcat(str, ""PROGRAM_NAME": ", sizeof(str));
 	ft_strlcat(str, "illegal option -- ", sizeof(str));
 	ft_strlcat(str, option, sizeof(str));
-	ft_strlcat(str, "\nusage: ./ft_ls [-AFGSadfgilrst1] [file ...]", sizeof(str));
+	ft_strlcat(str, "\nusage: ./ft_ls [-AFGSadfgilrt1] [file ...]", sizeof(str));
 	ft_putendl_fd(str, STDERR_FILENO);
 	return (0);
 }
