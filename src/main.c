@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 16:11:22 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 16:39:21 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	catch_path_errors_and_print(t_path *paths, t_path **output)
 	while (i < size)
 	{
 		print_path_error(output[i]->path_name, output[i]->err);
-		i++;
+		free(output[i++]->file_stat.path);
 	}
 	return (i);
 }
@@ -74,7 +74,8 @@ int prev_files, t_options *opt)
 	{
 		if (i != 0)
 			ft_putchar('\n');
-		directory_list(output[i++]->path_name, opt, show_dir);
+		directory_list(output[i]->path_name, opt, show_dir);
+		free(output[i++]->file_stat.path);
 	}
 }
 
@@ -100,8 +101,6 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	}
 	catch_directories_and_run_listing(paths, tmp, ((flst.count + n_errors) > 0),
 	opt);
-	while (paths->path_name != NULL)
-		free((paths++)->file_stat.path);
 	f_list_destroy_storage(&flst);
 	free(tmp);
 	return (0);
