@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 16:39:21 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 17:08:53 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,14 @@ static int	catch_path_errors_and_print(t_path *paths, t_path **output)
 	return (i);
 }
 
-static void	catch_files(t_path *paths, t_flist *f_list)
+static void	catch_files(t_path *paths, t_flist *f_list, t_options *opt)
 {
 	while (paths->path_name != NULL)
 	{
 		if (paths->err == 0)
 		{
-			if (!S_ISDIR(paths->file_stat.fstat.st_mode))
+			if (!S_ISDIR(paths->file_stat.fstat.st_mode)
+			|| opt->flags & FLAG_TREAT_AS_FILE)
 				f_list_add(f_list, &paths->file_stat);
 		}
 		paths++;
@@ -92,15 +93,16 @@ static int	treat_paths(t_path *paths, t_options *opt)
 		return (-1);
 	n_errors = catch_path_errors_and_print(paths, tmp);
 	f_list_init(&flst);
-	catch_files(paths, &flst);
+	catch_files(paths, &flst, opt);
 	if (flst.count != 0)
 	{
 		f_list_qsort(&flst, opt, flst.count - 1, 0);
 		opt->flags |= FLAG_HIDE_TOTAL;
 		opt->display_func(&flst, opt);
 	}
-	catch_directories_and_run_listing(paths, tmp, ((flst.count + n_errors) > 0),
-	opt);
+	if (!(opt->flags & FLAG_TREAT_AS_FILE))
+		catch_directories_and_run_listing(paths, tmp,
+		((flst.count + n_errors) > 0), opt);
 	f_list_destroy_storage(&flst);
 	free(tmp);
 	return (0);

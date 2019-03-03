@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:13:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 12:14:08 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 17:02:04 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,8 @@ enum	e_option_flags
 	FLAG_F = (1U << 6U),
 	FLAG_LONG_G = (1U << 7U),
 	FLAG_HIDE_TOTAL = (1U << 8U),
-	FLAG_COLORIZE = (1U << 9U)
+	FLAG_COLORIZE = (1U << 9U),
+	FLAG_TREAT_AS_FILE = (1U << 9U)
 };
 
 #endif

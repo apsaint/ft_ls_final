@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 12:29:18 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 17:03:16 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ static int	eval_short_flag(const char *input, t_options *opt)
 		opt->flags |= FLAG_LIST_SUBDIRS;
 	else if (*input == SPEC_F)
 		opt->flags |= FLAG_F;
+	else if (*input == SPEC_DIR_AS_FILE)
+		opt->flags |= FLAG_TREAT_AS_FILE;
 	else if (*input == SPEC_LONG_FORMAT)
 		opt->display_func = &display_long_format;
 	else if (*input == SPEC_LONG_G)
