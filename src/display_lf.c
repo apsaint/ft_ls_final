@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/24 13:58:44 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 15:50:33 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:03:41 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,11 +90,11 @@ void	display_items(t_flist *f_list, t_options *opt)
 					f_list->data[start].fstat.st_ino);
 		if (f_list->data[start].modes[0] == 'b'
 				|| f_list->data[start].modes[0] == 'c')
-			display_long_bc(f_list, start, items_w);
+			display_long_bc(f_list, start, items_w, opt);
 		else if (f_list->data[start].modes[0] == 'l')
-			display_long_l(f_list, start, items_w);
+			display_long_l(f_list, start, items_w, opt);
 		else
-			display_long_fd(f_list, start, items_w);
+			display_long_fd(f_list, start, items_w, opt);
 		free(f_list->data[start].path);
 		start += inc;
 	}

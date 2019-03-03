@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/03 10:37:15 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:09:44 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,28 +29,28 @@ static void	add_type_file(t_fstat *fs, struct dirent *dp)
 		ft_strcat(fs->name, "%");
 }
 
-static void	set_file_name(t_fstat *file, t_options *opt, mode_t m, char *name)
+void	colorize_filename(t_fstat *file)
 {
-	*file->name = '\0';
-	if (opt->flags & FLAG_COLORIZE)
-	{
-		if (S_ISDIR(m))
-			ft_strcat(file->name, CBLU);
-		else if (S_ISCHR(m))
-			ft_strcat(file->name, CYEL);
-		else if (S_ISBLK(m))
-			ft_strcat(file->name, CMAG);
-		else if (S_ISFIFO(m))
-			ft_strcat(file->name, CCYN);
-		else if (S_ISLNK(m))
-			ft_strcat(file->name, CGRN);
-		else if ((m & S_IXUSR) || (m & S_IXGRP) || (m & S_IXOTH))
-			ft_strcat(file->name, CRED);
-		ft_strcat(file->name, name);
-		ft_strcat(file->name, CWHT);
-	}
+	char			tmp_name[256];
+	const mode_t	m = file->fstat.st_mode;
+
+	strcpy(tmp_name, file->name);
+	if (S_ISDIR(m))
+		ft_strcpy(file->name, CBLU);
+	else if (S_ISCHR(m))
+		ft_strcpy(file->name, CYEL);
+	else if (S_ISBLK(m))
+		ft_strcpy(file->name, CMAG);
+	else if (S_ISFIFO(m))
+		ft_strcpy(file->name, CCYN);
+	else if (S_ISLNK(m))
+		ft_strcpy(file->name, CGRN);
+	else if ((m & S_IXUSR) || (m & S_IXGRP) || (m & S_IXOTH))
+		ft_strcpy(file->name, CRED);
 	else
-		ft_strcpy(file->name, name);
+		ft_strcpy(file->name, CWHT);
+	ft_strcat(file->name, tmp_name);
+	ft_strcat(file->name, CWHT);
 }
 
 static void	format_modes(mode_t m, t_fstat *file)
@@ -95,8 +95,8 @@ char *path, t_options *opt)
 	else
 		stat(file->path, &stat_elem);
 	file->fstat = stat_elem;
-	set_file_name(file, opt, stat_elem.st_mode, dp->d_name);
-	format_modes(stat_elem.st_mode, file);
+	ft_strcpy(file->name, dp->d_name);
+		format_modes(stat_elem.st_mode, file);
 	if (opt->flags & FLAG_F)
 		add_type_file(file, dp);
 	pw = getpwuid(stat_elem.st_uid);
@@ -131,7 +131,7 @@ int			get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 	if (errno != 0)
 		return (errno);
 	file->fstat = stat_elem;
-	set_file_name(file, opt, stat_elem.st_mode, path);
+	strcpy(file->name, path);
 	format_modes(stat_elem.st_mode, file);
 	pw = getpwuid(stat_elem.st_uid);
 	gp = getgrgid(stat_elem.st_gid);

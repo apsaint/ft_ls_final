@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 15:51:33 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:05:47 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int		display_one_by_line(t_flist *f_list, t_options *opt)
 		{
 			if (opt->flags & FLAG_DISPLAY_INODE)
 				ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
+			if (opt->flags & FLAG_COLORIZE)
+				colorize_filename(&f_list->data[start]);
 			ft_printf("%s\n", f_list->data[start].name);
 			free(f_list->data[start].path);
 			start += inc;
@@ -49,8 +51,10 @@ int		display_one_by_line(t_flist *f_list, t_options *opt)
 	return (0);
 }
 
-int		display_long_bc(t_flist *f_list, int start, int *items_w)
+int		display_long_bc(t_flist *f_list, int start, int *items_w, t_options *opt)
 {
+	if (opt->flags & FLAG_COLORIZE)
+		colorize_filename(&f_list->data[start]);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s   %*d, %*d %s %s\n",
@@ -77,13 +81,15 @@ int		display_long_bc(t_flist *f_list, int start, int *items_w)
 	return (0);
 }
 
-int		display_long_l(t_flist *f_list, int start, int *items_w)
+int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt)
 {
 	char	*buf;
 
 	buf = (char *)malloc(f_list->data[start].fstat.st_size + 1);
 	readlink(f_list->data[start].path, buf, f_list->data[start].fstat.st_size);
 	buf[f_list->data[start].fstat.st_size] = '\0';
+	if (opt->flags & FLAG_COLORIZE)
+		colorize_filename(&f_list->data[start]);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s  %*d %s %s -> %s\n", f_list->data[start].modes,
@@ -106,8 +112,10 @@ int		display_long_l(t_flist *f_list, int start, int *items_w)
 	return (0);
 }
 
-int		display_long_fd(t_flist *f_list, int start, int *items_w)
+int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt)
 {
+	if (opt->flags & FLAG_COLORIZE)
+			colorize_filename(&f_list->data[start]);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s  %*d %s %s\n",

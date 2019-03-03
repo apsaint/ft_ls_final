@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 17:03:00 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 19:04:03 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ void	swap(t_fstat *f1, t_fstat *f2);
 int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
 int		compare_by_date(t_fstat *f1, t_fstat *f2);
 int		compare_by_size(t_fstat *f1, t_fstat *f2);
+void	colorize_filename(t_fstat *file);
 
 /*
 ** DISPLAY MOD **
@@ -106,9 +107,9 @@ int		display_one_by_line(t_flist *f_list, t_options *opt);
 int		display_long_format(t_flist *f_list, t_options *opt);
 int		total_block(t_flist *f_list);
 int		get_width_by_int_item(int item);
-int		display_long_bc(t_flist *f_list, int start, int *items_w);
-int		display_long_l(t_flist *f_list, int start, int *items_w);
-int		display_long_fd(t_flist *f_list, int start, int *items_w);
+int		display_long_bc(t_flist *f_list, int start, int *items_w, t_options *opt);
+int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt);
+int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt);
 long	get_max_inode(t_flist *f_list);
 int		param_display_order(t_flist *f_list, t_options *opt, int *start,
 		int *end);
