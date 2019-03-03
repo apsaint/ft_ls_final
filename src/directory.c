@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 10:49:02 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/03 13:22:25 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int			directory_list(char *path, t_options *opt, int show_dir)
 	else
 	{
 		if (show_dir)
-			printf("%s:\n", path);
+			ft_printf("%s:\n", path);
 		if (f_list_init(&f_list) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
 		if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)
