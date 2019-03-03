@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 13:52:24 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 15:51:33 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int		display_one_by_line(t_flist *f_list, t_options *opt)
 			if (opt->flags & FLAG_DISPLAY_INODE)
 				ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
 			ft_printf("%s\n", f_list->data[start].name);
+			free(f_list->data[start].path);
 			start += inc;
 		}
 	}
