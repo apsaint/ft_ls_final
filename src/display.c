@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 13:38:47 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/04 16:26:48 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt)
 	readlink(f_list->data[start].path, buf, 256);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
-		ft_printf("%s  %*d %-*s  %*d %s %s -> %s\n", f_list->data[start].modes,
+		ft_printf("%s  %*d %-*s  %*llu %s %s -> %s\n", f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
 			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
@@ -94,7 +94,7 @@ int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt)
 	}
 	else
 	{
-		ft_printf("%s  %*d %-*s  %-*s  %*d %s %s -> %s\n",
+		ft_printf("%s  %*d %-*s  %-*s  %*llu %s %s -> %s\n",
 			f_list->data[start].modes, items_w[ITEM_IDX_NLINKS],
 			f_list->data[start].fstat.st_nlink, items_w[ITEM_IDX_OWNER],
 			f_list->data[start].owner, items_w[ITEM_IDX_GROUP],
@@ -110,7 +110,7 @@ int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt)
 {
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
-		ft_printf("%s  %*d %-*s  %*d %s %s\n",
+		ft_printf("%s  %*d %-*s  %*llu %s %s\n",
 			f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
@@ -120,7 +120,7 @@ int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt)
 	}
 	else
 	{
-		ft_printf("%s  %*d %-*s  %-*s  %*d %s %s\n",
+		ft_printf("%s  %*d %-*s  %-*s  %*llu %s %s\n",
 			f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_OWNER], f_list->data[start].owner,

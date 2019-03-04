@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/04 14:55:19 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/04 16:02:02 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@
 static void	add_type_file(t_fstat *fs, struct dirent *dp)
 {
 	if (dp->d_type == DT_DIR)
-		ft_strcat(fs->name, "/");
+		ft_strcat(fs->display_name, "/");
 	else if (dp->d_type == DT_LNK)
-		ft_strcat(fs->name, "@");
+		ft_strcat(fs->display_name, "@");
 	else if (dp->d_type == DT_FIFO)
 		ft_strcat(fs->name, "|");
 	else if (fs->fstat.st_mode & S_IXUSR)
-		ft_strcat(fs->name, "*");
+		ft_strcat(fs->display_name, "*");
 	else if (dp->d_type == DT_SOCK)
-		ft_strcat(fs->name, "=");
+		ft_strcat(fs->display_name, "=");
 	else if (dp->d_type == DT_WHT)
-		ft_strcat(fs->name, "%");
+		ft_strcat(fs->display_name, "%");
 }
 
 void	set_file_name(t_fstat *file, char *name, t_options *opt)
