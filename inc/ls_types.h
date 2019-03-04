@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:16:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/02 12:17:53 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/04 09:59:58 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ typedef struct		s_fstat
 {
 	struct stat		fstat;
 	char			name[255 + (2 * COL_SIZE) + 1];
+	char			display_name[255 + (2 * COL_SIZE) + 1];
 	int				type;
 	char			*path;
 	char			modes[11];

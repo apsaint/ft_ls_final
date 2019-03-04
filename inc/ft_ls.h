@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 09:10:34 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:06:37 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	swap(t_fstat *f1, t_fstat *f2);
 int		compare_by_ascii(t_fstat *f1, t_fstat *f2);
 int		compare_by_date(t_fstat *f1, t_fstat *f2);
 int		compare_by_size(t_fstat *f1, t_fstat *f2);
-void	colorize_filename(t_fstat *file);
+void	set_file_name(t_fstat *file, char *path, t_options *opt);
 
 /*
 ** DISPLAY MOD **

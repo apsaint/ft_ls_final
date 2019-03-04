@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 19:05:47 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/04 10:15:12 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,7 @@ int		display_one_by_line(t_flist *f_list, t_options *opt)
 		{
 			if (opt->flags & FLAG_DISPLAY_INODE)
 				ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
-			if (opt->flags & FLAG_COLORIZE)
-				colorize_filename(&f_list->data[start]);
-			ft_printf("%s\n", f_list->data[start].name);
+			ft_printf("%s\n", f_list->data[start].display_name);
 			free(f_list->data[start].path);
 			start += inc;
 		}
@@ -53,8 +51,6 @@ int		display_one_by_line(t_flist *f_list, t_options *opt)
 
 int		display_long_bc(t_flist *f_list, int start, int *items_w, t_options *opt)
 {
-	if (opt->flags & FLAG_COLORIZE)
-		colorize_filename(&f_list->data[start]);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s   %*d, %*d %s %s\n",
@@ -64,7 +60,7 @@ int		display_long_bc(t_flist *f_list, int start, int *items_w, t_options *opt)
 			items_w[ITEM_IDX_MAJOR], major(f_list->data[start].fstat.st_rdev),
 			items_w[ITEM_IDX_MINOR], minor(f_list->data[start].fstat.st_rdev),
 			f_list->data[start].format_date,
-			f_list->data[start].name);
+			f_list->data[start].display_name);
 	}
 	else
 	{
@@ -76,7 +72,7 @@ int		display_long_bc(t_flist *f_list, int start, int *items_w, t_options *opt)
 			items_w[ITEM_IDX_MAJOR], major(f_list->data[start].fstat.st_rdev),
 			items_w[ITEM_IDX_MINOR], minor(f_list->data[start].fstat.st_rdev),
 			f_list->data[start].format_date,
-			f_list->data[start].name);
+			f_list->data[start].display_name);
 	}
 	return (0);
 }
@@ -88,15 +84,13 @@ int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt)
 	buf = (char *)malloc(f_list->data[start].fstat.st_size + 1);
 	readlink(f_list->data[start].path, buf, f_list->data[start].fstat.st_size);
 	buf[f_list->data[start].fstat.st_size] = '\0';
-	if (opt->flags & FLAG_COLORIZE)
-		colorize_filename(&f_list->data[start]);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s  %*d %s %s -> %s\n", f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
 			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
-			f_list->data[start].format_date, f_list->data[start].name, buf);
+			f_list->data[start].format_date, f_list->data[start].display_name, buf);
 	}
 	else
 	{
@@ -106,7 +100,7 @@ int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt)
 			f_list->data[start].owner, items_w[ITEM_IDX_GROUP],
 			f_list->data[start].group, items_w[ITEM_IDX_SIZE],
 			f_list->data[start].fstat.st_size, f_list->data[start].format_date,
-			f_list->data[start].name, buf);
+			f_list->data[start].display_name, buf);
 	}
 	free(buf);
 	return (0);
@@ -114,8 +108,6 @@ int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt)
 
 int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt)
 {
-	if (opt->flags & FLAG_COLORIZE)
-			colorize_filename(&f_list->data[start]);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s  %*d %s %s\n",
@@ -124,7 +116,7 @@ int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt)
 			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
 			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
 			f_list->data[start].format_date,
-			f_list->data[start].name);
+			f_list->data[start].display_name);
 	}
 	else
 	{
@@ -135,7 +127,7 @@ int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt)
 			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
 			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
 			f_list->data[start].format_date,
-			f_list->data[start].name);
+			f_list->data[start].display_name);
 	}
 	return (0);
 }
