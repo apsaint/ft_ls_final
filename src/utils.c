@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:22:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/01 18:55:19 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/03 13:55:16 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,15 @@ void	swap(t_fstat *f1, t_fstat *f2)
 	tmp = *f1;
 	*f1 = *f2;
 	*f2 = tmp;
+}
+
+void	swap_str(t_path *s1, t_path *s2)
+{
+	t_path tmp;
+
+	tmp = *s1;
+	*s1 = *s2;
+	*s2 = tmp;
 }
 
 int		get_width_by_int_item(int item)

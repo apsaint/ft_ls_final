@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:07:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 13:33:47 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/04 08:55:01 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "ft_ls.h"
 #include "libft.h"
 
-int	print_option_error(const char *option, int opt_type)
+int		print_option_error(const char *option, int opt_type)
 {
 	char	str[256];
 
@@ -22,12 +22,13 @@ int	print_option_error(const char *option, int opt_type)
 	ft_strlcat(str, ""PROGRAM_NAME": ", sizeof(str));
 	ft_strlcat(str, "illegal option -- ", sizeof(str));
 	ft_strlcat(str, option, sizeof(str));
-	ft_strlcat(str, "\nusage: ./ft_ls [-AFGSadfgilrt1] [file ...]", sizeof(str));
+	ft_strlcat(str, "\nusage: ./ft_ls [-AFGSadfgilrt1] [file ...]",
+			sizeof(str));
 	ft_putendl_fd(str, STDERR_FILENO);
 	return (0);
 }
 
-int	print_path_error(const char *path, int err_num)
+int		print_path_error(const char *path, int err_num)
 {
 	char	str[256];
 	char	*ptr;
@@ -46,34 +47,34 @@ int	print_path_error(const char *path, int err_num)
 	return (0);
 }
 
-int		compare_string(char *s1, char *s2)
+int		compare_string(t_path *s1, t_path *s2)
 {
-	return ((ft_strcmp(s1, s2) > 0 ? 1 : -1));
+	return ((ft_strcmp(s1->path_name, s2->path_name) > 0 ? 1 : -1));
 }
 
-int		partition_error(char **error, int min, int max)
+int		partition_error(t_path *error, int min, int max)
 {
 	int		i;
 	int		j;
-	char	*pivot;
+	t_path	pivot;
 
 	i = min - 1;
 	j = min;
 	pivot = error[max];
 	while (j <= (max - 1))
 	{
-		if (compare_string(error[j], pivot) == -1)
+		if (compare_string(&error[j], &pivot) == -1)
 		{
 			i++;
-			swap(error[i], error[j]);
+			swap_str(&error[i], &error[j]);
 		}
 		j++;
 	}
-	swap(error[i + 1], error[max]);
+	swap_str(&error[i + 1], &error[max]);
 	return (i + 1);
 }
 
-void	error_qsort(char **error, int max, int min)
+void	error_qsort(t_path *error, int max, int min)
 {
 	int		part;
 
