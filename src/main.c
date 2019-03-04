@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 17:08:53 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/04 09:10:17 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static int	catch_path_errors_and_print(t_path *paths, t_path **output)
 			output[size++] = paths;
 		paths++;
 	}
+	error_qsort(*output, size - 1, 0);
 	while (i < size)
 	{
 		print_path_error(output[i]->path_name, output[i]->err);
