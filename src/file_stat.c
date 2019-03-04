@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/04 10:26:08 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/04 14:55:19 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char *path, t_options *opt)
 	file->fstat = stat_elem;
 	set_file_name(file, dp->d_name, opt);
 	ft_strcpy(file->name, dp->d_name);
-		format_modes(stat_elem.st_mode, file);
+	format_modes(stat_elem.st_mode, file);
 	if (opt->flags & FLAG_F)
 		add_type_file(file, dp);
 	pw = getpwuid(stat_elem.st_uid);
