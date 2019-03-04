@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 16:44:19 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/04 16:59:58 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,9 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 			}
 			if (ft_strcmp(f_list->data[i].modes, "drw-r--r--") == 0)
 			{
-				ft_printf("\n./%s:\n", f_list->data[i].name);
-				i++;
+				combine_paths(path, f_list->data[i++].name, new_path);
+				ft_printf("\n%s:\n", new_path);
+				ft_bzero(new_path, sizeof(new_path));
 				continue;
 			}
 			combine_paths(path, f_list->data[i].name, new_path);
