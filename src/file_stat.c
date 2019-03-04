@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/03 19:09:44 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/04 09:55:49 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ char *path, t_options *opt)
 		ls_itoa_min(stat_elem.st_uid, file->owner);
 	else
 		ft_strcpy(file->owner, pw->pw_name);
-	if (gp->gr_name == NULL)
+	if (gp == NULL || gp->gr_name == NULL)
 		ls_itoa_min(stat_elem.st_gid, file->group);
 	else
 		ft_strcpy(file->group, gp->gr_name);
@@ -139,7 +139,7 @@ int			get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 		ls_itoa_min(stat_elem.st_uid, file->owner);
 	else
 		ft_strcpy(file->owner, pw->pw_name);
-	if (gp->gr_name == NULL)
+	if (gp == NULL || gp->gr_name == NULL)
 		ls_itoa_min(stat_elem.st_gid, file->group);
 	else
 		ft_strcpy(file->group, gp->gr_name);
