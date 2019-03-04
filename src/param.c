@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 17:03:16 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/04 20:47:33 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	get_param_type(const char *param)
 		{
 			if (*(param + 2) == '\0')
 				return (PARAM_OPTION_END);
-			return (PARAM_PATH);
+			return (PARAM_OPTION_SHORT);
 		}
 		if (*(param + 1) != '\0')
 			return (PARAM_OPTION_SHORT);
@@ -106,7 +106,7 @@ t_options *opt, t_path **paths)
 			treat_as_path = 1;
 			((*paths)++)->path_name = (char *)*params;
 		}
-		else if (par_type == PARAM_OPTION_END)
+		else if (par_type == PARAM_OPTION_END && *(*params + 2) == '\0')
 			treat_as_path = 1;
 		else
 		{
