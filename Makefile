@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/03 10:38:52 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/04 13:31:45 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ LINK = gcc
 CFLAGS += -Wall
 # CFLAGS += -Werror
 CFLAGS += -Wextra
-CFLAGS += -g
+CFLAGS += -g3
 CFLAGS += -I $(INC_DIR)/ -I $(LIBFT_HEADERS)/ -I $(PRINTF_HEADERS)/
 CLIBS += -L $(LIBFT_DIR) -L $(PRINTF_DIR)
 MKDIR:= mkdir -p

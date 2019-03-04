@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 10:15:12 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/04 13:38:47 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt)
 {
 	char	*buf;
 
-	buf = (char *)malloc(f_list->data[start].fstat.st_size + 1);
-	readlink(f_list->data[start].path, buf, f_list->data[start].fstat.st_size);
-	buf[f_list->data[start].fstat.st_size] = '\0';
+	buf = ft_strnew(256);
+	readlink(f_list->data[start].path, buf, 256);
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
 		ft_printf("%s  %*d %-*s  %*d %s %s -> %s\n", f_list->data[start].modes,
 			items_w[ITEM_IDX_NLINKS], f_list->data[start].fstat.st_nlink,
 			items_w[ITEM_IDX_GROUP], f_list->data[start].group,
 			items_w[ITEM_IDX_SIZE], f_list->data[start].fstat.st_size,
-			f_list->data[start].format_date, f_list->data[start].display_name, buf);
+			f_list->data[start].format_date, f_list->data[start].display_name,
+			buf);
 	}
 	else
 	{
