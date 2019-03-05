@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 21:11:11 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 21:13:31 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static int	param_eval_flags(const char *input, t_options *data)
 	return (0);
 }
 
-void		resolve_conflict(t_options *opt)
+void		resolve_flag_conflicts(t_options *opt)
 {
 	if (opt->flags & FLAG_TREAT_AS_FILE)
 		opt->flags &= ~(FLAG_LIST_SUBDIRS);
@@ -136,6 +136,6 @@ t_options *opt, t_path **paths)
 	}
 	(*paths)->path_name = NULL;
 	*paths = path_begin;
-	resolve_conflict(opt);
+	resolve_flag_conflicts(opt);
 	return (0);
 }
