@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 21:49:29 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 22:20:56 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,13 @@ static int	param_eval_flags(const char *input, t_options *data)
 	return (0);
 }
 
-int			param_eval_all(const char *params[], int count,
+static int	param_eval_all_internal(const char *params[], int count,
 t_options *opt, t_path **paths)
 {
-	t_path	*path_begin;
-	int		treat_as_path;
-	int		par_type;
+	const t_path	*begin = *paths;
+	static int	treat_as_path = 0;
+	int			par_type;
 
-	treat_as_path = 0;
-	if ((*paths = (t_path *)malloc(sizeof(t_path) * (count + 1))) == NULL)
-		return (-1);
-	path_begin = *paths;
 	while (count--)
 	{
 		if (treat_as_path == 1)
@@ -67,15 +63,25 @@ t_options *opt, t_path **paths)
 		else
 		{
 			if (param_eval_flags(++*params, opt) == PARAM_ERROR)
-			{
-				free(path_begin);
 				return (-1);
-			}
 		}
 		params++;
 	}
 	(*paths)->path_name = NULL;
-	*paths = path_begin;
+	*paths = (t_path *)begin;
+	return (0);
+}
+
+int			param_eval_all(const char *params[], int count,
+t_options *opt, t_path **paths)
+{
+	if ((*paths = (t_path *)malloc(sizeof(t_path) * (count + 1))) == NULL)
+		return (-1);
+	if (param_eval_all_internal(params, count, opt, paths) == -1)
+	{
+		free(paths);
+		return (-1);
+	}
 	resolve_flag_conflicts(opt);
 	return (0);
 }
