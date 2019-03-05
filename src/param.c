@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 16:54:27 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 21:11:11 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,12 +64,9 @@ static int	eval_short_flag(const char *input, t_options *opt)
 		opt->sort_func = &compare_by_size;
 	}
 	else if (*input == SPEC_ONE_FILE_PER_LINE)
-		opt->display_func = &display_one_by_line;
+		opt->flags |= FLAG_FORCE_DISPLAY_ONE_BY_LINE;
 	else if (*input == SPEC_OUTPUT_NOT_SORTED)
-	{
-		opt->flags |= (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIR);
-		opt->sort_func = NULL;
-	}
+		opt->flags |= FLAG_NO_SORT;
 	else
 	{
 		print_option_error(input, PARAM_OPTION_SHORT);
@@ -93,10 +90,16 @@ void		resolve_conflict(t_options *opt)
 {
 	if (opt->flags & FLAG_TREAT_AS_FILE)
 		opt->flags &= ~(FLAG_LIST_SUBDIRS);
-	if (opt->flags & (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIR))
-		opt->flags &= ~(FLAG_DISPLAY_REVERSE);
 	else if (opt->flags & FLAG_SORT_SIZE)
 		opt->sort_func = &compare_by_size;
+	if (opt->flags & FLAG_NO_SORT)
+	{
+		opt->flags |= (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIR);
+		opt->sort_func = NULL;
+		opt->flags &= ~(FLAG_DISPLAY_REVERSE);
+	}
+	if (opt->flags & FLAG_FORCE_DISPLAY_ONE_BY_LINE)
+		opt->display_func = &display_one_by_line;
 }
 
 int			param_eval_all(const char *params[], int count,
