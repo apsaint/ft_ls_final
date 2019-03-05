@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/04 16:02:02 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 17:28:46 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	add_type_file(t_fstat *fs, struct dirent *dp)
 		ft_strcat(fs->display_name, "%");
 }
 
-void	set_file_name(t_fstat *file, char *name, t_options *opt)
+void		set_file_name(t_fstat *file, char *name, t_options *opt)
 {
 	const mode_t	m = file->fstat.st_mode;
 
@@ -52,7 +52,7 @@ void	set_file_name(t_fstat *file, char *name, t_options *opt)
 			ft_strcpy(file->display_name, CWHT);
 	}
 	else
-			ft_strcpy(file->display_name, CWHT);
+		ft_strcpy(file->display_name, CWHT);
 	ft_strcat(file->display_name, file->name);
 	ft_strcat(file->display_name, CWHT);
 }
