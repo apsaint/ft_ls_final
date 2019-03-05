@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 20:47:33 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 16:54:27 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,10 @@ static int	eval_short_flag(const char *input, t_options *opt)
 	else if (*input == FLAG_SORT_BY_TIME)
 		opt->sort_func = &compare_by_date;
 	else if (*input == FLAG_SORT_BY_SIZE)
+	{
+		opt->flags |= FLAG_SORT_SIZE;
 		opt->sort_func = &compare_by_size;
+	}
 	else if (*input == SPEC_ONE_FILE_PER_LINE)
 		opt->display_func = &display_one_by_line;
 	else if (*input == SPEC_OUTPUT_NOT_SORTED)
@@ -84,6 +87,16 @@ static int	param_eval_flags(const char *input, t_options *data)
 		input++;
 	}
 	return (0);
+}
+
+void		resolve_conflict(t_options *opt)
+{
+	if (opt->flags & FLAG_TREAT_AS_FILE)
+		opt->flags &= ~(FLAG_LIST_SUBDIRS);
+	if (opt->flags & (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIR))
+		opt->flags &= ~(FLAG_DISPLAY_REVERSE);
+	else if (opt->flags & FLAG_SORT_SIZE)
+		opt->sort_func = &compare_by_size;
 }
 
 int			param_eval_all(const char *params[], int count,
@@ -120,5 +133,6 @@ t_options *opt, t_path **paths)
 	}
 	(*paths)->path_name = NULL;
 	*paths = path_begin;
+	resolve_conflict(opt);
 	return (0);
 }
