@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 10:06:37 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 17:19:59 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,9 +109,12 @@ int		display_one_by_line(t_flist *f_list, t_options *opt);
 int		display_long_format(t_flist *f_list, t_options *opt);
 int		total_block(t_flist *f_list);
 int		get_width_by_int_item(int item);
-int		display_long_bc(t_flist *f_list, int start, int *items_w, t_options *opt);
-int		display_long_l(t_flist *f_list, int start, int *items_w, t_options *opt);
-int		display_long_fd(t_flist *f_list, int start, int *items_w, t_options *opt);
+int		display_long_bc(t_flist *f_list, int start, int *items_w,
+		t_options *opt);
+int		display_long_l(t_flist *f_list, int start, int *items_w,
+		t_options *opt);
+int		display_long_fd(t_flist *f_list, int start, int *items_w,
+		t_options *opt);
 long	get_max_inode(t_flist *f_list);
 int		param_display_order(t_flist *f_list, t_options *opt, int *start,
 		int *end);
