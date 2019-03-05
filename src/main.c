@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 14:49:01 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 21:27:53 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,5 +132,5 @@ int			main(int ac, char const *av[])
 	else
 		treat_paths(paths, &opt);
 	free(paths);
-	return (EXIT_SUCCESS);
+	return ((opt.flags & FLAG_MINOR_ERROR) ? EXIT_FAILURE : EXIT_SUCCESS);
 }

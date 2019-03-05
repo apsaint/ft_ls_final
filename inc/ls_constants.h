@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/02 12:13:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 21:10:22 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 21:21:22 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,8 @@ enum	e_option_flags
 	FLAG_NO_READ = (1U << 11U),
 	FLAG_SORT_SIZE = (1U << 12U),
 	FLAG_NO_SORT = (1U << 13U),
-	FLAG_FORCE_DISPLAY_ONE_BY_LINE = (1U << 14U)
+	FLAG_FORCE_DISPLAY_ONE_BY_LINE = (1U << 14U),
+	FLAG_MINOR_ERROR = (1U << 15U)
 };
 
 #endif

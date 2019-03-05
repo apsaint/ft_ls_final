@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:07:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 16:58:26 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 21:28:13 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int		print_path_error(const char *path, int err_num, t_options *opt)
 	char	str[256];
 	char	*ptr;
 
+	opt->flags |= FLAG_MINOR_ERROR;
 	ptr = ft_strrchr(path, '/');
 	ft_memset(str, 0, sizeof(str));
 	ft_strlcat(str, ""PROGRAM_NAME": ", sizeof(str));
