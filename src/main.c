@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 15:48:17 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 14:49:01 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,11 @@ int prev_files, t_options *opt)
 		if (paths->err == 0)
 		{
 			if (S_ISDIR(paths->file_stat.fstat.st_mode))
+			{
+				if (paths->file_stat.modes[3] != 'x')
+					opt->flags |= FLAG_NO_READ;
 				output[size++] = paths;
+			}
 		}
 		paths++;
 	}

@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/04 16:59:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 15:17:32 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 				i++;
 				continue;
 			}
-			if (ft_strcmp(f_list->data[i].modes, "drw-r--r--") == 0)
+			if (f_list->data[i].modes[3] != 'x')
 			{
+				opt->flags &= ~(FLAG_NO_READ);
 				combine_paths(path, f_list->data[i++].name, new_path);
 				ft_printf("\n%s:\n", new_path);
 				ft_bzero(new_path, sizeof(new_path));
@@ -115,14 +116,20 @@ int			directory_list(char *path, t_options *opt, int show_dir)
 			ft_printf("%s:\n", path);
 		if (f_list_init(&f_list) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
-		if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)
-			return (ALLOC_ERROR);
+		if (!(opt->flags & FLAG_NO_READ))
+		{
+			if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)
+				return (ALLOC_ERROR);
+		}
 		closedir(dirp);
 		if (opt->sort_func != NULL)
 			f_list_qsort(&f_list, opt, f_list.count - 1, 0);
-		opt->display_func(&f_list, opt);
+		if (f_list.count != 0)
+			opt->display_func(&f_list, opt);
 		if (opt->flags & FLAG_LIST_SUBDIRS)
 			try_sub(path, &f_list, opt, &n);
+		if (opt->flags & FLAG_NO_READ)
+			opt->flags &= ~(FLAG_NO_READ);
 		f_list_destroy_storage(&f_list);
 	}
 	return (0);
