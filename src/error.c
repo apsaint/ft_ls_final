@@ -28,7 +28,7 @@ int		print_option_error(const char *option, int opt_type)
 	return (0);
 }
 
-int		print_path_error(const char *path, int err_num)
+int		print_path_error(const char *path, int err_num, t_options *opt)
 {
 	char	str[256];
 	char	*ptr;
@@ -38,7 +38,7 @@ int		print_path_error(const char *path, int err_num)
 	ft_strlcat(str, ""PROGRAM_NAME": ", sizeof(str));
 	ft_putstr_fd(str, STDERR_FILENO);
 	ft_putstr_fd("", STDERR_FILENO);
-	if (ptr == NULL)
+	if (ptr == NULL || !(opt->flags & FLAG_LIST_SUBDIRS))
 		ft_putstr_fd(path, STDERR_FILENO);
 	else
 		ft_putstr_fd(++ptr, STDERR_FILENO);

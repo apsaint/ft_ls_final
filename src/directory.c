@@ -108,7 +108,7 @@ int			directory_list(char *path, t_options *opt, int show_dir)
 	if ((dirp = opendir(path)) == NULL)
 	{
 		ft_printf("%s:\n", path);
-		print_path_error(path, errno);
+		print_path_error(path, errno, opt);
 	}
 	else
 	{

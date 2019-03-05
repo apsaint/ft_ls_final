@@ -15,7 +15,7 @@
 #include "ft_ls.h"
 #include <ft_printf.h>
 
-static int	catch_path_errors_and_print(t_path *paths, t_path **output)
+static int	catch_path_errors_and_print(t_path *paths, t_path **output, t_options *opt)
 {
 	int	size;
 	int	i;
@@ -30,7 +30,7 @@ static int	catch_path_errors_and_print(t_path *paths, t_path **output)
 	}
 	while (i < size)
 	{
-		print_path_error(output[i]->path_name, output[i]->err);
+		print_path_error(output[i]->path_name, output[i]->err, opt);
 		free(output[i++]->file_stat.path);
 	}
 	return (i);
@@ -96,7 +96,7 @@ static int	treat_paths(t_path *paths, t_options *opt)
 	if (get_stats_from_all_paths(paths, opt) == -1)
 		return (-1);
 	error_qsort(paths, get_path_count(paths) - 1, 0);
-	n_errors = catch_path_errors_and_print(paths, tmp);
+	n_errors = catch_path_errors_and_print(paths, tmp, opt);
 	f_list_init(&flst);
 	catch_files(paths, &flst, opt);
 	if (flst.count != 0)

@@ -81,7 +81,7 @@ int		directory_list(char *path, t_options *opt, int show_dir);
 void	error_qsort(t_path *error, int min, int max);
 void	swap_str(t_path *s1, t_path *s2);
 int		print_option_error(const char *option, int opt_type);
-int		print_path_error(const char *path, int err_num);
+int		print_path_error(const char *path, int err_num, t_options *opt);
 
 /*
 ** FILE MOD **

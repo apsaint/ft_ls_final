@@ -31,7 +31,7 @@ int	get_stats_from_all_paths(t_path *paths, t_options *opt)
 	{
 		if (*(paths->path_name) == '\0')
 		{
-			print_path_error("fts_open", ENOENT);
+			print_path_error("fts_open", ENOENT, opt);
 			return (-1);
 		}
 		paths->err = get_file_stat_by_path(&paths->file_stat,
