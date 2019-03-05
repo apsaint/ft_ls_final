@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/05 17:28:46 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 22:49:28 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,26 @@ static void	format_modes(mode_t m, t_fstat *file)
 	file->modes[10] = '\0';
 }
 
+
+static void get_file_stat_common(t_fstat *file, struct stat *stat_elem)
+{
+	struct passwd	*pw;
+	struct group	*gp;
+
+	pw = getpwuid(stat_elem->st_uid);
+	gp = getgrgid(stat_elem->st_gid);
+	if (pw == NULL || pw->pw_name == NULL)
+		ls_itoa_min(stat_elem->st_uid, file->owner);
+	else
+		ft_strcpy(file->owner, pw->pw_name);
+	if (gp == NULL || gp->gr_name == NULL)
+		ls_itoa_min(stat_elem->st_gid, file->group);
+	else
+		ft_strcpy(file->group, gp->gr_name);
+	format_date(file->format_date, ctime(&stat_elem->st_mtime),
+			stat_elem->st_mtime);
+}
+
 void		get_file_stat(t_fstat *file, struct dirent *dp,
 char *path, t_options *opt)
 {
@@ -100,22 +120,10 @@ char *path, t_options *opt)
 		stat(file->path, &stat_elem);
 	file->fstat = stat_elem;
 	set_file_name(file, dp->d_name, opt);
-	ft_strcpy(file->name, dp->d_name);
 	format_modes(stat_elem.st_mode, file);
 	if (opt->flags & FLAG_F)
 		add_type_file(file, dp);
-	pw = getpwuid(stat_elem.st_uid);
-	gp = getgrgid(stat_elem.st_gid);
-	if (pw == NULL || pw->pw_name == NULL)
-		ls_itoa_min(stat_elem.st_uid, file->owner);
-	else
-		ft_strcpy(file->owner, pw->pw_name);
-	if (gp == NULL || gp->gr_name == NULL)
-		ls_itoa_min(stat_elem.st_gid, file->group);
-	else
-		ft_strcpy(file->group, gp->gr_name);
-	format_date(file->format_date, ctime(&stat_elem.st_mtime),
-			stat_elem.st_mtime);
+	get_file_stat_common(file, &stat_elem);
 }
 
 int			get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
@@ -138,17 +146,6 @@ int			get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 	file->fstat = stat_elem;
 	set_file_name(file, path, opt);
 	format_modes(stat_elem.st_mode, file);
-	pw = getpwuid(stat_elem.st_uid);
-	gp = getgrgid(stat_elem.st_gid);
-	if (pw == NULL || pw->pw_name == NULL)
-		ls_itoa_min(stat_elem.st_uid, file->owner);
-	else
-		ft_strcpy(file->owner, pw->pw_name);
-	if (gp == NULL || gp->gr_name == NULL)
-		ls_itoa_min(stat_elem.st_gid, file->group);
-	else
-		ft_strcpy(file->group, gp->gr_name);
-	format_date(file->format_date, ctime(&stat_elem.st_mtime),
-			stat_elem.st_mtime);
+	get_file_stat_common(file, &stat_elem);
 	return (0);
 }
