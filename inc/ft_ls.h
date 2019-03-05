@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 19:15:11 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 21:49:21 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,10 @@
 
 int		param_eval_all(const char *params[], int count, t_options *opt,
 		t_path **paths);
+int		flag_eval(const char *input, t_options *opt);
+void	resolve_flag_conflicts(t_options *opt);
+
+
 
 /*
 ** DIRECTORY MOD **

@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/04 13:31:45 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/05 21:47:49 by bboutoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ DEBUG_TARGET:= debug.out
 DEBUG_LAUNCHER:= $(DEBUG_DIR)/main.c
 DEBUG_OBJ= $(DEBUG_SRC:$(DEBUG_DIR)%.c=$(OBJ_DIR)%.o)
 SRC+= $(SRC_DIR)/param.c
+SRC+= $(SRC_DIR)/flag.c
 SRC+= $(SRC_DIR)/main.c
 SRC+= $(SRC_DIR)/directory.c
 SRC+= $(SRC_DIR)/error.c
