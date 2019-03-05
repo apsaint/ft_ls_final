@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 19:13:34 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/02/27 15:56:04 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 19:25:34 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,16 @@ void	f_list_qsort(t_flist *f_list, t_options *opt, int max, int min)
 		f_list_qsort(f_list, opt, part - 1, min);
 		f_list_qsort(f_list, opt, max, part + 1);
 	}
+}
+
+void		f_list_reverse(t_flist *f_list)
+{
+	int	cur;
+	int	end;
+
+	cur = 0;
+	end = f_list->count - 1;
+
+	while (cur < end)
+		swap(&f_list->data[cur++], &f_list->data[end--]); 
 }

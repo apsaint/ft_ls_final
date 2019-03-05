@@ -6,44 +6,28 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 17:23:59 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 18:58:40 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 #include "ft_printf.h"
 
-int		param_display_order(t_flist *f_list, t_options *opt, int *start,
-		int *end)
-{
-	if (opt->flags & FLAG_DISPLAY_REVERSE)
-	{
-		*start = f_list->count - 1;
-		*end = -1;
-		return (-1);
-	}
-	*start = 0;
-	*end = f_list->count;
-	return (1);
-}
-
 int		display_one_by_line(t_flist *f_list, t_options *opt)
 {
-	int				start;
-	int				end;
-	const int		inc = param_display_order(f_list, opt, &start, &end);
 	unsigned long	ino_w;
-
+	size_t			i;
 	if (f_list->count != 0)
 	{
+		i = 0;
 		ino_w = get_max_inode(f_list);
-		while (start != end)
+		while (i < f_list->count)
 		{
 			if (opt->flags & FLAG_DISPLAY_INODE)
-				ft_printf("%*llu ", ino_w, f_list->data[start].fstat.st_ino);
-			ft_printf("%s\n", f_list->data[start].display_name);
-			free(f_list->data[start].path);
-			start += inc;
+				ft_printf("%*llu ", ino_w, f_list->data[i].fstat.st_ino);
+			ft_printf("%s\n", f_list->data[i].display_name);
+			free(f_list->data[i].path);
+			i++;
 		}
 	}
 	return (0);

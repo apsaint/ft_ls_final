@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 15:17:32 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/05 19:26:28 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,11 @@ int			directory_list(char *path, t_options *opt, int show_dir)
 		if (opt->sort_func != NULL)
 			f_list_qsort(&f_list, opt, f_list.count - 1, 0);
 		if (f_list.count != 0)
+		{
+			if (opt->flags & FLAG_DISPLAY_REVERSE)
+				f_list_reverse(&f_list);
 			opt->display_func(&f_list, opt);
+		}
 		if (opt->flags & FLAG_LIST_SUBDIRS)
 			try_sub(path, &f_list, opt, &n);
 		if (opt->flags & FLAG_NO_READ)

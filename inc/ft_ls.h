@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 17:19:59 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/05 19:15:11 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ int		print_path_error(const char *path, int err_num);
 int		f_list_init(t_flist *f_list);
 int		f_list_add(t_flist *f_list, t_fstat *file);
 int		f_list_destroy_storage(t_flist *f_list);
+void		f_list_reverse(t_flist *f_list);
 void	get_file_stat(t_fstat *fs, struct dirent *dp, char *path,
 		t_options *opt);
 void	f_list_qsort(t_flist *f_list, t_options *opt, int max, int min);
