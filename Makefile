@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/06 12:27:12 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/06 13:10:23 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -80,15 +80,15 @@ MAKE:= make -C
 all : $(OBJ_DIR) $(LIBFT_NAME) $(PRINTF_NAME) $(NAME) $(HEADERS)
 
 $(NAME): $(OBJ) $(HEADERS)
-	$(LINK) $(CFLAGS) $(CLIBS) $^ -o $@ -lft -lftprintf
+	$(LINK) $(CFLAGS) $(CLIBS) $(OBJ) -o $@ -lft -lftprintf
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
-$(LIBFT_NAME):
+$(LIBFT_NAME): $(LIBFT_DIR)
 	@make -C $^
 
-$(PRINTF_NAME):
+$(PRINTF_NAME): $(PRINTF_DIR)
 	@make -C $^
 
 $(OBJ_DIR):
