@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/06 08:35:19 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/06 12:21:53 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ void	resolve_flag_conflicts(t_options *opt);
 ** ------------- **
 */
 
+int		collect_mapping_files(DIR *dir, t_options *opt, t_flist *f_list,
+		char *path);
+int		collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path);
 int		directory_list(char *path, t_options *opt, int show_dir);
 
 /*
@@ -139,4 +142,16 @@ void	format_date(char *dst, char *date, time_t timestamp);
 char	get_permission_sticky(mode_t m, char c);
 char	get_permission_uid(mode_t m, char c);
 char	get_permission_gid(mode_t m, char c);
+
+/*
+** CORE MODULE **
+** ------------ **
+*/
+int		catch_path_errors_and_print(t_path *paths, t_path **output,
+		t_options *opt);
+void	catch_files(t_path *paths, t_flist *f_list, t_options *opt);
+int		check_error_dir(t_path *paths, t_path **output, t_options *opt);
+void	catch_directories_and_run_listing(t_path *paths, t_path **output,
+		int prev_files, t_options *opt);
+int		treat_paths(t_path *paths, t_options *opt);
 #endif

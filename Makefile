@@ -6,7 +6,7 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/06 08:44:02 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/06 12:22:19 by apsaint-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,7 @@ DEBUG_OBJ= $(DEBUG_SRC:$(DEBUG_DIR)%.c=$(OBJ_DIR)%.o)
 SRC+= $(SRC_DIR)/param.c
 SRC+= $(SRC_DIR)/flag.c
 SRC+= $(SRC_DIR)/main.c
+SRC+= $(SRC_DIR)/core.c
 SRC+= $(SRC_DIR)/directory.c
 SRC+= $(SRC_DIR)/error.c
 SRC+= $(SRC_DIR)/file_stat.c
@@ -49,6 +50,7 @@ SRC+= $(SRC_DIR)/display.c
 SRC+= $(SRC_DIR)/display_lf.c
 SRC+= $(SRC_DIR)/utils.c
 SRC+= $(SRC_DIR)/utils_mode.c
+SRC+= $(SRC_DIR)/utils_collect.c
 SRC+= $(SRC_DIR)/utils_compare.c
 SRC+= $(SRC_DIR)/path.c
 SRC+= $(SRC_DIR)/path_utils.c
