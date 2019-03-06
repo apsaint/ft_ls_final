@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:55:04 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/06 08:28:31 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/06 09:00:38 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,11 @@ static void	catch_files(t_path *paths, t_flist *f_list, t_options *opt)
 	}
 }
 
-static void	catch_directories_and_run_listing(t_path *paths, t_path **output,
-int prev_files, t_options *opt)
+static int	check_error_dir(t_path *paths, t_path **output, t_options *opt)
 {
-	int	size;
-	int	i;
-	int	show_dir;
+	int size;
 
 	size = 0;
-	i = 0;
 	while (paths->path_name != NULL)
 	{
 		if (paths->err == 0)
@@ -70,6 +66,18 @@ int prev_files, t_options *opt)
 		}
 		paths++;
 	}
+	return (size);
+}
+
+static void	catch_directories_and_run_listing(t_path *paths, t_path **output,
+int prev_files, t_options *opt)
+{
+	int	size;
+	int	i;
+	int	show_dir;
+
+	size = check_error_dir(paths, output, opt);
+	i = 0;
 	if (prev_files && size > 0)
 		ft_putchar('\n');
 	show_dir = (size + prev_files > 1);
