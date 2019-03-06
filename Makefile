@@ -6,20 +6,18 @@
 #    By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/09 20:57:32 by bboutoil          #+#    #+#              #
-#    Updated: 2019/03/06 08:44:02 by apsaint-         ###   ########.fr        #
+#    Updated: 2019/03/06 12:21:36 by bboutoil         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
 ##### DEPENDENCIES #############################################################
 
-LIB_DIR:= lib
-LIBFT_URL:= https://gitlab.com/gigistone/libft.git
+LIB_DIR:= libft
 LIBFT_DIR:= $(LIB_DIR)/libft
 LIBFT_HEADERS:=$(LIBFT_DIR)/includes
 LIBFT_NAME:= $(LIBFT_DIR)/libft.a
 
-PRINTF_URL:= https://gitlab.com/gigistone/printf
 PRINTF_DIR:= $(LIB_DIR)/printf
 PRINTF_HEADERS:=$(PRINTF_DIR)/inc
 PRINTF_NAME:= $(PRINTF_DIR)/libftprintf.a
@@ -32,10 +30,11 @@ NAME_DIR:= .
 INC_DIR:= inc
 SRC_DIR:= src
 OBJ_DIR:= obj
-DEBUG_DIR:= .vscode/debug
-DEBUG_TARGET:= debug.out
-DEBUG_LAUNCHER:= $(DEBUG_DIR)/main.c
-DEBUG_OBJ= $(DEBUG_SRC:$(DEBUG_DIR)%.c=$(OBJ_DIR)%.o)
+
+HEADERS+= $(INC_DIR)/ls_constants.h
+HEADERS+= $(INC_DIR)/ls_types.h
+HEADERS+= $(INC_DIR)/ft_ls.h
+
 SRC+= $(SRC_DIR)/param.c
 SRC+= $(SRC_DIR)/flag.c
 SRC+= $(SRC_DIR)/main.c
@@ -76,37 +75,19 @@ MAKE:= make -C
 .SUFFIXES:
 .SUFFIXES: .c .o
 
-all : $(OBJ_DIR) $(NAME)
+all : $(OBJ_DIR) $(LIBFT_NAME) $(PRINTF_NAME) $(NAME) $(HEADERS)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADERS)
 	$(LINK) $(CFLAGS) $(CLIBS) $^ -o $@ -lft -lftprintf
 
 $(OBJ_DIR)/%.o : $(SRC_DIR)/%.c
 	$(CC) $(CFLAGS) -c $^ -o $@
 
-# $(OBJ_DIR)/%.o : $(TEST_DIR)/%.c
-# 	$(CC) $(CFLAGS) -c $^ -o $@
-
-# $(OBJ_DIR)/%.o : $(DEBUG_DIR)/%.c
-# 	$(CC) $(CFLAGS) -c $^ -o $@
-
-configure: $(LIBFT_NAME) $(PRINTF_NAME)
-	@echo
-	@echo "----------------------------"
-	@echo "-> Dependencies restored."
-	@echo "-> Workspace ready."
-
-$(LIBFT_NAME): $(LIBFT_DIR)
+$(LIBFT_NAME):
 	@make -C $^
 
-$(PRINTF_NAME): $(PRINTF_DIR)
+$(PRINTF_NAME):
 	@make -C $^
-
-$(LIBFT_DIR): $(LIB_DIR)
-	@git clone $(LIBFT_URL) $@
-
-$(PRINTF_DIR): $(LIB_DIR)
-	@git clone $(PRINTF_URL) $@
 
 $(OBJ_DIR):
 	@$(MKDIR) $@
@@ -115,14 +96,9 @@ $(LIB_DIR):
 	@$(MKDIR) $@
 
 clean:
-	$(RM) $(OBJ) $(DEBUG_OBJ)
+	$(RM) $(OBJ)
 
 fclean: clean
 	$(RM) $(NAME)
 
 re: fclean all
-
-
-# debug: $(ALL)
-# 	$(LINK) -g -I $(INC_DIR) -L $(NAME_DIR) $(DEBUG_LAUNCHER) \
-# 	-o $(DEBUG_DIR)/$(DEBUG_TARGET) -$(NAME_LIBNAME)

@@ -5,12 +5,12 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "preLaunchTask": "debug",
             "name": "(gdb) Launch",
-            "preLaunchTask": "build",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/ft_ls",
-            "args": ["-R"],
+            "program": "${workspaceFolder}/.vscode/debug/debug.out",
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],
@@ -25,12 +25,12 @@
             ]
         },
         {
+            "preLaunchTask": "debug",
             "name": "(lldb) Launch",
-            "preLaunchTask": "build",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/ft_ls",
-            "args": ["inc4"],
+            "program": "${workspaceFolder}/.vscode/debug/debug.out",
+            "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

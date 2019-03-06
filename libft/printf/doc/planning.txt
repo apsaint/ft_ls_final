@@ -1,0 +1,81 @@
+		PLANNING
+
+ACTUAL IT: 9
+
+IT 1 --------------------------------------------------------------
+
+construire un printf minimal
+
+- Imprime chaque caractere sauf si un specifier est rencontre.
+- ajouter le git ignore.
+- ajouter un makefile vide.
+
+IT 2 --------------------------------------------------------------
+
+- implementer le makefile pour compiler la lib
+- creer un repertoire de test avec un make file
+- ajouter au repertoire de test la librairie unity
+
+IT 2 --------------------------------------------------------------
+
+- implementer le basic workflow de capture d un arg
+- eval les flags
+- evaluer la largeur du champ
+- eval precision
+- eval length
+
+IT 3 --------------------------------------------------------------
+
+- workflow de la conversion des nombres entiers
+- gerer le cas des signed unsigned
+- ne pas gerer les overflow lors des conversions.
+
+IT 4 --------------------------------------------------------------
+
+- formatage du nombre
+- print du nombre
+
+IT 5 --------------------------------------------------------------
+
+premiere release testable basee sur les features precedentes.
+- doit gerer correctement tous les nombres entiers.
+- refactorer une fois les tests termines.
+
+IT 6 --------------------------------------------------------------
+- workflow des string (voir les caracteres larges)
+- brain sur le specifier c, dans quel categorie le mettre par
+rapport a mon imp (nombre ou text ? )
+- gerer les erreurs de formatage de l utilisateur
+
+IT 7 --------------------------------------------------------------
+- se renseigner sur la representation d un decimal en binaire
+- opter pour une solution souple et rapide
+- gerer la conversion des doubles
+
+IT 8 --------------------------------------------------------------
+- gerer la conversion des pointeurs (p)
+- les pointeurs ont le meme workflow qu un integer non
+signe avec flag hexa. Voir pour merged les features.
+
+IT 9 --------------------------------------------------------------
+- fix #x de value 0 verif pour les autres aussi.
+- traiter le cas ou precision sans nombre (= null)
+
+- add flag espace qui a ete oublie durant le dev.
+- deuxieme release
+- fixer les retour du nb de carac imprime 
+- brainstorm pour refactorer les parties redondantes
+- renforcer les tests
+- probleme negatif avec float quand y a dla width
+
+IT 10 --------------------------------------------------------------
+- gerer les modifiers j et z pour les integers
+- essayer un refactoring avec un buffer general pour augmenter
+la rapidite du printf
+- ajouter un specifier b pour lire en base2
+- ajouter un specifier pour representer la valeur d une
+variable en binaire
+
+IT 11
+- fix null ptr (nill)
+- norminette

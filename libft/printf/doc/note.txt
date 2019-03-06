@@ -1,0 +1,56 @@
+format : %[FLAGS][WIDTH o][PRECISION o][LENGTH o][SPECIFIER]
+
+specifiers : 
+ 	- scp	p = ptr en hexa
+ 	- %%	pour afficher un char %
+ 	- di	chiffre decimal signe  		(argument int)
+	- ouxX	chiffre decimal non signe	(argument uint)
+	- f		chifre reel 				(argument double)
+
+tailles :
+	- hh  
+	- h
+	- l
+	- ll
+
+flags :
+	- #
+	- 0
+	- -
+	- +
+
+type promotion ?
+
+
+f (33.123456789): 33.123457
+exp: 33.123457
+
+.0f (33.123456789): 33.0
+exp: 33
+
+#.0f (33.123456789): 33.0E
+exp: 33.E
+
+#-20fE (33.123456789): 33.123457           E
+exp: 33.123457           E
+
+#-20fE (33.123456789): -33.123457           E
+exp: -33.123457          E
+
+#-020f (33.123456789): 33.123457           E
+exp: 33.123457           E
+
+fE (0.0): 0.0E
+exp: 0.000000E
+
+-33.123457           E
+-33.123457          E
+
+-33.123456789000000  E
+-33.123456789000002 E
+
+-33.123457
+-33.123457
+
+33.26
+33.26
