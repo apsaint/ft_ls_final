@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/06 08:26:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/06 10:41:03 by bboutoil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,13 @@ static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 	return (0);
 }
 
-static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
+static void	try_list_subdirs_internal(char *path, t_flist *f_list,
+t_options *opt, char *new_path)
 {
-	char	new_path[4096];
 	size_t	i;
 
-	i = 0;
-	ft_bzero(new_path, sizeof(new_path));
-	while (i < f_list->count)
+	i = -1;
+	while (++i < f_list->count)
 	{
 		if (f_list->data[i].type == 4)
 		{
@@ -84,8 +83,14 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 			directory_list(new_path, opt, 1);
 			ft_bzero(new_path, sizeof(new_path));
 		}
-		i++;
 	}
+}
+
+static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
+{
+	char	new_path[4096];
+
+	try_list_subdirs_internal(path, f_list, opt, new_path);
 	return (0);
 }
 
@@ -93,6 +98,26 @@ void		try_sub(char *path, t_flist *f_list, t_options *opt, int *n)
 {
 	*n = 1;
 	try_list_subdirs(path, f_list, opt);
+}
+
+int			directory_list_internal(char *path, t_flist *f_list,
+t_options *opt, DIR *dirp)
+{
+	if (!(opt->flags & FLAG_NO_READ))
+	{
+		if (collect_files(dirp, opt, f_list, path) == ALLOC_ERROR)
+			return (ALLOC_ERROR);
+	}
+	closedir(dirp);
+	if (opt->sort_func != NULL)
+		f_list_qsort(f_list, opt, f_list->count - 1, 0);
+	if (f_list->count != 0)
+	{
+		if (opt->flags & FLAG_DISPLAY_REVERSE)
+			f_list_reverse(f_list);
+		opt->display_func(f_list, opt);
+	}
+	return (0);
 }
 
 int			directory_list(char *path, t_options *opt, int show_dir)
@@ -115,25 +140,12 @@ int			directory_list(char *path, t_options *opt, int show_dir)
 			ft_printf("%s:\n", path);
 		if (f_list_init(&f_list) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
-		if (!(opt->flags & FLAG_NO_READ))
-		{
-			if (collect_files(dirp, opt, &f_list, path) == ALLOC_ERROR)
-				return (ALLOC_ERROR);
-		}
-		closedir(dirp);
-		if (opt->sort_func != NULL)
-			f_list_qsort(&f_list, opt, f_list.count - 1, 0);
-		if (f_list.count != 0)
-		{
-			if (opt->flags & FLAG_DISPLAY_REVERSE)
-				f_list_reverse(&f_list);
-			opt->display_func(&f_list, opt);
-		}
-		if (opt->flags & FLAG_LIST_SUBDIRS)
-			try_sub(path, &f_list, opt, &n);
-		if (opt->flags & FLAG_NO_READ)
-			opt->flags &= ~(FLAG_NO_READ);
-		f_list_destroy_storage(&f_list);
 	}
+	directory_list_internal(path, &f_list, opt, dirp);
+	if (opt->flags & FLAG_LIST_SUBDIRS)
+		try_sub(path, &f_list, opt, &n);
+	if (opt->flags & FLAG_NO_READ)
+		opt->flags &= ~(FLAG_NO_READ);
+	f_list_destroy_storage(&f_list);
 	return (0);
 }
