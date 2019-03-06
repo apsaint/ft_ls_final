@@ -6,11 +6,10 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/22 14:22:33 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/03 13:55:16 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:29:20 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "ft_ls.h"
 
 size_t	ls_itoa_min(unsigned long long nb, char *output)

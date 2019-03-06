@@ -6,15 +6,13 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/18 12:07:57 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 21:28:13 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:35:02 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <unistd.h>
 #include "ft_ls.h"
-#include "libft.h"
 
-int		print_option_error(const char *option, int opt_type)
+int		print_option_error(const char *option)
 {
 	char	str[256];
 

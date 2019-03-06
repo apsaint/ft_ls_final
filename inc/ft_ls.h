@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 18:19:27 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 21:49:21 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:35:19 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,6 @@ int		param_eval_all(const char *params[], int count, t_options *opt,
 int		flag_eval(const char *input, t_options *opt);
 void	resolve_flag_conflicts(t_options *opt);
 
-
-
 /*
 ** DIRECTORY MOD **
 ** ------------- **
@@ -84,7 +82,7 @@ int		directory_list(char *path, t_options *opt, int show_dir);
 
 void	error_qsort(t_path *error, int min, int max);
 void	swap_str(t_path *s1, t_path *s2);
-int		print_option_error(const char *option, int opt_type);
+int		print_option_error(const char *option);
 int		print_path_error(const char *path, int err_num, t_options *opt);
 
 /*
@@ -95,7 +93,7 @@ int		print_path_error(const char *path, int err_num, t_options *opt);
 int		f_list_init(t_flist *f_list);
 int		f_list_add(t_flist *f_list, t_fstat *file);
 int		f_list_destroy_storage(t_flist *f_list);
-void		f_list_reverse(t_flist *f_list);
+void	f_list_reverse(t_flist *f_list);
 void	get_file_stat(t_fstat *fs, struct dirent *dp, char *path,
 		t_options *opt);
 void	f_list_qsort(t_flist *f_list, t_options *opt, int max, int min);
@@ -114,12 +112,9 @@ int		display_one_by_line(t_flist *f_list, t_options *opt);
 int		display_long_format(t_flist *f_list, t_options *opt);
 int		total_block(t_flist *f_list);
 int		get_width_by_int_item(int item);
-int		display_long_bc(t_flist *f_list, int start, int *items_w,
-		t_options *opt);
-int		display_long_l(t_flist *f_list, int start, int *items_w,
-		t_options *opt);
-int		display_long_fd(t_flist *f_list, int start, int *items_w,
-		t_options *opt);
+int		display_long_bc(t_flist *f_list, int start, int *items_w);
+int		display_long_l(t_flist *f_list, int start, int *items_w);
+int		display_long_fd(t_flist *f_list, int start, int *items_w);
 long	get_max_inode(t_flist *f_list);
 int		param_display_order(t_flist *f_list, t_options *opt, int *start,
 		int *end);

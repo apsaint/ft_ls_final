@@ -6,13 +6,13 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 21:45:32 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 21:50:54 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:35:54 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static int 	flag_eval_others(const char *input, t_options *opt)
+static int		flag_eval_others(const char *input, t_options *opt)
 {
 	if (*input == SPEC_LONG_G)
 	{
@@ -30,13 +30,13 @@ static int 	flag_eval_others(const char *input, t_options *opt)
 	}
 	else
 	{
-		print_option_error(input, PARAM_OPTION_SHORT);
+		print_option_error(input);
 		return (PARAM_ERROR);
 	}
 	return (0);
 }
 
-int			flag_eval(const char *input, t_options *opt)
+int				flag_eval(const char *input, t_options *opt)
 {
 	if (*input == SPEC_ALL)
 		opt->flags |= (FLAG_SHOW_HIDDEN_FILE | FLAG_SHOW_MAP_DIR);
@@ -63,7 +63,7 @@ int			flag_eval(const char *input, t_options *opt)
 	return (0);
 }
 
-void		resolve_flag_conflicts(t_options *opt)
+void			resolve_flag_conflicts(t_options *opt)
 {
 	if (opt->flags & FLAG_TREAT_AS_FILE)
 		opt->flags &= ~(FLAG_LIST_SUBDIRS);

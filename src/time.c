@@ -6,12 +6,11 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 15:07:05 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/02/27 09:26:06 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:29:11 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <time.h>
 
 int		get_time_format_style(time_t mod_time)
 {

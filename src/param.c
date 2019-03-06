@@ -6,14 +6,11 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/09 20:42:52 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 22:20:56 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:28:49 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <string.h>
 #include "ft_ls.h"
-#include "libft.h"
 
 static int	get_param_type(const char *param)
 {
@@ -46,8 +43,8 @@ static int	param_eval_all_internal(const char *params[], int count,
 t_options *opt, t_path **paths)
 {
 	const t_path	*begin = *paths;
-	static int	treat_as_path = 0;
-	int			par_type;
+	static int		treat_as_path = 0;
+	int				par_type;
 
 	while (count--)
 	{

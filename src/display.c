@@ -6,17 +6,17 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/21 14:09:00 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 18:58:40 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:32:14 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include "ft_printf.h"
 
 int		display_one_by_line(t_flist *f_list, t_options *opt)
 {
 	unsigned long	ino_w;
 	size_t			i;
+
 	if (f_list->count != 0)
 	{
 		i = 0;
@@ -33,8 +33,7 @@ int		display_one_by_line(t_flist *f_list, t_options *opt)
 	return (0);
 }
 
-int		display_long_bc(t_flist *f_list, int start, int *items_w,
-		t_options *opt)
+int		display_long_bc(t_flist *f_list, int start, int *items_w)
 {
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{
@@ -62,8 +61,7 @@ int		display_long_bc(t_flist *f_list, int start, int *items_w,
 	return (0);
 }
 
-int		display_long_l(t_flist *f_list, int start, int *items_w,
-		t_options *opt)
+int		display_long_l(t_flist *f_list, int start, int *items_w)
 {
 	char	*buf;
 
@@ -92,8 +90,7 @@ int		display_long_l(t_flist *f_list, int start, int *items_w,
 	return (0);
 }
 
-int		display_long_fd(t_flist *f_list, int start, int *items_w,
-		t_options *opt)
+int		display_long_fd(t_flist *f_list, int start, int *items_w)
 {
 	if (items_w[ITEM_IDX_OWNER] == -1)
 	{

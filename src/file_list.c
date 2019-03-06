@@ -6,12 +6,10 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 20:09:48 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 19:23:18 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:27:58 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include "libft.h"
 #include "ft_ls.h"
 
 int			f_list_init(t_flist *f_list)

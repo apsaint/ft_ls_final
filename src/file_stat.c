@@ -6,12 +6,11 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/20 16:14:35 by apsaint-          #+#    #+#             */
-/*   Updated: 2019/03/05 22:49:28 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:31:06 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <time.h>
 
 static void	add_type_file(t_fstat *fs, struct dirent *dp)
 {
@@ -83,8 +82,7 @@ static void	format_modes(mode_t m, t_fstat *file)
 	file->modes[10] = '\0';
 }
 
-
-static void get_file_stat_common(t_fstat *file, struct stat *stat_elem)
+static void	get_file_stat_common(t_fstat *file, struct stat *stat_elem)
 {
 	struct passwd	*pw;
 	struct group	*gp;
@@ -107,8 +105,6 @@ void		get_file_stat(t_fstat *file, struct dirent *dp,
 char *path, t_options *opt)
 {
 	struct stat		stat_elem;
-	struct passwd	*pw;
-	struct group	*gp;
 	char			name[4097];
 
 	ft_bzero(name, 4097);
@@ -129,8 +125,6 @@ char *path, t_options *opt)
 int			get_file_stat_by_path(t_fstat *file, char *path, t_options *opt)
 {
 	struct stat		stat_elem;
-	struct passwd	*pw;
-	struct group	*gp;
 	char			name[4097];
 	const size_t	len = ft_strlen(path);
 

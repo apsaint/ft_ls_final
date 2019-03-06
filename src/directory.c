@@ -6,12 +6,11 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/05 19:26:28 by bboutoil         ###   ########.fr       */
+/*   Updated: 2019/03/06 08:26:58 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <unistd.h>
 
 static int	collect_mapping_files(DIR *dir, t_options *opt,
 			t_flist *f_list, char *path)
