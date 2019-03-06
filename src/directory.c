@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/06 08:26:58 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/06 11:03:02 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,14 +55,23 @@ static int	collect_files(DIR *dir, t_options *opt, t_flist *f_list, char *path)
 	return (0);
 }
 
-static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
+static void	check_modes_dir(char *path, t_fstat *file, t_options *opt,
+		char *new_path)
+{
+	opt->flags &= ~(FLAG_NO_READ);
+	combine_paths(path, file->name, new_path);
+	ft_printf("\n%s:\n", new_path);
+	ft_bzero(new_path, sizeof(new_path));
+}
+
+static void	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 {
 	char	new_path[4096];
 	size_t	i;
 
-	i = 0;
+	i = -1;
 	ft_bzero(new_path, sizeof(new_path));
-	while (i < f_list->count)
+	while (++i < f_list->count)
 	{
 		if (f_list->data[i].type == 4)
 		{
@@ -70,23 +79,18 @@ static int	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 			|| ft_strcmp(f_list->data[i].name, "..") == 0)
 			{
 				i++;
-				continue;
+				continue ;
 			}
 			if (f_list->data[i].modes[3] != 'x')
 			{
-				opt->flags &= ~(FLAG_NO_READ);
-				combine_paths(path, f_list->data[i++].name, new_path);
-				ft_printf("\n%s:\n", new_path);
-				ft_bzero(new_path, sizeof(new_path));
-				continue;
+				check_modes_dir(path, &f_list->data[i++], opt, new_path);
+				continue ;
 			}
 			combine_paths(path, f_list->data[i].name, new_path);
 			directory_list(new_path, opt, 1);
 			ft_bzero(new_path, sizeof(new_path));
 		}
-		i++;
 	}
-	return (0);
 }
 
 void		try_sub(char *path, t_flist *f_list, t_options *opt, int *n)
