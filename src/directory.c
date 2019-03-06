@@ -6,7 +6,7 @@
 /*   By: bboutoil <bboutoil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/02/10 21:06:24 by bboutoil          #+#    #+#             */
-/*   Updated: 2019/03/06 11:03:02 by apsaint-         ###   ########.fr       */
+/*   Updated: 2019/03/06 11:40:11 by apsaint-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,13 +77,10 @@ static void	try_list_subdirs(char *path, t_flist *f_list, t_options *opt)
 		{
 			if (ft_strcmp(f_list->data[i].name, ".") == 0
 			|| ft_strcmp(f_list->data[i].name, "..") == 0)
-			{
-				i++;
 				continue ;
-			}
 			if (f_list->data[i].modes[3] != 'x')
 			{
-				check_modes_dir(path, &f_list->data[i++], opt, new_path);
+				check_modes_dir(path, &f_list->data[i], opt, new_path);
 				continue ;
 			}
 			combine_paths(path, f_list->data[i].name, new_path);
@@ -126,8 +123,7 @@ int			directory_list(char *path, t_options *opt, int show_dir)
 	static int		n = 0;
 
 	errno = 0;
-	if (n == 1)
-		ft_putchar('\n');
+	(n == 1 ? ft_putchar('\n') : (n = 0));
 	if ((dirp = opendir(path)) == NULL)
 	{
 		ft_printf("%s:\n", path);
@@ -139,12 +135,12 @@ int			directory_list(char *path, t_options *opt, int show_dir)
 			ft_printf("%s:\n", path);
 		if (f_list_init(&f_list) == ALLOC_ERROR)
 			return (ALLOC_ERROR);
+		directory_list_internal(path, &f_list, opt, dirp);
+		if (opt->flags & FLAG_LIST_SUBDIRS)
+			try_sub(path, &f_list, opt, &n);
+		if (opt->flags & FLAG_NO_READ)
+			opt->flags &= ~(FLAG_NO_READ);
+		f_list_destroy_storage(&f_list);
 	}
-	directory_list_internal(path, &f_list, opt, dirp);
-	if (opt->flags & FLAG_LIST_SUBDIRS)
-		try_sub(path, &f_list, opt, &n);
-	if (opt->flags & FLAG_NO_READ)
-		opt->flags &= ~(FLAG_NO_READ);
-	f_list_destroy_storage(&f_list);
 	return (0);
 }
